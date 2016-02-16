@@ -33,4 +33,7 @@
     </string>
     <string name="vk">   VK   </string>
     <string name="google"> G+ </string>
+    <string name="user">Vladislav</string>
+    <string name="user_email">android.studio@android.com</string>
+    <string name="user_image">user_image</string>
 </resources>

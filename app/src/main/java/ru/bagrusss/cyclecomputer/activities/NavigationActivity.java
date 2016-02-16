@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class NavigationActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
@@ -31,16 +32,12 @@ public class NavigationActivity extends AppCompatActivity
         setContentView(R.layout.activity_navigation);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mFab = (FloatingActionButton) findViewById(R.id.fab);
-        mFab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
+        mFab.setOnClickListener(view -> Snackbar.make(view, "Action", Snackbar.LENGTH_LONG)
+                .setAction("Show Toast", v -> {
+                    Toast.makeText(this, "Toast", Toast.LENGTH_LONG).show();
+                }).show());
         mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        mStartButtonB = (Button) findViewById(R.id.startButtonB);
+        mStartButtonB = (Button) findViewById(R.id.start_button_b);
         mStartButtonB.setOnClickListener(this);
         mToggle = new ActionBarDrawerToggle(
                 this, mDrawer, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -74,7 +71,6 @@ public class NavigationActivity extends AppCompatActivity
         if (id == R.id.action_settings) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
