@@ -31,6 +31,7 @@ public class NavigationActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
         mFab = (FloatingActionButton) findViewById(R.id.fab);
         mFab.setOnClickListener(view -> Snackbar.make(view, "Action", Snackbar.LENGTH_LONG)
                 .setAction("Show Toast", v -> {
@@ -45,7 +46,6 @@ public class NavigationActivity extends AppCompatActivity
         mToggle.syncState();
         mNavigationView = (NavigationView) findViewById(R.id.nav_view);
         mNavigationView.setNavigationItemSelectedListener(this);
-        setSupportActionBar(mToolbar);
     }
 
     @Override
@@ -77,28 +77,29 @@ public class NavigationActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
+        boolean ret = true;
         switch (id) {
-            case R.id.nav_camera:
+            case R.id.nav_main:
 
                 break;
-            case R.id.nav_gallery:
+            case R.id.nav_profile:
 
                 break;
-            case R.id.nav_slideshow:
+            case R.id.nav_displays:
 
                 break;
-            case R.id.nav_manage:
+            case R.id.nav_settings:
 
                 break;
-            case R.id.nav_share:
-
+            case R.id.nav_display:
+                ret = false;
                 break;
-            case R.id.nav_send:
-
+            case R.id.nav_control:
+                ret = false;
                 break;
         }
         mDrawer.closeDrawer(GravityCompat.START);
-        return true;
+        return ret;
     }
 
     @Override
