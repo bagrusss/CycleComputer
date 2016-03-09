@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="@string/category_cycle_comp">
+        <SwitchPreference
+            android:key="@string/key_gps_state"
+            android:summary="@string/gps_state_sum"
+            android:title="@string/gps_state_title" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/category_app">
+        <ListPreference
+            android:defaultValue="@string/default_theme_value"
+            android:dialogTitle="@string/theme_title"
+            android:entries="@array/themes_list"
+            android:entryValues="@array/themes_values"
+            android:key="@string/key_theme"
+            android:summary="@string/theme_sum"
+            android:title="@string/theme_title">
+
+        </ListPreference>
+    </PreferenceCategory>
+
+</PreferenceScreen>

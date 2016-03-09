@@ -19,25 +19,5 @@
         android:id="@+id/fragment_container">
 
     </FrameLayout>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/activityA"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textSize="30sp" />
-
-    <Button
-        android:id="@+id/start_button_b"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="@string/startB" />
-
-    <AnalogClock
-        android:id="@+id/analog_clock"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal" />
+    
 </LinearLayout>

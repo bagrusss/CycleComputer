@@ -1,48 +1,41 @@
 package ru.bagrusss.cyclecomputer.activities;
 
-import android.content.Intent;
+import android.app.FragmentManager;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
+
+import ru.bagrusss.cyclecomputer.fragments.DisplayFragment;
+import ru.bagrusss.cyclecomputer.fragments.ToolsFragment;
 
 public class NavigationActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
+        implements NavigationView.OnNavigationItemSelectedListener {
 
-    Toolbar mToolbar;
-    DrawerLayout mDrawer;
-    Button mStartButtonB;
-    FloatingActionButton mFab;
-    NavigationView mNavigationView;
-    ActionBarDrawerToggle mToggle;
+    private DrawerLayout mDrawer;
+    private Button mStartButtonB;
+    private NavigationView mNavigationView;
+    private ActionBarDrawerToggle mToggle;
+    private FragmentManager mFragmentManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mFragmentManager = getFragmentManager();
         setContentView(R.layout.activity_navigation);
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(mToolbar);
-        mFab = (FloatingActionButton) findViewById(R.id.fab);
-        mFab.setOnClickListener(view -> Snackbar.make(view, "Action", Snackbar.LENGTH_LONG)
-                .setAction("Show Toast", v -> {
-                    Toast.makeText(this, "Toast", Toast.LENGTH_LONG).show();
-                }).show());
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        mStartButtonB = (Button) findViewById(R.id.start_button_b);
-        mStartButtonB.setOnClickListener(this);
-        mToggle = new ActionBarDrawerToggle(
-                this, mDrawer, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        mDrawer.setDrawerListener(mToggle);
+        mToggle = new ActionBarDrawerToggle(this, mDrawer, toolbar,
+                R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        mDrawer.addDrawerListener(mToggle);
         mToggle.syncState();
         mNavigationView = (NavigationView) findViewById(R.id.nav_view);
         mNavigationView.setNavigationItemSelectedListener(this);
@@ -66,7 +59,6 @@ public class NavigationActivity extends AppCompatActivity
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
@@ -89,9 +81,12 @@ public class NavigationActivity extends AppCompatActivity
 
                 break;
             case R.id.nav_settings:
-
+                mFragmentManager.beginTransaction()
+                        .replace(R.id.fragment_container, new ToolsFragment()).commit();
                 break;
             case R.id.nav_display:
+                mFragmentManager.beginTransaction()
+                        .replace(R.id.fragment_container, new DisplayFragment()).commit();
                 ret = false;
                 break;
             case R.id.nav_control:
@@ -103,7 +98,12 @@ public class NavigationActivity extends AppCompatActivity
     }
 
     @Override
-    public void onClick(View v) {
-        startActivity(new Intent(getApplicationContext(), ActivityB.class));
+    public boolean onKeyDown(int keycode, KeyEvent e) {
+        switch (keycode) {
+            case KeyEvent.KEYCODE_MENU:
+                mDrawer.openDrawer(GravityCompat.START);
+                return true;
+        }
+        return super.onKeyDown(keycode, e);
     }
 }

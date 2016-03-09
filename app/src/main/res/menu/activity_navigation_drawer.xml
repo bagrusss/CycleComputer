@@ -1,47 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <group android:checkableBehavior="all">
+    <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_profile"
-            android:icon="@android:drawable/ic_menu_myplaces"
+            android:icon="@mipmap/ic_profile"
             android:title="@string/profile" />
-        <item
-            android:id="@+id/nav_friends"
-            android:icon="@android:drawable/ic_input_get"
-            android:title="@string/friends" />
+
         <item
             android:id="@+id/nav_main"
-            android:icon="@android:drawable/ic_dialog_alert"
+            android:icon="@mipmap/ic_main"
             android:title="@string/main" />
         <item
+            android:id="@+id/nav_friends"
+            android:icon="@mipmap/ic_friends"
+            android:title="@string/friends" />
+        <item
             android:id="@+id/nav_displays"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@mipmap/ic_displays"
             android:title="@string/displays" />
         <item
             android:id="@+id/nav_route"
-            android:icon="@android:drawable/ic_dialog_map"
+            android:icon="@mipmap/ic_route"
             android:title="@string/route" />
         <item
             android:id="@+id/nav_settings"
-            android:icon="@drawable/ic_menu_manage"
+            android:icon="@mipmap/ic_tools"
             android:title="@string/settings" />
+        <item
+            android:id="@+id/nav_about"
+            android:icon="@android:drawable/ic_menu_info_details"
+            android:title="@string/about" />
     </group>
 
     <item android:title="@string/Emulator">
         <menu>
             <item
                 android:id="@+id/nav_display"
-                android:icon="@drawable/ic_menu_gallery"
+                android:icon="@mipmap/ic_display"
                 android:title="@string/display" />
             <item
                 android:id="@+id/nav_control"
-                android:icon="@drawable/ic_menu_manage"
+                android:icon="@mipmap/ic_control"
                 android:title="@string/control" />
             <item
                 android:id="@+id/nav_gps_control"
-                android:icon="@android:drawable/ic_menu_compass"
-                android:title="@string/control" />
+                android:icon="@mipmap/ic_gps"
+                android:title="@string/gps" />
         </menu>
     </item>
 
