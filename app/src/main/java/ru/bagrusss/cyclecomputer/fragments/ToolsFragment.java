@@ -3,7 +3,8 @@ package ru.bagrusss.cyclecomputer.fragments;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
 
-import ru.bagrusss.cyclecomputer.activities.R;
+import ru.bagrusss.cyclecomputer.R;
+
 
 public class ToolsFragment extends PreferenceFragment {
 

@@ -26,6 +26,8 @@ import android.widget.EditText;
 import java.util.ArrayList;
 import java.util.List;
 
+import ru.bagrusss.cyclecomputer.R;
+
 import static android.Manifest.permission.READ_CONTACTS;
 
 /**

@@ -11,8 +11,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
 
+import ru.bagrusss.cyclecomputer.R;
 import ru.bagrusss.cyclecomputer.fragments.DisplayFragment;
 import ru.bagrusss.cyclecomputer.fragments.ToolsFragment;
 
@@ -20,7 +20,6 @@ public class NavigationActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private DrawerLayout mDrawer;
-    private Button mStartButtonB;
     private NavigationView mNavigationView;
     private ActionBarDrawerToggle mToggle;
     private FragmentManager mFragmentManager;
