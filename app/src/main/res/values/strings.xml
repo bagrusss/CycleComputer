@@ -49,6 +49,8 @@
     <string name="gps_state_sum">GPS module state</string>
     <string name="theme_title">Theme</string>
     <string name="theme_sum">The theme of application</string>
+    <string name="image_user">image_user</string>
+    <string name="start">Start</string>
 
     <string-array name="themes_list">
         <item>theme1</item>

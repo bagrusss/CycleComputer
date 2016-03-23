@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import ru.bagrusss.cyclecomputer.R;
 
 
-public class DisplayFragment extends Fragment {
+public class DisplaysFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

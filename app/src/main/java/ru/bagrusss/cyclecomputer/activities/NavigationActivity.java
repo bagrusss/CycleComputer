@@ -1,6 +1,7 @@
 package ru.bagrusss.cyclecomputer.activities;
 
 import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -11,33 +12,39 @@ import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import ru.bagrusss.cyclecomputer.R;
-import ru.bagrusss.cyclecomputer.fragments.DisplayFragment;
-import ru.bagrusss.cyclecomputer.fragments.ToolsFragment;
+import ru.bagrusss.cyclecomputer.fragments.DisplaysFragment;
+import ru.bagrusss.cyclecomputer.fragments.ProfileFragment;
+import ru.bagrusss.cyclecomputer.fragments.SettingsFragment;
 
 public class NavigationActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
     private DrawerLayout mDrawer;
     private NavigationView mNavigationView;
     private ActionBarDrawerToggle mToggle;
     private FragmentManager mFragmentManager;
+    Toolbar mToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mFragmentManager = getFragmentManager();
         setContentView(R.layout.activity_navigation);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
         mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        mToggle = new ActionBarDrawerToggle(this, mDrawer, toolbar,
+        mToggle = new ActionBarDrawerToggle(this, mDrawer, mToolbar,
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         mDrawer.addDrawerListener(mToggle);
         mToggle.syncState();
         mNavigationView = (NavigationView) findViewById(R.id.nav_view);
         mNavigationView.setNavigationItemSelectedListener(this);
+        mToolbar.setTitle(R.string.profile);
+        mFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, new ProfileFragment()).commit();
     }
 
     @Override
@@ -58,8 +65,9 @@ public class NavigationActivity extends AppCompatActivity
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            mFragmentManager.beginTransaction()
+                    .replace(R.id.fragment_container, new SettingsFragment()).commit();
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -69,29 +77,32 @@ public class NavigationActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
         boolean ret = true;
+        FragmentTransaction transaction = mFragmentManager.beginTransaction();
+        transaction.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out);
         switch (id) {
             case R.id.nav_main:
-
-                break;
-            case R.id.nav_profile:
 
                 break;
             case R.id.nav_displays:
 
                 break;
             case R.id.nav_settings:
-                mFragmentManager.beginTransaction()
-                        .replace(R.id.fragment_container, new ToolsFragment()).commit();
+                transaction.replace(R.id.fragment_container, new SettingsFragment());
+                mToolbar.setTitle(R.string.settings);
                 break;
             case R.id.nav_display:
-                mFragmentManager.beginTransaction()
-                        .replace(R.id.fragment_container, new DisplayFragment()).commit();
+                transaction.replace(R.id.fragment_container, new DisplaysFragment());
+                mToolbar.setTitle(R.string.display);
                 ret = false;
                 break;
             case R.id.nav_control:
                 ret = false;
                 break;
+            case R.id.nav_gps_control:
+
+                mToolbar.setTitle(R.string.gps);
         }
+        transaction.commit();
         mDrawer.closeDrawer(GravityCompat.START);
         return ret;
     }
@@ -104,5 +115,15 @@ public class NavigationActivity extends AppCompatActivity
                 return true;
         }
         return super.onKeyDown(keycode, e);
+    }
+
+    //android bus
+
+    @Override
+    public void onClick(View v) {
+        if (v.getId() == R.id.profile_layout) {
+            mFragmentManager.beginTransaction()
+                    .replace(R.id.fragment_container, new ProfileFragment()).commit();
+        }
     }
 }

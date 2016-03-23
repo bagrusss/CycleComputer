@@ -6,7 +6,7 @@ import android.preference.PreferenceFragment;
 import ru.bagrusss.cyclecomputer.R;
 
 
-public class ToolsFragment extends PreferenceFragment {
+public class SettingsFragment extends PreferenceFragment {
 
     @Override
     public void onCreate(Bundle bundle) {
