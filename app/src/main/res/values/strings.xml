@@ -1,4 +1,7 @@
 <resources>
+
+    <integer name="com_vk_sdk_AppId">0</integer>
+
     <string name="app_name">Cycle Comp</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -53,7 +56,16 @@
     <string name="start">Start</string>
 
     <string-array name="themes_list">
-        <item>theme1</item>
-        <item>theme2</item>
+        <item>Light</item>
+        <item>Dark</item>
     </string-array>
+
+    <!-- Dialogs -->
+    <string name="dialog_bt_title">Bluetooth</string>
+    <string name="dialog_bt_message_enable">This application requires bluetooth.\nDo you want to enable it?</string>
+    <string name="dialog_bt_message_not_support">Your device does not support bluetooth 4.0 LE!</string>
+
+    <!-- Notifications -->
+
+
 </resources>

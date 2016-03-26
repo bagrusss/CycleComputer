@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="ru.bagrusss.cyclecomputer">
+    package="ru.sudoteam.cyclecomputer">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
@@ -16,18 +16,20 @@
         android:required="true" />
 
     <application
+        android:name=".app.CycleComp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_logo"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name="com.vk.sdk.VKServiceActivity"
+            android:label="ServiceActivity"
+            android:theme="@style/VK.Transparent" />
+        <activity
             android:name=".activities.NavigationActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
-
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.SignInActivity"
             android:label="@string/title_activity_sign_in">
@@ -35,12 +37,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".activities.SplashActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -53,13 +55,20 @@
             android:name=".services.NetworkService"
             android:exported="false" />
 
-        <activity android:name="ru.bagrusss.emulator.activities.Emulator" />
+        <activity android:name="ru.sudoteam.emulator.activities.Emulator" />
 
         <service
-            android:name="ru.bagrusss.emulator.services.EmulatorBluetoothService"
-            android:exported="false">
+            android:name="ru.sudoteam.emulator.services.EmulatorBluetoothService"
+            android:exported="false" />
 
-        </service>
+
+        <provider
+            android:name=".data.CycleCompContentProvider"
+            android:authorities="ru.sudoteam.cyclecomputer.data.CycleCompContentProvider"
+            android:enabled="true"
+            android:exported="false"
+            android:permission="ru.sudoteam.cyclecomputer.data.CycleCompContentProvider" />
+
     </application>
 
 </manifest>

@@ -1,9 +1,9 @@
-package ru.bagrusss.cyclecomputer.fragments;
+package ru.sudoteam.cyclecomputer.fragments;
 
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
 
-import ru.bagrusss.cyclecomputer.R;
+import ru.sudoteam.cyclecomputer.R;
 
 
 public class SettingsFragment extends PreferenceFragment {

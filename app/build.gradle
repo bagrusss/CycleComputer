@@ -32,5 +32,6 @@ dependencies {
     compile 'com.android.support:preference-v14:23.2.0'
     compile 'com.android.support:design:23.2.0'
     compile 'org.jetbrains:annotations:13.0'
+    compile 'com.vk:androidsdk:+'
 
 }

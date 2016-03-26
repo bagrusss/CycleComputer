@@ -1,4 +1,4 @@
-package ru.bagrusss.cyclecomputer.fragments;
+package ru.sudoteam.cyclecomputer.fragments;
 
 
 import android.app.Fragment;

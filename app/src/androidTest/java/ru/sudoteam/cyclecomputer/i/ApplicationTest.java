@@ -1,4 +1,4 @@
-package ru.bagrusss.cyclecomputer.i;
+package ru.sudoteam.cyclecomputer.i;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

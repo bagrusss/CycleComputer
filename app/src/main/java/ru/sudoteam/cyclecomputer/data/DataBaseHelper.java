@@ -1,12 +1,14 @@
-package ru.bagrusss.cyclecomputer.database;
+package ru.sudoteam.cyclecomputer.data;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 /**
- * Created by vladislav on 22.03.16.
+ * Created by bagrusss on 22.03.16.
+ *
  */
+
 public class DataBaseHelper extends SQLiteOpenHelper {
 
     public static final int DB_VERSION = 1;

@@ -1,9 +1,10 @@
-package ru.bagrusss.cyclecomputer.services;
+package ru.sudoteam.cyclecomputer.services;
 
 import android.app.IntentService;
-import android.content.Context;
 import android.content.Intent;
-import android.os.IBinder;
+import android.content.Context;
+
+import org.jetbrains.annotations.NotNull;
 
 /**
  * An {@link IntentService} subclass for handling asynchronous task requests in
@@ -12,18 +13,18 @@ import android.os.IBinder;
  * TODO: Customize class - update intent actions, extra parameters and static
  * helper methods.
  */
-public class BluetoothService extends IntentService {
+public class NetworkService extends IntentService {
     // TODO: Rename actions, choose action names that describe tasks that this
     // IntentService can perform, e.g. ACTION_FETCH_NEW_ITEMS
-    private static final String ACTION_FOO = "ru.bagrusss.cyclecomputer.services.action.FOO";
-    private static final String ACTION_BAZ = "ru.bagrusss.cyclecomputer.services.action.BAZ";
+    private static final String ACTION_FOO = "ru.bagrusss.cyclecomputer.action.FOO";
+    private static final String ACTION_BAZ = "ru.bagrusss.cyclecomputer.action.BAZ";
 
     // TODO: Rename parameters
-    private static final String EXTRA_PARAM1 = "ru.bagrusss.cyclecomputer.services.extra.PARAM1";
-    private static final String EXTRA_PARAM2 = "ru.bagrusss.cyclecomputer.services.extra.PARAM2";
+    private static final String EXTRA_PARAM1 = "ru.bagrusss.cyclecomputer.extra.PARAM1";
+    private static final String EXTRA_PARAM2 = "ru.bagrusss.cyclecomputer.extra.PARAM2";
 
-    public BluetoothService() {
-        super("BluetoothService");
+    public NetworkService() {
+        super("NetworkService");
     }
 
     /**
@@ -34,7 +35,7 @@ public class BluetoothService extends IntentService {
      */
     // TODO: Customize helper method
     public static void startActionFoo(Context context, String param1, String param2) {
-        Intent intent = new Intent(context, BluetoothService.class);
+        Intent intent = new Intent(context, NetworkService.class);
         intent.setAction(ACTION_FOO);
         intent.putExtra(EXTRA_PARAM1, param1);
         intent.putExtra(EXTRA_PARAM2, param2);
@@ -49,7 +50,7 @@ public class BluetoothService extends IntentService {
      */
     // TODO: Customize helper method
     public static void startActionBaz(Context context, String param1, String param2) {
-        Intent intent = new Intent(context, BluetoothService.class);
+        Intent intent = new Intent(context, NetworkService.class);
         intent.setAction(ACTION_BAZ);
         intent.putExtra(EXTRA_PARAM1, param1);
         intent.putExtra(EXTRA_PARAM2, param2);
@@ -57,7 +58,7 @@ public class BluetoothService extends IntentService {
     }
 
     @Override
-    protected void onHandleIntent(Intent intent) {
+    protected void onHandleIntent(@NotNull Intent intent) {
         final String action = intent.getAction();
         if (ACTION_FOO.equals(action)) {
             final String param1 = intent.getStringExtra(EXTRA_PARAM1);
@@ -70,11 +71,12 @@ public class BluetoothService extends IntentService {
         }
     }
 
+
     /**
      * Handle action Foo in the provided background thread with the provided
      * parameters.
      */
-    private void handleActionFoo(String param1, String paheram2) {
+    private void handleActionFoo(String param1, String param2) {
         // TODO: Handle action Foo
         throw new UnsupportedOperationException("Not yet implemented");
     }
@@ -83,18 +85,9 @@ public class BluetoothService extends IntentService {
      * Handle action Baz in the provided background thread with the provided
      * parameters.
      */
+
     private void handleActionBaz(String param1, String param2) {
         // TODO: Handle action Baz
         throw new UnsupportedOperationException("Not yet implemented");
-    }
-
-    @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
-        return super.onStartCommand(intent, flags, startId);
-    }
-
-    @Override
-    public IBinder onBind(Intent intent) {
-        return super.onBind(intent);
     }
 }

@@ -1,4 +1,4 @@
-package ru.bagrusss.cyclecomputer.activities;
+package ru.sudoteam.cyclecomputer.activities;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -14,10 +14,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import ru.bagrusss.cyclecomputer.R;
-import ru.bagrusss.cyclecomputer.fragments.DisplaysFragment;
-import ru.bagrusss.cyclecomputer.fragments.ProfileFragment;
-import ru.bagrusss.cyclecomputer.fragments.SettingsFragment;
+import ru.sudoteam.cyclecomputer.R;
+import ru.sudoteam.cyclecomputer.fragments.DisplaysFragment;
+import ru.sudoteam.cyclecomputer.fragments.ProfileFragment;
+import ru.sudoteam.cyclecomputer.fragments.SettingsFragment;
 
 public class NavigationActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {

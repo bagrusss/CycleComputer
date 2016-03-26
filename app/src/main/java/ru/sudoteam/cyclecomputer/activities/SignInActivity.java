@@ -1,4 +1,4 @@
-package ru.bagrusss.cyclecomputer.activities;
+package ru.sudoteam.cyclecomputer.activities;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -26,7 +26,7 @@ import android.widget.EditText;
 import java.util.ArrayList;
 import java.util.List;
 
-import ru.bagrusss.cyclecomputer.R;
+import ru.sudoteam.cyclecomputer.R;
 
 import static android.Manifest.permission.READ_CONTACTS;
 

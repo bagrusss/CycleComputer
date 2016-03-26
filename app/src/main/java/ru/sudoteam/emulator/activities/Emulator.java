@@ -1,9 +1,9 @@
-package ru.bagrusss.emulator.activities;
+package ru.sudoteam.emulator.activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import ru.bagrusss.cyclecomputer.R;
+import ru.sudoteam.cyclecomputer.R;
 
 public class Emulator extends AppCompatActivity {
 
