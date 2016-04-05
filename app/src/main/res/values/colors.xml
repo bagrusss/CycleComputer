@@ -3,4 +3,8 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#3d4ebc</color>
     <color name="colorAccent">#129b17</color>
+
+    <!-- profile-->
+    <color name="profile_image_border_color">#FF000000</color>
+
 </resources>

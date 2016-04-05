@@ -16,7 +16,7 @@
         android:required="true" />
 
     <application
-        android:name=".app.CycleComp"
+        android:name=".app.App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_logo"
         android:label="@string/app_name"
@@ -33,9 +33,7 @@
         <activity
             android:name=".activities.SignInActivity"
             android:label="@string/title_activity_sign_in">
-            <intent-filter>
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
         </activity>
         <activity
             android:name=".activities.SplashActivity"
@@ -61,7 +59,6 @@
             android:name="ru.sudoteam.emulator.services.EmulatorBluetoothService"
             android:exported="false" />
 
-
         <provider
             android:name=".data.CycleCompContentProvider"
             android:authorities="ru.sudoteam.cyclecomputer.data.CycleCompContentProvider"
@@ -69,6 +66,7 @@
             android:exported="false"
             android:permission="ru.sudoteam.cyclecomputer.data.CycleCompContentProvider" />
 
+        <activity android:name=".activities.VKLoginActivity" />
     </application>
 
 </manifest>

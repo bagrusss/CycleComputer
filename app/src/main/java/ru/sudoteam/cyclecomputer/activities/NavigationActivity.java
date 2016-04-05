@@ -14,6 +14,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.vk.sdk.api.VKApi;
+import com.vk.sdk.api.VKRequest;
+
 import ru.sudoteam.cyclecomputer.R;
 import ru.sudoteam.cyclecomputer.fragments.DisplaysFragment;
 import ru.sudoteam.cyclecomputer.fragments.ProfileFragment;

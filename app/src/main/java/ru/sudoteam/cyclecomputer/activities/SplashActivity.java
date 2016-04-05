@@ -1,28 +1,45 @@
 package ru.sudoteam.cyclecomputer.activities;
 
-import android.app.AlertDialog;
+import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.Toast;
+
+import com.vk.sdk.VKAccessToken;
+import com.vk.sdk.VKCallback;
+import com.vk.sdk.VKSdk;
+import com.vk.sdk.api.VKError;
 
 import ru.sudoteam.cyclecomputer.R;
+import ru.sudoteam.cyclecomputer.app.App;
+import ru.sudoteam.cyclecomputer.app.AuthHelper;
 
 public class SplashActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Button mStartButton;
-    private Context mContext = SplashActivity.this;
+    private Activity mContext = SplashActivity.this;
+    private AlertDialog.Builder mBuilder;
+    private AlertDialog mAuthDialog;
+    private Intent mNavigationIntent;
+    public static final String TAG_SPLASH_ACTIVITY = "SplashActivity ";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mNavigationIntent = new Intent(mContext, NavigationActivity.class);
         setContentView(R.layout.activity_splash);
         mStartButton = (Button) findViewById(R.id.start_button);
         mStartButton.setOnClickListener(this);
@@ -32,19 +49,15 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(getResources().getColor(android.R.color.background_dark));
         }
-    }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+        mBuilder = new AlertDialog.Builder(mContext);
         BluetoothAdapter adapter = BluetoothAdapter.getDefaultAdapter();
         if (!getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH_LE)) {
-            showDialogLENotSupport(builder);
+            showDialogLENotSupport(mBuilder);
             return;
         }
         if (!adapter.isEnabled()) {
-            showDialogEnableBT(builder, adapter);
+            showDialogEnableBT(mBuilder, adapter);
         }
         //TODO draw OK animation and start activity
         showStartButton();
@@ -53,6 +66,11 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
     private void showStartButton() {
         mStartButton.setVisibility(View.VISIBLE);
         mStartButton.setEnabled(true);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 
     private void showDialogEnableBT(AlertDialog.Builder builder, BluetoothAdapter adapter) {
@@ -71,14 +89,6 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void showDialogLENotSupport(AlertDialog.Builder builder) {
-            /*NotificationManager nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-            Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-            NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
-                    .setSmallIcon(android.R.drawable.ic_menu_info_details)
-                    .setContentTitle("Bluetooth 4.0 LE")
-                    .setContentText("Bluetooth 4.0 LE supports!")
-                    .setSound(alarmSound);
-            nm.notify(2, builder.build());*/
         builder.setTitle(R.string.dialog_bt_title)
                 .setMessage(R.string.dialog_bt_message_not_support)
                 .setPositiveButton(android.R.string.ok, (dialog, which) -> {
@@ -87,11 +97,67 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
         builder.create().show();
     }
 
+    private void showDialogAuth(Context context, AlertDialog.Builder builder) {
+        View v = View.inflate(context, R.layout.dialog_login, null);
+        ImageView vk = (ImageView) v.findViewById(R.id.imageVK);
+        vk.setOnClickListener(this);
+        ImageView google = (ImageView) v.findViewById(R.id.imageGoogle);
+        google.setOnClickListener(this);
+        mAuthDialog = builder.setView(v)
+                .setCancelable(false)
+                .setMessage(null)
+                .setNegativeButton(android.R.string.cancel, (dialog, which) -> {
+                    System.exit(0);
+                })
+                .setTitle(R.string.dialog_auth_title)
+                .create();
+        mAuthDialog.show();
+
+    }
+
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.start_button) {
-            startActivity(new Intent(SplashActivity.this, NavigationActivity.class));
-            finish();
+        switch (v.getId()) {
+            case R.id.start_button:
+                showDialogAuth(mContext, mBuilder);
+                break;
+            case R.id.imageVK:
+                AuthHelper.loginVK(mContext);
+                mAuthDialog.cancel();
+                break;
+            case R.id.imageGoogle:
+                AuthHelper.loginGoogle(mContext);
+                mAuthDialog.cancel();
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (!VKSdk.onActivityResult(requestCode, resultCode, data, new VKCallback<VKAccessToken>() {
+            @Override
+            public void onResult(VKAccessToken res) {
+                mAuthDialog.cancel();
+                finish();
+                SharedPreferences.Editor editor = getSharedPreferences(App.SHARED_PREFERENCES, MODE_PRIVATE).edit();
+                editor.putInt(App.KEY_AUTH_TYPE, App.KEY_AUTH_VK);
+                editor.putString(App.KEY_TOKEN, res.accessToken);
+                editor.putString(App.KEY_VK_ID, res.userId);
+                editor.apply();
+                startActivity(mNavigationIntent);
+            }
+
+            @Override
+            public void onError(VKError error) {
+                Toast.makeText(mContext, error.errorCode + "\n" + error.errorMessage, Toast.LENGTH_LONG).show();
+            }
+        })) {
+            super.onActivityResult(requestCode, resultCode, data);
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        Log.d(TAG_SPLASH_ACTIVITY, "activity destroyed");
+        super.onDestroy();
     }
 }
