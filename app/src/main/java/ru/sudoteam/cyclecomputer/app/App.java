@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.SharedPreferences;
 import android.util.Log;
 
+import com.google.gson.Gson;
 import com.vk.sdk.VKSdk;
 
 /**
@@ -13,6 +14,7 @@ import com.vk.sdk.VKSdk;
 
 public class App extends Application {
     public static final String TAG_APPLICATION = "APPLICATION ";
+    public static final Gson GSON = new Gson();
 
     //SharedPreferences
     public static final String SHARED_PREFERENCES = "CycleComp";

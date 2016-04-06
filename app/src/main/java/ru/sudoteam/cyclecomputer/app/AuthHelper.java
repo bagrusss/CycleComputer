@@ -5,6 +5,8 @@ import android.app.Activity;
 import com.vk.sdk.VKSdk;
 import com.vk.sdk.api.model.VKScopes;
 
+import java.util.Map;
+
 /**
  * Created by bagrusss on 04.04.16.
  *
@@ -19,6 +21,7 @@ public class AuthHelper {
             VKScopes.OFFLINE,
             VKScopes.GROUPS
     };
+
 
     public static void loginVK(Activity context) {
         VKSdk.login(context, mScope);

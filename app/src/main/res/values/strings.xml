@@ -64,6 +64,16 @@
     <string name="dialog_bt_message_not_support">Your device does not support bluetooth 4.0 LE!</string>
     <string name="demo_first_name">CycleComp</string>
     <string name="dialog_auth_title">Authorization</string>
+    <string name="demo_second_name">User</string>
+    <string name="text_current_distance">Current distance:</string>
+    <string name="demo_speed_value">7.0</string>
+    <string name="demo_speed_mes">km</string>
+    <string name="text_trip_time">trip</string>
+    <string name="text_trip_distance">distance</string>
+    <string name="text_burned">burned</string>
+    <string name="text_trip_time_val">1:27:14</string>
+    <string name="text_distance_val">52.0 km</string>
+    <string name="text_calories_val">1920</string>
 
 
     <!-- Notifications -->

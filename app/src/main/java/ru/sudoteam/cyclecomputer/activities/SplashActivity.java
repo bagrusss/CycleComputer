@@ -1,6 +1,5 @@
 package ru.sudoteam.cyclecomputer.activities;
 
-import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.Intent;
@@ -9,7 +8,6 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -27,18 +25,19 @@ import ru.sudoteam.cyclecomputer.R;
 import ru.sudoteam.cyclecomputer.app.App;
 import ru.sudoteam.cyclecomputer.app.AuthHelper;
 
-public class SplashActivity extends AppCompatActivity implements View.OnClickListener {
+public class SplashActivity extends CycleBaseActivity implements View.OnClickListener {
 
     private Button mStartButton;
-    private Activity mContext = SplashActivity.this;
     private AlertDialog.Builder mBuilder;
     private AlertDialog mAuthDialog;
     private Intent mNavigationIntent;
+    private SharedPreferences mSharedPreferences;
     public static final String TAG_SPLASH_ACTIVITY = "SplashActivity ";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mSharedPreferences = getSharedPreferences(App.SHARED_PREFERENCES, MODE_PRIVATE);
         mNavigationIntent = new Intent(mContext, NavigationActivity.class);
         setContentView(R.layout.activity_splash);
         mStartButton = (Button) findViewById(R.id.start_button);
@@ -66,11 +65,6 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
     private void showStartButton() {
         mStartButton.setVisibility(View.VISIBLE);
         mStartButton.setEnabled(true);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
     }
 
     private void showDialogEnableBT(AlertDialog.Builder builder, BluetoothAdapter adapter) {
@@ -119,7 +113,12 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.start_button:
-                showDialogAuth(mContext, mBuilder);
+                if (mSharedPreferences.getInt(App.KEY_AUTH_TYPE, App.KEY_AUTH_NONE) == App.KEY_AUTH_NONE)
+                    showDialogAuth(mContext, mBuilder);
+                else {
+                    startActivity(mNavigationIntent);
+                    finish();
+                }
                 break;
             case R.id.imageVK:
                 AuthHelper.loginVK(mContext);
@@ -138,12 +137,12 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
             public void onResult(VKAccessToken res) {
                 mAuthDialog.cancel();
                 finish();
-                SharedPreferences.Editor editor = getSharedPreferences(App.SHARED_PREFERENCES, MODE_PRIVATE).edit();
+                startActivity(mNavigationIntent);
+                SharedPreferences.Editor editor = mSharedPreferences.edit();
                 editor.putInt(App.KEY_AUTH_TYPE, App.KEY_AUTH_VK);
                 editor.putString(App.KEY_TOKEN, res.accessToken);
                 editor.putString(App.KEY_VK_ID, res.userId);
                 editor.apply();
-                startActivity(mNavigationIntent);
             }
 
             @Override
