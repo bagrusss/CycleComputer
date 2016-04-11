@@ -12,7 +12,7 @@ import java.util.List;
 
 public class Notificator {
 
-    private static Notification.Builder mMuilder;
+    private static Notification.Builder mBuilder;
 
     public static void notifyAimComplete(Context context) {
 

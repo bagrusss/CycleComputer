@@ -1,7 +1,7 @@
 package ru.sudoteam.cyclecomputer.fragments;
 
 
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 
 public class RouteFragment extends Fragment {
 

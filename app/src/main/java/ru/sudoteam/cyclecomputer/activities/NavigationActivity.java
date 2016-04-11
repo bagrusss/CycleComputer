@@ -1,13 +1,12 @@
 package ru.sudoteam.cyclecomputer.activities;
 
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -15,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import ru.sudoteam.cyclecomputer.R;
+import ru.sudoteam.cyclecomputer.fragments.CycleSettingsFragment;
 import ru.sudoteam.cyclecomputer.fragments.DisplaysFragment;
 import ru.sudoteam.cyclecomputer.fragments.ProfileFragment;
 import ru.sudoteam.cyclecomputer.fragments.SettingsFragment;
@@ -31,7 +31,7 @@ public class NavigationActivity extends CycleBaseActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mFragmentManager = getFragmentManager();
+        mFragmentManager = getSupportFragmentManager();
         setContentView(R.layout.activity_navigation);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
@@ -67,7 +67,7 @@ public class NavigationActivity extends CycleBaseActivity
         int id = item.getItemId();
         if (id == R.id.action_settings) {
             mFragmentManager.beginTransaction()
-                    .replace(R.id.fragment_container, new SettingsFragment()).commit();
+                    .replace(R.id.fragment_container, new CycleSettingsFragment()).commit();
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -78,7 +78,7 @@ public class NavigationActivity extends CycleBaseActivity
         int id = item.getItemId();
         boolean ret = true;
         FragmentTransaction transaction = mFragmentManager.beginTransaction();
-        transaction.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out);
+        transaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
         switch (id) {
             case R.id.nav_main:
 
@@ -101,6 +101,7 @@ public class NavigationActivity extends CycleBaseActivity
             case R.id.nav_gps_control:
 
                 mToolbar.setTitle(R.string.gps);
+                break;
         }
         transaction.commit();
         mDrawer.closeDrawer(GravityCompat.START);

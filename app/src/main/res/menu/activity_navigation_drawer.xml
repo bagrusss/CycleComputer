@@ -29,7 +29,7 @@
             android:title="@string/about" />
     </group>
 
-    <item android:title="@string/Emulator">
+    <item android:title="@string/emulator">
         <menu>
             <item
                 android:id="@+id/nav_display"

@@ -8,7 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="ru.sudoteam.cyclecomputer.activities.SignInActivity">
+    tools:context=".activities.SignInActivity">
 
     <ProgressBar
         android:id="@+id/login_progress"
@@ -71,36 +71,11 @@
                 android:text="@string/action_sign_in"
                 android:textStyle="bold" />
 
-            <LinearLayout
+            <include
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_gravity="center_horizontal"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/vkButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/left_margin"
-                    android:background="@android:color/holo_blue_dark"
-                    android:contentDescription="@string/vk"
-                    android:text="@string/vk"
-                    android:textColor="@android:color/white"
-                    android:textSize="40sp" />
-
-                <TextView
-
-                    android:id="@+id/googleButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@android:color/holo_red_dark"
-                    android:contentDescription="@string/vk"
-                    android:text="@string/google"
-                    android:textColor="@android:color/white"
-                    android:textSize="40sp" />
-
-            </LinearLayout>
+                layout="@layout/dialog_login"
+                android:layout_gravity="center_horizontal" />
 
         </LinearLayout>
     </ScrollView>

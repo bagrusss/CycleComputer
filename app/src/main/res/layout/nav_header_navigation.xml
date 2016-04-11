@@ -17,7 +17,7 @@
         android:id="@+id/user_imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:contentDescription="@string/user_image"
+        android:contentDescription="@string/profile_image_user"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
         android:src="@android:drawable/sym_action_chat" />
 
