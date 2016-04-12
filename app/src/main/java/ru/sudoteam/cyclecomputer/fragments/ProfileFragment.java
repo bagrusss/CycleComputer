@@ -1,9 +1,9 @@
 package ru.sudoteam.cyclecomputer.fragments;
 
+import android.app.Fragment;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,7 +54,7 @@ public class ProfileFragment extends Fragment {
                 mFirstSecondName.setText(user.first_name);
                 mFirstSecondName.append("\n");
                 mFirstSecondName.append(user.last_name);
-                Picasso.with(getActivity())
+                Picasso.with(mProfileImage.getContext())
                         .load(user.photo_200)
                         .error(R.drawable.demo_profile)
                         .into(mProfileImage);

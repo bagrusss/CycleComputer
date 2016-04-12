@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <SwitchPreference
+        android:icon="@mipmap/ic_gps"
+        android:key="@string/key_gps_state"
+        android:summary="@string/summary_gps_state"
+        android:title="@string/gps_state_title" />
+
+    <EditTextPreference
+        android:defaultValue="0.0"
+        android:dialogTitle="@string/title_distance"
+        android:inputType="numberDecimal"
+        android:key="@string/key_distance"
+        android:summary="@string/summary_distance"
+        android:title="@string/title_distance" />
+
+    <SwitchPreference
+        android:dependency="@string/key_gps_state"
+        android:disableDependentsState="true"
+        android:key="@string/key_autocorrect"
+        android:summary="@string/summary_autocorrect"
+        android:title="@string/title_autocorrect" />
+
+    <EditTextPreference
+        android:defaultValue="0.0"
+        android:dependency="@string/key_autocorrect"
+        android:inputType="numberDecimal"
+        android:key="@string/key_wheel_radius"
+        android:summary="@string/summary_wheel_radius"
+        android:title="@string/title_wheel_radius" />
+
+</PreferenceScreen>

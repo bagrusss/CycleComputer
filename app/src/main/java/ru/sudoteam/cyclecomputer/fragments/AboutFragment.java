@@ -1,5 +1,7 @@
 package ru.sudoteam.cyclecomputer.fragments;
 
-public class AboutFragment {
+import android.app.Fragment;
+
+public class AboutFragment extends Fragment {
 
 }

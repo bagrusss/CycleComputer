@@ -6,7 +6,7 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="left_margin">10dp</dimen>
-    <dimen name="profile_image_margin_top">35dp</dimen>
+    <dimen name="profile_margin_top">5dp</dimen>
 
     <!-- profile -->
     <dimen name="profile_radius">125dp</dimen>
@@ -18,5 +18,8 @@
     <dimen name="text_small">22sp</dimen>
     <dimen name="text_large">35sp</dimen>
     <dimen name="text_profile_values">30sp</dimen>
+    <dimen name="card_view_margin">10dp</dimen>
+    <dimen name="profile_card_corner_radius">5dp</dimen>
+    <dimen name="profile_statistic_table_margin">7dp</dimen>
 
 </resources>

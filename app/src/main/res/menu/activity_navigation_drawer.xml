@@ -12,10 +12,6 @@
             android:icon="@mipmap/ic_friends"
             android:title="@string/friends" />
         <item
-            android:id="@+id/nav_displays"
-            android:icon="@mipmap/ic_displays"
-            android:title="@string/displays" />
-        <item
             android:id="@+id/nav_route"
             android:icon="@mipmap/ic_route"
             android:title="@string/route" />
@@ -28,22 +24,5 @@
             android:icon="@android:drawable/ic_menu_info_details"
             android:title="@string/about" />
     </group>
-
-    <item android:title="@string/emulator">
-        <menu>
-            <item
-                android:id="@+id/nav_display"
-                android:icon="@mipmap/ic_display"
-                android:title="@string/display" />
-            <item
-                android:id="@+id/nav_control"
-                android:icon="@mipmap/ic_control"
-                android:title="@string/control" />
-            <item
-                android:id="@+id/nav_gps_control"
-                android:icon="@mipmap/ic_gps"
-                android:title="@string/gps" />
-        </menu>
-    </item>
 
 </menu>

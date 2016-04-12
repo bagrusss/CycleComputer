@@ -31,10 +31,12 @@
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
+            android:name=".activities.SettingsActivity"
+            android:label="@string/settings"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".activities.SignInActivity"
-            android:label="@string/title_activity_sign_in">
-
-        </activity>
+            android:label="@string/title_activity_sign_in" />
         <activity
             android:name=".activities.SplashActivity"
             android:theme="@style/AppTheme.NoActionBar">
@@ -64,9 +66,9 @@
             android:authorities="ru.sudoteam.cyclecomputer.data.CycleCompContentProvider"
             android:enabled="true"
             android:exported="false"
-            android:permission="ru.sudoteam.cyclecomputer.data.CycleCompContentProvider" />
+            android:permission=".data.CycleCompContentProvider" />
 
-        <activity android:name=".activities.VKLoginActivity" />
+
     </application>
 
 </manifest>
