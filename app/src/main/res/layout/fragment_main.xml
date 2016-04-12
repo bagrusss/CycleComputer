@@ -1,12 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    android:background="@color/material_drawer_selected_text"
     android:orientation="vertical">
-
-    <AnalogClock
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <com.github.lzyzsd.circleprogress.ArcProgress
+        android:id="@+id/arc_progress"
+        android:layout_alignParentTop="true"
+        android:background="@android:color/transparent"
         android:layout_gravity="center_horizontal"
-        android:id="@+id/analogClock" />
-</LinearLayout>
+        android:padding="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        custom:arc_progress="50"
+        custom:arc_max="100"
+        custom:arc_bottom_text="AIM"/>
+
+</RelativeLayout>
