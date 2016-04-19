@@ -28,4 +28,5 @@
     <dimen name="item_margin">5dp</dimen>
 
     <dimen name="cart_view_margin_vertical">5dp</dimen>
+    <dimen name="progress_text_size">25sp</dimen>
 </resources>
