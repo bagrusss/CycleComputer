@@ -39,4 +39,16 @@
     <string name="user_email">android.studio@android.com</string>
     <string name="user_image">user_image</string>
     <string name="friends">Friends</string>
+    <string name="x_axis">X</string>
+    <string name="y_axis">Y</string>
+    <string name="battery">% Battery</string>
+    <string name="speed_units">km/h</string>
+    <string name="speed_value">23.7</string>
+    <string name="trip">Trip</string>
+    <string name="trip_time">1:58:27</string>
+    <string-array name="units">
+        <item>km/h</item>
+        <item>m/h</item>
+    </string-array>
+
 </resources>
