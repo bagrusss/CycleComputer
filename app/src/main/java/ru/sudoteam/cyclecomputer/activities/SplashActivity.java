@@ -38,7 +38,7 @@ public class SplashActivity extends CycleBaseActivity implements View.OnClickLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mSharedPreferences = getSharedPreferences(App.SHARED_PREFERENCES, MODE_PRIVATE);
-        mNavigationIntent = new Intent(mContext, NavigationActivity.class);
+        mNavigationIntent = new Intent(mContext, MainActivity.class);
         setContentView(R.layout.activity_splash);
         mStartButton = (Button) findViewById(R.id.start_button);
         mStartButton.setOnClickListener(this);

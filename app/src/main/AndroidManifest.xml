@@ -47,6 +47,11 @@
             </intent-filter>
         </activity>
 
+
+        <activity
+            android:name=".activities.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+
         <service
             android:name=".services.BluetoothService"
             android:exported="false"
@@ -67,7 +72,6 @@
             android:enabled="true"
             android:exported="false"
             android:permission=".data.CycleCompContentProvider" />
-
 
     </application>
 

@@ -2,14 +2,14 @@ package ru.sudoteam.cyclecomputer.fragments;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.support.v13.app.FragmentPagerAdapter;
+import android.support.v13.app.FragmentStatePagerAdapter;
 
 /**
  * Created by bagrusss on 09.04.16.
  * Tabs settings
  */
 
-public class SettingsPageAdapter extends FragmentPagerAdapter {
+public class SettingsPageAdapter extends FragmentStatePagerAdapter {
 
     private int mTabsCount = 0;
 
@@ -17,7 +17,6 @@ public class SettingsPageAdapter extends FragmentPagerAdapter {
         super(fm);
         mTabsCount = count;
     }
-
 
     @Override
     public Fragment getItem(int position) {

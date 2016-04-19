@@ -62,7 +62,7 @@ public class ProfileFragment extends Fragment {
 
             @Override
             public void onError(VKError error) {
-                Toast.makeText(getActivity(), error.errorReason, Toast.LENGTH_SHORT).show();
+                Toast.makeText(mProfileImage.getContext(), error.errorReason, Toast.LENGTH_SHORT).show();
             }
         });
         super.onActivityCreated(savedInstanceState);

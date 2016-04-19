@@ -25,7 +25,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="@dimen/profile_margin_top"
                 android:src="@drawable/demo_profile"
-                app:civ_border_color="@color/profile_image_border_color"
+                app:civ_border_color="@color/white_color"
                 app:civ_border_width="@dimen/profile_image_border" />
 
             <TextView

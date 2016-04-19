@@ -5,7 +5,8 @@
     <color name="colorAccent">#129b17</color>
 
     <!-- profile-->
-    <color name="profile_image_border_color">#E5E5E5</color>
+    <color name="white_color">#E5E5E5</color>
     <color name="circular_color">#3c3c3c</color>
+    <color name="drawer_user_text_color_light">#3E50B4</color>
 
 </resources>

@@ -2,7 +2,6 @@ package ru.sudoteam.cyclecomputer.activities;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -87,9 +86,9 @@ public class NavigationActivity extends CycleBaseActivity
                 mToolbar.setTitle(R.string.main);
                 break;
             case R.id.nav_settings:
-             /*   transaction.replace(R.id.fragment_container, new SettingsFragment());
-                mToolbar.setTitle(R.string.settings);*/
-                startActivity(new Intent(mContext, SettingsActivity.class));
+                transaction.replace(R.id.fragment_container, new SettingsFragment()).commit();
+                mToolbar.setTitle(R.string.settings);
+                //startActivity(new Intent(mContext, SettingsActivity.class));
                 break;
             case R.id.nav_about:
                 ret = false;
