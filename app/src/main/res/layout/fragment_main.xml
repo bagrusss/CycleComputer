@@ -1,19 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:custom="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/material_drawer_selected_text"
-    android:orientation="vertical">
+    android:background="@color/material_drawer_selected_text">
 
     <com.github.lzyzsd.circleprogress.ArcProgress
-        android:layout_gravity="center_horizontal"
         android:id="@+id/arc_progress"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        android:padding="5dp"
-        custom:arc_progress="55"
+        android:layout_centerHorizontal="true"
+        custom:arc_bottom_text="AIM"
         custom:arc_bottom_text_size="@dimen/progress_text_size"
-        custom:arc_bottom_text="AIM"/>
+        custom:arc_progress="55" />
 
-</LinearLayout>
+</RelativeLayout>
