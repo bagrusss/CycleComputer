@@ -26,7 +26,7 @@ public class StatisticsAdapter extends BaseAdapter {
         mItems = items;
     }
 
-    class ViewHolder {
+    static class ViewHolder {
         ImageView icon;
         TextView title;
         TextView value;

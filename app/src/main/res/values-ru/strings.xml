@@ -2,4 +2,52 @@
 <resources>
     <string name="friends">Друзья</string>
     <string name="start">Старт</string>
+
+    <string name="action_settings">Настройки</string>
+    <string name="main">Главная</string>
+    <string name="tools">Инструменты</string>
+    <string name="profile">Профиль</string>
+    <string name="displays">Экраны</string>
+    <string name="route">Маршруты</string>
+    <string name="settings">Настройки</string>
+    <string name="emulator">Эмулятор</string>
+    <string name="display">Экран</string>
+    <string name="control">Управление</string>
+
+    <string name="about">О приложении</string>
+
+    <string name="dialog_bt_message_enable">Для работы приложения необходимо влючить bluetooth.\nВы ходите включить bluetooth?</string>
+    <string name="dialog_bt_message_not_support">Ваше устройство не поддерживает bluetooth 4.0 LE!</string>
+    <string name="demo_first_name">CycleComp</string>
+    <string name="dialog_auth_title">Авторизация</string>
+    <string name="demo_second_name">User</string>
+    <string name="text_current_distance">Путь сегодня:</string>
+    <string name="demo_speed_value">7.0</string>
+    <string name="demo_speed_mes">км</string>
+    <string name="text_trip_time">время</string>
+    <string name="text_trip_distance">путь</string>
+    <string name="text_calories">калории</string>
+    <string name="text_trip_time_val">1:27:14</string>
+    <string name="text_distance_val">52.0 км</string>
+    <string name="text_calories_val">1920</string>
+
+    <string-array name="themes_list">
+        <item>Светлая</item>
+        <item>Темная</item>
+    </string-array>
+    <!-- Preferences -->
+    <string name="category_cycle_comp">Велокомпьютер</string>
+    <string name="category_app">Приложение</string>
+    <string name="gps_state_title">GPS</string>
+    <string name="summary_gps_state">Состояние модуля GPS</string>
+    <string name="title_theme">Тема</string>
+    <string name="theme_sum">Тема приложения</string>
+    <string name="profile_image_user">profile_image_user</string>
+    <string name="title_distance">Путь</string>
+    <string name="title_autocorrect">Автокоррекция</string>
+    <string name="title_wheel_radius">Радиус колеса</string>
+    <string name="summary_distance">Суммарный путь</string>
+    <string name="summary_autocorrect">Автоматически корректировать радиус колеса с использованием GPS</string>
+    <string name="summary_wheel_radius">24.5</string>
+
 </resources>

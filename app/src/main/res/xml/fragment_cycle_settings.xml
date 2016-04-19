@@ -9,7 +9,9 @@
 
     <EditTextPreference
         android:defaultValue="0.0"
+        android:dialogIcon="@mipmap/ic_flag"
         android:dialogTitle="@string/title_distance"
+        android:icon="@mipmap/ic_flag"
         android:inputType="numberDecimal"
         android:key="@string/key_distance"
         android:summary="@string/summary_distance"
@@ -18,6 +20,7 @@
     <SwitchPreference
         android:dependency="@string/key_gps_state"
         android:disableDependentsState="true"
+        android:icon="@mipmap/ic_edit"
         android:key="@string/key_autocorrect"
         android:summary="@string/summary_autocorrect"
         android:title="@string/title_autocorrect" />
@@ -25,6 +28,8 @@
     <EditTextPreference
         android:defaultValue="0.0"
         android:dependency="@string/key_autocorrect"
+        android:dialogIcon="@mipmap/ic_wheel"
+        android:icon="@mipmap/ic_wheel"
         android:inputType="numberDecimal"
         android:key="@string/key_wheel_radius"
         android:summary="@string/summary_wheel_radius"

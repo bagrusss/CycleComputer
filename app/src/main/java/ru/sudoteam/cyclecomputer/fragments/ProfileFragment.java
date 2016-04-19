@@ -48,7 +48,7 @@ public class ProfileFragment extends Fragment {
 
         mStatisticsData.add(new StatisticItem(R.mipmap.ic_time, getString(R.string.text_trip_time),
                 getString(R.string.text_trip_time_val)));
-        mStatisticsData.add(new StatisticItem(R.mipmap.ic_flag, getString(R.string.text_current_distance),
+        mStatisticsData.add(new StatisticItem(R.mipmap.ic_flag, getString(R.string.summary_distance),
                 getString(R.string.text_distance_val)));
         mStatisticsData.add(new StatisticItem(R.mipmap.ic_fire, getString(R.string.text_calories),
                 getString(R.string.text_calories_val)));

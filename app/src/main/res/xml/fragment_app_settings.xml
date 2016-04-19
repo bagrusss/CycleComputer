@@ -3,9 +3,11 @@
 
     <ListPreference
         android:defaultValue="@string/default_theme_value"
+        android:dialogIcon="@mipmap/ic_theme"
         android:dialogTitle="@string/title_theme"
         android:entries="@array/themes_list"
         android:entryValues="@array/themes_values"
+        android:icon="@mipmap/ic_theme"
         android:key="@string/key_theme"
         android:summary="@string/theme_sum"
         android:title="@string/title_theme" />

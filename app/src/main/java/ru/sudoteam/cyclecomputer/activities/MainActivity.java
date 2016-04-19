@@ -5,6 +5,8 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -12,7 +14,6 @@ import android.widget.Toast;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
-import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.SectionDrawerItem;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
@@ -56,11 +57,11 @@ public class MainActivity extends CycleBaseActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mToolbar = (Toolbar) findViewById(R.id.toolbar_actionbar);
+        setSupportActionBar(mToolbar);
         View navigationHeader = View.inflate(mContext, R.layout.drawer_header, null);
         mUserImage = (CircleImageView) navigationHeader.findViewById(R.id.drawer_profile_image);
         mUserImage.setOnClickListener(this);
         mUserText = (TextView) navigationHeader.findViewById(R.id.drawer_user_text);
-        setSupportActionBar(mToolbar);
         mFragmentManager = getFragmentManager();
         mDrawer = new DrawerBuilder().withActivity(mContext)
                 .withToolbar(mToolbar)
@@ -71,10 +72,9 @@ public class MainActivity extends CycleBaseActivity implements View.OnClickListe
                         new PrimaryDrawerItem().withName(R.string.route).withIcon(R.mipmap.ic_route),
 
                         new SectionDrawerItem().withName(R.string.tools),
-                        new SecondaryDrawerItem().withName(R.string.settings).withIcon(R.mipmap.ic_tools),
-                        new SecondaryDrawerItem().withName(R.string.about).withIcon(R.mipmap.ic_about)
+                        new PrimaryDrawerItem().withName(R.string.settings).withIcon(R.mipmap.ic_tools),
+                        new PrimaryDrawerItem().withName(R.string.about).withIcon(R.mipmap.ic_about)
                 ).withOnDrawerItemClickListener((view, position, drawerItem) -> {
-                    //Log.d("drawer pos", "drawer pos:\t " + position);
                     FragmentTransaction transaction = mFragmentManager.beginTransaction();
                     Fragment fragment = null;
                     mLastPosition = position;
@@ -103,6 +103,11 @@ public class MainActivity extends CycleBaseActivity implements View.OnClickListe
                     return false;
                 })
                 .build();
+        mDrawer.setSelection(MAIN_POSITION);
+        mFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, new MainFragment())
+                .commit();
+
         VKRequest request = VKApi.users().get(VKParameters.from(
                 VKApiConst.USER_IDS, getSharedPreferences(App.SHARED_PREFERENCES, MODE_PRIVATE)
                         .getString(App.KEY_VK_ID, "1"),
@@ -159,5 +164,26 @@ public class MainActivity extends CycleBaseActivity implements View.OnClickListe
             }
             v.setEnabled(true);
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onKeyDown(int keycode, KeyEvent e) {
+        switch (keycode) {
+            case KeyEvent.KEYCODE_MENU:
+                if (mDrawer.isDrawerOpen())
+                    mDrawer.closeDrawer();
+                else mDrawer.openDrawer();
+                return true;
+        }
+        return super.onKeyDown(keycode, e);
     }
 }
