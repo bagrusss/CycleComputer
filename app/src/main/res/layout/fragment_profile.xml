@@ -1,184 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#48B9DB">
+    android:background="@drawable/sky_hd">
 
-    <android.support.v7.widget.CardView
-        android:id="@+id/profile_card"
+    <RelativeLayout
+        android:id="@+id/profile_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/profile_image"
+            android:layout_width="@dimen/profile_radius"
+            android:layout_height="@dimen/profile_radius"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/profile_margin_top"
+            android:src="@drawable/demo_profile"
+            app:civ_border_color="@color/white_color"
+            app:civ_border_width="@dimen/profile_image_border" />
+
+        <TextView
+            android:id="@+id/profile_first_second_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/profile_image"
+            android:layout_centerHorizontal="true"
+            android:gravity="center_horizontal"
+            android:text="@string/demo_first_name"
+            android:textColor="#E5E5E5"
+            android:textSize="@dimen/text_large" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_margin="@dimen/card_view_margin"
-        card_view:cardBackgroundColor="#3eabcc"
-        card_view:cardCornerRadius="@dimen/profile_card_corner_radius">
+        android:layout_below="@+id/profile_layout"
+        android:layout_marginTop="@dimen/profile_margin_top">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/text_current_distance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:gravity="center_horizontal"
+            android:text="@string/text_current_distance"
+            android:textColor="#E5E5E5"
+            android:textSize="@dimen/text_small" />
 
-            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/profile_image"
-                android:layout_width="@dimen/profile_radius"
-                android:layout_height="@dimen/profile_radius"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="@dimen/profile_margin_top"
-                android:src="@drawable/demo_profile"
-                app:civ_border_color="@color/white_color"
-                app:civ_border_width="@dimen/profile_image_border" />
+        <LinearLayout
+            android:id="@+id/distance_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_below="@+id/text_current_distance"
+            android:layout_centerHorizontal="true"
+            android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/profile_first_second_name"
+                android:id="@+id/distance_value"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/profile_image"
-                android:layout_centerHorizontal="true"
-                android:gravity="center_horizontal"
-                android:text="@string/demo_first_name"
+                android:text="@string/demo_speed_value"
                 android:textColor="#E5E5E5"
                 android:textSize="@dimen/text_large" />
-        </RelativeLayout>
 
-    </android.support.v7.widget.CardView>
-
-    <android.support.v7.widget.CardView
-        android:id="@+id/statistic_card"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/profile_card"
-        android:layout_margin="@dimen/card_view_margin"
-        card_view:cardBackgroundColor="#3eabcc"
-        card_view:cardCornerRadius="@dimen/profile_card_corner_radius">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/profile_margin_top">
+            <View
+                android:layout_width="5dp"
+                android:layout_height="wrap_content" />
 
             <TextView
-                android:id="@+id/text_current_distance"
+                android:id="@+id/distance_measure"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:gravity="center_horizontal"
-                android:text="@string/text_current_distance"
+                android:text="@string/demo_speed_mes"
                 android:textColor="#E5E5E5"
-                android:textSize="@dimen/text_small" />
+                android:textSize="@dimen/text_large" />
+        </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/distance_layout"
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:layout_below="@+id/text_current_distance"
-                android:layout_centerHorizontal="true"
-                android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/distance_value"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/demo_speed_value"
-                    android:textColor="#E5E5E5"
-                    android:textSize="@dimen/text_large" />
+    </RelativeLayout>
 
-                <View
-                    android:layout_width="5dp"
-                    android:layout_height="wrap_content" />
-
-                <TextView
-                    android:id="@+id/distance_measure"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/demo_speed_mes"
-                    android:textColor="#E5E5E5"
-                    android:textSize="@dimen/text_large" />
-            </LinearLayout>
-
-            <TableLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/distance_layout"
-                android:layout_margin="@dimen/profile_statistic_table_margin">
-
-                <TableRow android:background="@drawable/border_light">
-
-                    <TextView
-                        android:id="@+id/trip_time"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:drawableTop="@mipmap/ic_time"
-                        android:gravity="center_horizontal"
-                        android:text="@string/text_trip_time"
-                        android:textColor="#E5E5E5"
-                        android:textSize="25sp" />
-
-                    <TextView
-                        android:id="@+id/distance"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="@drawable/border_light"
-                        android:drawableTop="@mipmap/ic_trip"
-                        android:gravity="center_horizontal"
-                        android:text="@string/text_trip_distance"
-                        android:textColor="#E5E5E5"
-                        android:textSize="25sp" />
-
-                    <TextView
-                        android:id="@+id/calories"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:drawableTop="@mipmap/ic_fire"
-                        android:gravity="center_horizontal"
-                        android:text="@string/text_burned"
-                        android:textColor="#E5E5E5"
-                        android:textSize="25sp" />
-
-                </TableRow>
-
-                <TableRow
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/border_light">
-
-                    <TextView
-                        android:id="@+id/trip_time_val"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="@string/text_trip_time_val"
-                        android:textColor="#E5E5E5"
-                        android:textSize="@dimen/text_profile_values" />
-
-                    <TextView
-                        android:id="@+id/distance_val"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="@drawable/border_light"
-                        android:gravity="center"
-                        android:text="@string/text_distance_val"
-                        android:textColor="#E5E5E5"
-                        android:textSize="@dimen/text_profile_values" />
-
-                    <TextView
-                        android:id="@+id/calories_val"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="@string/text_calories_val"
-                        android:textColor="#E5E5E5"
-                        android:textSize="@dimen/text_profile_values" />
-
-                </TableRow>
-            </TableLayout>
-        </RelativeLayout>
-    </android.support.v7.widget.CardView>
-
+    <ListView
+        android:id="@+id/statistics_list_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/relativeLayout"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
 

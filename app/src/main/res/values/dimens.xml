@@ -9,21 +9,23 @@
     <dimen name="profile_margin_top">5dp</dimen>
 
     <!-- profile -->
-    <dimen name="profile_radius">125dp</dimen>
+    <dimen name="profile_radius">115dp</dimen>
     <dimen name="profile_image_border">2dp</dimen>
 
     <!-- text-->
     <dimen name="default_text_size">30sp</dimen>
     <dimen name="text_medium">28sp</dimen>
-    <dimen name="text_small">22sp</dimen>
-    <dimen name="text_large">35sp</dimen>
+    <dimen name="text_small">15sp</dimen>
+    <dimen name="text_large">30sp</dimen>
     <dimen name="text_profile_values">30sp</dimen>
-    <dimen name="card_view_margin">10dp</dimen>
+    <dimen name="card_view_margin_horizontal">5dp</dimen>
     <dimen name="profile_card_corner_radius">5dp</dimen>
     <dimen name="profile_statistic_table_margin">7dp</dimen>
     <dimen name="drawer_profile_radius">90dp</dimen>
     <dimen name="drawer_user_text_size">25sp</dimen>
     <dimen name="drawer_user_text_margin_left">20dp</dimen>
     <dimen name="drawer_user_text_margin_bottom">2dp</dimen>
+    <dimen name="item_margin">5dp</dimen>
 
+    <dimen name="cart_view_margin_vertical">2.5dp</dimen>
 </resources>

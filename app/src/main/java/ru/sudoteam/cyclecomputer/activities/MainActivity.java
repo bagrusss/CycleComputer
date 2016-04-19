@@ -42,6 +42,7 @@ public class MainActivity extends CycleBaseActivity implements View.OnClickListe
     private static final int ROUTE_POSITION = 3;
     private static final int SETTINGS_POSITION = 5;
     private static final int ABOUT_POSITION = 6;
+    private int mLastPosition = 1;
 
     private Toolbar mToolbar;
     private Drawer mDrawer;
@@ -76,7 +77,7 @@ public class MainActivity extends CycleBaseActivity implements View.OnClickListe
                     //Log.d("drawer pos", "drawer pos:\t " + position);
                     FragmentTransaction transaction = mFragmentManager.beginTransaction();
                     Fragment fragment = null;
-
+                    mLastPosition = position;
                     switch (position) {
                         case MAIN_POSITION:
                             fragment = new MainFragment();
@@ -148,13 +149,15 @@ public class MainActivity extends CycleBaseActivity implements View.OnClickListe
     public void onClick(View v) {
         if (v.getId() == R.id.drawer_profile_image) {
             v.setEnabled(false);
+            mToolbar.setTitle(R.string.profile);
             mFragmentManager.beginTransaction()
                     .replace(R.id.fragment_container, new ProfileFragment())
                     .commit();
             if (mDrawer.isDrawerOpen()) {
+                mDrawer.setSelection(mLastPosition);
                 mDrawer.closeDrawer();
             }
-            v.setEnabled(false);
+            v.setEnabled(true);
         }
     }
 }

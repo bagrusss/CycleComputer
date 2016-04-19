@@ -32,7 +32,6 @@ public class SplashActivity extends CycleBaseActivity implements View.OnClickLis
     private AlertDialog mAuthDialog;
     private Intent mNavigationIntent;
     private SharedPreferences mSharedPreferences;
-    public static final String TAG_SPLASH_ACTIVITY = "SplashActivity ";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -154,9 +153,4 @@ public class SplashActivity extends CycleBaseActivity implements View.OnClickLis
         }
     }
 
-    @Override
-    protected void onDestroy() {
-        Log.d(TAG_SPLASH_ACTIVITY, "activity destroyed");
-        super.onDestroy();
-    }
 }

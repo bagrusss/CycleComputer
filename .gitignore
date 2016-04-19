@@ -1,9 +1,9 @@
-/app/src/main/res/values/secret_data.xml
+app/src/main/res/values/secret_data.xml
 *.iml
 .gradle
 /local.properties
 /.idea/workspace.xml
 /.idea/libraries
 .DS_Store
-/build
+build
 /captures
