@@ -6,6 +6,7 @@
     <string name="key_distance">key_distance</string>
     <string name="key_autocorrect">key_autocorrect</string>
     <string name="key_wheel_radius">key_wheel_radius</string>
+    <string name="key_notify_weather">key_notify_weather</string>
 
     <string-array name="themes_values">
         <item>theme1</item>

@@ -37,6 +37,7 @@
     </string-array>
     <!-- Preferences -->
     <string name="category_cycle_comp">Велокомпьютер</string>
+    <string name="weather">Уведомление о погоде</string>
     <string name="category_app">Приложение</string>
     <string name="gps_state_title">GPS</string>
     <string name="summary_gps_state">Состояние модуля GPS</string>

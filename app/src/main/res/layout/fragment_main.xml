@@ -9,10 +9,16 @@
     <com.github.lzyzsd.circleprogress.ArcProgress
         android:id="@+id/arc_progress"
         android:background="#214193"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:padding="0dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:padding="5dp"
         custom:arc_progress="55"
         custom:arc_bottom_text="MEMORY"/>
+
+    <com.github.lzyzsd.circleprogress.DonutProgress
+        android:id="@+id/donut_progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        custom:donut_progress="95"/>
 
 </LinearLayout>

@@ -40,6 +40,7 @@
 
     <!-- Preferences -->
     <string name="category_cycle_comp">Cycle computer</string>
+    <string name="weather">Weather notification</string>
     <string name="category_app">Application</string>
     <string name="gps_state_title">GPS State</string>
     <string name="summary_gps_state">GPS module state</string>
