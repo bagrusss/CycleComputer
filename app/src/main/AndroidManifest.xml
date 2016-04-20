@@ -73,6 +73,10 @@
             android:exported="false"
             android:permission=".data.CycleCompContentProvider" />
 
+
+        <activity android:name="ru.sudoteam.emulator.activities.EmulatorActivity">
+
+        </activity>
     </application>
 
 </manifest>
