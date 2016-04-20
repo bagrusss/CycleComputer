@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import java.lang.ref.WeakReference;
 import java.util.Calendar;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -31,22 +32,24 @@ public class EmulatorActivity extends AppCompatActivity {
     TextView tripTime;
     Calendar calendar;
 
+    private WeakReference<Handler> handler;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_emulator);
 
-        setSpeed = (EditText) findViewById(R.id.setSpeed);
-        setPositionX = (EditText) findViewById(R.id.setPositionX);
-        setPositionY = (EditText) findViewById(R.id.setPositionY);
-        setBattery = (EditText) findViewById(R.id.setBatteryCharge);
+        setSpeed = (EditText) findViewById(R.id.set_speed);
+        setPositionX = (EditText) findViewById(R.id.set_position_x);
+        setPositionY = (EditText) findViewById(R.id.set_position_y);
+        setBattery = (EditText) findViewById(R.id.set_battery_charge);
 
-        units = (TextView) findViewById(R.id.speedMeasurementUnits);
+        units = (TextView) findViewById(R.id.speed_measurement_units);
 
-        speed = (TextView) findViewById(R.id.speedValue);
-        tripTime = (TextView) findViewById(R.id.tripTime);
+        speed = (TextView) findViewById(R.id.speed_value);
+        tripTime = (TextView) findViewById(R.id.trip_time);
 
-        setUnitsSpinner = (Spinner) findViewById(R.id.setSpeedMeasurementUnits);
+        setUnitsSpinner = (Spinner) findViewById(R.id.set_speed_units);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
                 this, R.array.units, R.layout.support_simple_spinner_dropdown_item);
         setUnitsSpinner.setAdapter(adapter);
@@ -86,7 +89,7 @@ public class EmulatorActivity extends AppCompatActivity {
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.HOUR_OF_DAY, 0);
 
-        Handler handler = new Handler() {
+        handler= new WeakReference<>(new Handler() {
             @Override
             public void handleMessage(Message message) {
                 if (message.what == 173) {
@@ -94,7 +97,7 @@ public class EmulatorActivity extends AppCompatActivity {
                     tripTime.setText(String.valueOf(calendar.getTime()).substring(11, 19));
                 }
             }
-        };
+        });
 
 
         Timer timer = new Timer();
@@ -103,7 +106,7 @@ public class EmulatorActivity extends AppCompatActivity {
             public void run() {
                 Message incrementTimeMessage = new Message();
                 incrementTimeMessage.what = 173;
-                handler.sendMessage(incrementTimeMessage);
+                handler.get().sendMessage(incrementTimeMessage);
             }
         }, 0, 1000);
     }
