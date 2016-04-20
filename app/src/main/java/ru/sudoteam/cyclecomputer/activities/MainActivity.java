@@ -138,6 +138,7 @@ public class MainActivity extends CycleBaseActivity implements View.OnClickListe
             public void onError(VKError error) {
                 Toast.makeText(mContext, error.errorReason, Toast.LENGTH_SHORT).show();
             }
+
         });
     }
 

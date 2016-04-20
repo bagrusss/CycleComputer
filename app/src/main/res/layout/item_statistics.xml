@@ -12,7 +12,6 @@
         android:layout_marginRight="@dimen/card_view_margin_horizontal"
         card_view:cardCornerRadius="@dimen/profile_card_corner_radius">
 
-
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
