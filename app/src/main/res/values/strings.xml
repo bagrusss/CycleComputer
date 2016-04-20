@@ -40,6 +40,7 @@
 
     <!-- Preferences -->
     <string name="category_cycle_comp">Cycle computer</string>
+    <string name="weather">Weather notification</string>
     <string name="category_app">Application</string>
     <string name="gps_state_title">GPS State</string>
     <string name="summary_gps_state">GPS module state</string>
@@ -71,10 +72,11 @@
     <string name="demo_speed_mes">km</string>
     <string name="text_trip_time">trip</string>
     <string name="text_trip_distance">distance</string>
-    <string name="text_burned">burned</string>
-    <string name="text_trip_time_val">1:27:14</string>
+    <string name="text_calories">burned</string>
+    <string name="text_trip_time_val">2:27:14</string>
     <string name="text_distance_val">52.0 km</string>
     <string name="text_calories_val">1920</string>
+    <string name="icon_bike">icon bike</string>
 
 
     <!-- Notifications -->

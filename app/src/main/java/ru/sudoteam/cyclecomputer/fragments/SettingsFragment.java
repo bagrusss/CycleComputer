@@ -29,7 +29,7 @@ public class SettingsFragment extends Fragment {
         mTabLayout.addTab(mTabLayout.newTab().setText(R.string.category_app));
         mTabLayout.setTabGravity(TabLayout.MODE_SCROLLABLE);
 
-        mPager = (ViewPager) v.findViewById(R.id.settings_pager_);
+        mPager = (ViewPager) v.findViewById(R.id.settings_pager);
         SettingsPageAdapter adapter =
                 new SettingsPageAdapter(getActivity().getFragmentManager(), mTabLayout.getTabCount());
         mPager.setAdapter(adapter);
