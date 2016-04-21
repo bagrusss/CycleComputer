@@ -32,4 +32,13 @@
         android:layout_centerHorizontal="true"
         android:spinnerMode="dialog" />
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/distance_intervals"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/aim_spinner"
+        android:layout_centerHorizontal="true">
+
+    </android.support.v7.widget.RecyclerView>
+
 </RelativeLayout>

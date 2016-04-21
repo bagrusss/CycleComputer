@@ -6,6 +6,8 @@ import android.content.Intent;
 import com.vk.sdk.VKSdk;
 import com.vk.sdk.api.model.VKScopes;
 
+import java.util.List;
+
 /**
  * Created by bagrusss on 06.04.16.
  *
@@ -23,6 +25,11 @@ public class AccountVK implements Account {
     @Override
     public void refresh(Activity activity) {
 
+    }
+
+    @Override
+    public List<User> friends(Activity activity) {
+        return null;
     }
 
     @Override

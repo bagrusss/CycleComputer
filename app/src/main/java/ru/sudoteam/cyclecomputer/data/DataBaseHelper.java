@@ -14,14 +14,18 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public static final int DB_VERSION = 1;
     public static final String DB_NAME = "cycle.db";
     public static final String TABLE_STATISTICS = "statistics";
+    public static final String TABLE_DAY_STATISTICS = "day_statistics";
+    public static final String TABLE_FRIENDS = "friends";
 
-    public DataBaseHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
-        super(context, name, factory, version);
-    }
+    public static final String ID = "_id";
+    public static final String DISTANCE = "distance";
+    public static final String DATE = "date";
 
-    public DataBaseHelper(Context context, String name) {
-        super(context, name, null, DB_VERSION);
-    }
+    public static final String TIME_START = "time_start";
+    public static final String TIME_STOP = "time_stop";
+
+    public static final String USER_ID = "time_stop";
+
 
     public DataBaseHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);

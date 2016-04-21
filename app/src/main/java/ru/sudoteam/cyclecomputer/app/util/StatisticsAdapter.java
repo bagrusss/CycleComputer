@@ -51,7 +51,7 @@ public class StatisticsAdapter extends BaseAdapter {
     public View getView(int position, View cv, ViewGroup parent) {
         ViewHolder holder;
         if (cv == null) {
-            cv = View.inflate(mContext, R.layout.item_statistics, null);
+            cv = View.inflate(mContext, R.layout.item_user_statistics, null);
             holder = new ViewHolder();
             holder.icon = (ImageView) cv.findViewById(R.id.icon_statistic);
             holder.title = (TextView) cv.findViewById(R.id.statistic_title);

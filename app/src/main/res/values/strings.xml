@@ -37,6 +37,7 @@
     <string name="friends">Friends</string>
     <string name="about">About</string>
     <string name="gps">GPS</string>
+    <string name="text_aim">Aim</string>
 
     <!-- Preferences -->
     <string name="category_cycle_comp">Cycle computer</string>
@@ -77,6 +78,7 @@
     <string name="text_distance_val">52.0 km</string>
     <string name="text_calories_val">1920</string>
     <string name="icon_bike">icon bike</string>
+    <string name="developers">Разработчики:\n Владислав Кожушко \n Дмитрий Цыганов \n Лысак Павел</string>
 
 
     <!-- Notifications -->
@@ -88,6 +90,9 @@
     <string name="speed_value">23.7</string>
     <string name="trip">Trip</string>
     <string name="trip_time">1:58:27</string>
+    <string name="title_app_mode">Appliacaion Mode</string>
+    <string name="mode_client">Client</string>
+    <string name="mode_emulator">Emulator</string>
     <string-array name="units">
         <item>km/h</item>
         <item>m/h</item>

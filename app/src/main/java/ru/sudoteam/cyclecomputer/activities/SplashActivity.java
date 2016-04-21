@@ -1,19 +1,23 @@
 package ru.sudoteam.cyclecomputer.activities;
 
 import android.bluetooth.BluetoothAdapter;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ListAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.vk.sdk.VKAccessToken;
@@ -21,17 +25,39 @@ import com.vk.sdk.VKCallback;
 import com.vk.sdk.VKSdk;
 import com.vk.sdk.api.VKError;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import ru.sudoteam.cyclecomputer.R;
 import ru.sudoteam.cyclecomputer.app.App;
 import ru.sudoteam.cyclecomputer.app.AuthHelper;
+import ru.sudoteam.emulator.activities.Emulator;
 
 public class SplashActivity extends CycleBaseActivity implements View.OnClickListener {
 
-    private Button mStartButton;
     private AlertDialog.Builder mBuilder;
     private AlertDialog mAuthDialog;
     private Intent mNavigationIntent;
     private SharedPreferences mSharedPreferences;
+
+    private BroadcastReceiver mBluetoothReceiver;
+
+    private Timer mTimer;
+
+    public static class Item {
+        public final String text;
+        public final int icon;
+
+        public Item(String text, Integer icon) {
+            this.text = text;
+            this.icon = icon;
+        }
+
+        @Override
+        public String toString() {
+            return text;
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,94 +65,25 @@ public class SplashActivity extends CycleBaseActivity implements View.OnClickLis
         mSharedPreferences = getSharedPreferences(App.SHARED_PREFERENCES, MODE_PRIVATE);
         mNavigationIntent = new Intent(mContext, MainActivity.class);
         setContentView(R.layout.activity_splash);
-        mStartButton = (Button) findViewById(R.id.start_button);
-        mStartButton.setOnClickListener(this);
-/*        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = getWindow();
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.setStatusBarColor(getResources().getColor(android.R.color.background_dark));
-        }*/
-
-        mBuilder = new AlertDialog.Builder(mContext);
-        BluetoothAdapter adapter = BluetoothAdapter.getDefaultAdapter();
-        if (!getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH_LE)) {
-            showDialogLENotSupport(mBuilder);
-            return;
+            window.setStatusBarColor(getResources().getColor(android.R.color.transparent));
         }
-        if (!adapter.isEnabled()) {
-            showDialogEnableBT(mBuilder, adapter);
-        }
-        //TODO draw OK animation and start activity
-        showStartButton();
-    }
-
-    private void showStartButton() {
-        mStartButton.setVisibility(View.VISIBLE);
-        mStartButton.setEnabled(true);
-    }
-
-    private void showDialogEnableBT(AlertDialog.Builder builder, BluetoothAdapter adapter) {
-        builder.setTitle(R.string.dialog_bt_title)
-                .setIcon(android.R.drawable.stat_sys_data_bluetooth)
-                .setMessage(R.string.dialog_bt_message_enable)
-                .setPositiveButton(android.R.string.ok, (dialog, which) -> {
-                    adapter.enable();
-                    dialog.cancel();
-                })
-                .setNegativeButton(android.R.string.cancel, (dialog, which) -> {
-                    System.exit(0);
-                })
-                .setCancelable(false);
-        builder.create().show();
-    }
-
-    private void showDialogLENotSupport(AlertDialog.Builder builder) {
-        builder.setTitle(R.string.dialog_bt_title)
-                .setMessage(R.string.dialog_bt_message_not_support)
-                .setPositiveButton(android.R.string.ok, (dialog, which) -> {
-                    System.exit(0);
-                });
-        builder.create().show();
-    }
-
-    private void showDialogAuth(Context context, AlertDialog.Builder builder) {
-        View v = View.inflate(context, R.layout.dialog_login, null);
-        ImageView vk = (ImageView) v.findViewById(R.id.imageVK);
-        vk.setOnClickListener(this);
-        ImageView google = (ImageView) v.findViewById(R.id.imageGoogle);
-        google.setOnClickListener(this);
-        mAuthDialog = builder.setView(v)
-                .setCancelable(false)
-                .setMessage(null)
-                .setNegativeButton(android.R.string.cancel, (dialog, which) -> {
-                    System.exit(0);
-                })
-                .setTitle(R.string.dialog_auth_title)
-                .create();
-        mAuthDialog.show();
-
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.start_button:
-                if (mSharedPreferences.getInt(App.KEY_AUTH_TYPE, App.KEY_AUTH_NONE) == App.KEY_AUTH_NONE)
-                    showDialogAuth(mContext, mBuilder);
-                else {
-                    startActivity(mNavigationIntent);
-                    finish();
+        mBluetoothReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                final String action = intent.getAction();
+                if (action.equals(BluetoothAdapter.ACTION_STATE_CHANGED)) {
+                    final int state = intent.getIntExtra(BluetoothAdapter.EXTRA_STATE,
+                            BluetoothAdapter.ERROR);
+                    if (BluetoothAdapter.STATE_ON == state) {
+                        clientActivity();
+                    }
                 }
-                break;
-            case R.id.imageVK:
-                AuthHelper.loginVK(mContext);
-                mAuthDialog.cancel();
-                break;
-            case R.id.imageGoogle:
-                AuthHelper.loginGoogle(mContext);
-                mAuthDialog.cancel();
-        }
+            }
+        };
     }
 
     @Override
@@ -150,6 +107,150 @@ public class SplashActivity extends CycleBaseActivity implements View.OnClickLis
             }
         })) {
             super.onActivityResult(requestCode, resultCode, data);
+        }
+    }
+
+    @Override
+    protected void onStart() {
+        registerReceiver(mBluetoothReceiver, new IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED));
+        mTimer = new Timer();
+        mTimer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                runOnUiThread(() -> {
+                    if (check()) {
+                        selectModeDialog(mBuilder);
+                    }
+                });
+            }
+        }, 1000);
+        super.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        unregisterReceiver(mBluetoothReceiver);
+        mTimer.cancel();
+        mTimer = null;
+        super.onStop();
+    }
+
+    private boolean check() {
+        mBuilder = new AlertDialog.Builder(mContext);
+        BluetoothAdapter adapter = BluetoothAdapter.getDefaultAdapter();
+        if (!getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH_LE)) {
+            showDialogLENotSupport(mBuilder);
+            return false;
+        }
+        if (!adapter.isEnabled()) {
+            showDialogEnableBT(mBuilder, adapter);
+            return false;
+        }
+        return true;
+    }
+
+    private void showDialogEnableBT(AlertDialog.Builder builder, BluetoothAdapter adapter) {
+        builder.setTitle(R.string.dialog_bt_title)
+                .setIcon(android.R.drawable.stat_sys_data_bluetooth)
+                .setMessage(R.string.dialog_bt_message_enable)
+                .setPositiveButton(android.R.string.ok, (dialog, which) -> {
+                    adapter.enable();
+                    dialog.cancel();
+                })
+                .setNegativeButton(android.R.string.cancel, (dialog, which) -> {
+                    System.exit(0);
+                })
+                .create()
+                .show();
+    }
+
+    private void showDialogLENotSupport(AlertDialog.Builder builder) {
+        builder.setTitle(R.string.dialog_bt_title)
+                .setMessage(R.string.dialog_bt_message_not_support)
+                .setCancelable(false)
+                .setPositiveButton(android.R.string.ok, (dialog, which) -> {
+                    System.exit(0);
+                });
+        builder.create().show();
+    }
+
+    private void selectModeDialog(AlertDialog.Builder builder) {
+        final Item items[] = new Item[]{
+                new Item(getString(R.string.mode_client), R.mipmap.ic_baker),
+                new Item(getString(R.string.mode_emulator), R.mipmap.ic_displays)
+        };
+        ListAdapter adapter = new ArrayAdapter<Item>(
+                this,
+                android.R.layout.select_dialog_item,
+                android.R.id.text1,
+                items
+        ) {
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                View v = super.getView(position, convertView, parent);
+                TextView tv = (TextView) v.findViewById(android.R.id.text1);
+                tv.setCompoundDrawablesWithIntrinsicBounds(items[position].icon, 0, 0, 0);
+                int dp5 = (int) (5 * getResources().getDisplayMetrics().density + 0.5f);
+                tv.setCompoundDrawablePadding(dp5);
+                return v;
+            }
+        };
+        builder.setTitle(R.string.title_app_mode)
+                .setIcon(android.R.drawable.btn_star)
+                .setMessage(null)
+                .setCancelable(false)
+                .setAdapter(adapter, (dialog, which) -> {
+                    switch (which) {
+                        case 0:
+                            clientActivity();
+                            break;
+                        case 1:
+                            startActivity(new Intent(mContext, Emulator.class));
+                            break;
+                    }
+                    mContext.finish();
+                })
+                .create()
+                .show();
+    }
+
+    private void showDialogAuth(Context context, AlertDialog.Builder builder) {
+        View v = View.inflate(context, R.layout.dialog_login, null);
+        ImageView vk = (ImageView) v.findViewById(R.id.imageVK);
+        vk.setOnClickListener(this);
+        ImageView google = (ImageView) v.findViewById(R.id.imageGoogle);
+        google.setOnClickListener(this);
+        mAuthDialog = builder.setView(v)
+                .setCancelable(false)
+                .setMessage(null)
+                .setNegativeButton(android.R.string.cancel, (dialog, which) -> {
+                    System.exit(0);
+                })
+                .setTitle(R.string.dialog_auth_title)
+                .create();
+        mAuthDialog.show();
+
+    }
+
+    private void clientActivity() {
+        if (mSharedPreferences.getInt(App.KEY_AUTH_TYPE, App.KEY_AUTH_NONE) == App.KEY_AUTH_NONE)
+            showDialogAuth(mContext, mBuilder);
+        else {
+            startActivity(mNavigationIntent);
+            finish();
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.imageVK:
+                AuthHelper.loginVK(mContext);
+                mAuthDialog.cancel();
+                break;
+            case R.id.imageGoogle:
+                AuthHelper.loginGoogle(mContext);
+                mAuthDialog.cancel();
         }
     }
 

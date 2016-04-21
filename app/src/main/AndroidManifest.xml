@@ -52,8 +52,6 @@
             android:name=".services.NetworkService"
             android:exported="false" />
 
-        <activity android:name="ru.sudoteam.emulator.activities.Emulator" />
-
         <service
             android:name="ru.sudoteam.emulator.services.EmulatorBluetoothService"
             android:exported="false" />
@@ -66,7 +64,7 @@
             android:permission=".data.CycleCompContentProvider" />
 
 
-        <activity android:name="ru.sudoteam.emulator.activities.EmulatorActivity">
+        <activity android:name="ru.sudoteam.emulator.activities.Emulator">
 
         </activity>
     </application>
