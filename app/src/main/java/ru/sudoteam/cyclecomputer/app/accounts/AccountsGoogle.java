@@ -7,12 +7,14 @@ import java.util.List;
 
 /**
  * Created by bagrusss on 06.04.16.
- *
+ * Used Google account on Device
  */
-public class AccountsGoogle implements Account {
-    @Override
-    public void refresh(Activity activity) {
 
+public class AccountsGoogle implements Account {
+
+    @Override
+    public User userInfo(Activity activity) {
+        return null;
     }
 
     @Override
@@ -26,7 +28,8 @@ public class AccountsGoogle implements Account {
     }
 
     @Override
-    public boolean onResult(int reqCode, int resCode, Intent intent) {
-        return false;
+    public void logout() {
+
     }
+
 }

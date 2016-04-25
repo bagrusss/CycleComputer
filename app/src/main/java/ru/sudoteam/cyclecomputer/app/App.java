@@ -5,7 +5,9 @@ import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.google.gson.Gson;
-import com.vk.sdk.VKSdk;
+
+import ru.sudoteam.cyclecomputer.app.accounts.Account;
+import ru.sudoteam.cyclecomputer.app.accounts.AccountVK;
 
 /**
  * Created by bagrusss on 26.03.16.
@@ -13,6 +15,10 @@ import com.vk.sdk.VKSdk;
  */
 
 public class App extends Application {
+
+    private static Account account;
+    private static SharedPreferences preferences;
+
     public static final String TAG_APPLICATION = "APPLICATION ";
     public static final Gson GSON = new Gson();
 
@@ -29,7 +35,7 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
         //TODO инициализация компонентов
-        SharedPreferences preferences = getSharedPreferences(SHARED_PREFERENCES, MODE_PRIVATE);
+        preferences = getSharedPreferences(SHARED_PREFERENCES, MODE_PRIVATE);
         switch (preferences.getInt(KEY_AUTH_TYPE, KEY_AUTH_NONE)) {
             case KEY_AUTH_GOOGLE:
 
@@ -38,11 +44,18 @@ public class App extends Application {
 
                 //TODO break;
             case KEY_AUTH_VK:
-                VKSdk.initialize(getApplicationContext());
-
+                account = new AccountVK(getApplicationContext());
         }
         Log.i(TAG_APPLICATION, "App created");
-        //Log.i(TAG_APPLICATION, "Hardware support" + KeyInfo.isInsideSecurityHardware());
     }
+
+    public static Account getAccount() {
+        return account;
+    }
+
+    public static SharedPreferences getAppPreferences() {
+        return preferences;
+    }
+
 
 }

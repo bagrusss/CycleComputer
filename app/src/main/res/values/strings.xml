@@ -90,11 +90,17 @@
     <string name="speed_value">23.7</string>
     <string name="trip">Trip</string>
     <string name="trip_time">1:58:27</string>
-    <string name="title_app_mode">Appliacaion Mode</string>
+    <string name="title_app_mode">Application Mode</string>
     <string name="mode_client">Client</string>
     <string name="mode_emulator">Emulator</string>
     <string-array name="units">
         <item>km/h</item>
         <item>m/h</item>
     </string-array>
+
+    <string name="dev_vlad">Vladislav Kozhushko</string>
+    <string name="dev_dima">Dmitry Tsiganov</string>
+    <string name="dev_pasha">Pavel Lysak</string>
+
+
 </resources>

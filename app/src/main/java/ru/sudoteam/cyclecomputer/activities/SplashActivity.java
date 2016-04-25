@@ -30,7 +30,7 @@ import java.util.TimerTask;
 
 import ru.sudoteam.cyclecomputer.R;
 import ru.sudoteam.cyclecomputer.app.App;
-import ru.sudoteam.cyclecomputer.app.AuthHelper;
+import ru.sudoteam.cyclecomputer.app.accounts.AuthHelper;
 import ru.sudoteam.emulator.activities.Emulator;
 
 public class SplashActivity extends CycleBaseActivity implements View.OnClickListener {
