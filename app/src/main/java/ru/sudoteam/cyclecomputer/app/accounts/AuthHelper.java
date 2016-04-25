@@ -1,4 +1,4 @@
-package ru.sudoteam.cyclecomputer.app;
+package ru.sudoteam.cyclecomputer.app.accounts;
 
 import android.app.Activity;
 
@@ -21,7 +21,6 @@ public class AuthHelper {
             VKScopes.OFFLINE,
             VKScopes.GROUPS
     };
-
 
     public static void loginVK(Activity context) {
         VKSdk.login(context, mScope);
