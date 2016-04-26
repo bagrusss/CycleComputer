@@ -1,4 +1,4 @@
-package ru.sudoteam.cyclecomputer.app.util;
+package ru.sudoteam.cyclecomputer.app.lists;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;

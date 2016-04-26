@@ -1,4 +1,4 @@
-package ru.sudoteam.cyclecomputer.app.util;
+package ru.sudoteam.cyclecomputer.app.lists;
 
 /**
  * Created by bagrusss on 19.04.16.

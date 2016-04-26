@@ -1,4 +1,4 @@
-package ru.sudoteam.cyclecomputer.app.util;
+package ru.sudoteam.cyclecomputer.app.lists;
 
 import android.content.Context;
 import android.view.View;
