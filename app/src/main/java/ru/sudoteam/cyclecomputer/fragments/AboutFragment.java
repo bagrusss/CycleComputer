@@ -12,8 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ru.sudoteam.cyclecomputer.R;
-import ru.sudoteam.cyclecomputer.app.util.UserItem;
-import ru.sudoteam.cyclecomputer.app.util.UserRecyclerAdapter;
+import ru.sudoteam.cyclecomputer.app.lists.UserItem;
+import ru.sudoteam.cyclecomputer.app.lists.UserRecyclerAdapter;
 
 public class AboutFragment extends Fragment {
 

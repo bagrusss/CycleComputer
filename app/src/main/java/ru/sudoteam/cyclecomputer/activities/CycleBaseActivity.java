@@ -8,5 +8,5 @@ import android.support.v7.app.AppCompatActivity;
  *
  */
 public class CycleBaseActivity extends AppCompatActivity {
-    protected Activity mContext = CycleBaseActivity.this;
+    protected Activity mContext = this;
 }

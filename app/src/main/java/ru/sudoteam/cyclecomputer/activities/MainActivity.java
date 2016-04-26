@@ -51,6 +51,7 @@ public class MainActivity extends CycleBaseActivity implements View.OnClickListe
 
     private CircleImageView mUserImage;
     private TextView mUserText;
+    private Fragment mLastFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +64,7 @@ public class MainActivity extends CycleBaseActivity implements View.OnClickListe
         mUserImage.setOnClickListener(this);
         mUserText = (TextView) navigationHeader.findViewById(R.id.drawer_user_text);
         mFragmentManager = getFragmentManager();
+
         mDrawer = new DrawerBuilder().withActivity(mContext)
                 .withToolbar(mToolbar)
                 .withHeader(navigationHeader)
@@ -76,36 +78,38 @@ public class MainActivity extends CycleBaseActivity implements View.OnClickListe
                         new PrimaryDrawerItem().withName(R.string.about).withIcon(R.mipmap.ic_about)
                 ).withOnDrawerItemClickListener((view, position, drawerItem) -> {
                     FragmentTransaction transaction = mFragmentManager.beginTransaction();
-                    Fragment fragment = null;
                     mLastPosition = position;
                     switch (position) {
                         case MAIN_POSITION:
-                            fragment = new MainFragment();
+                            mLastFragment = new MainFragment();
                             mToolbar.setTitle(R.string.main);
                             break;
                         case FRIENDS_POSITION:
-                            fragment = new FriendsFragment();
+                            mLastFragment = new FriendsFragment();
                             mToolbar.setTitle(R.string.friends);
                             break;
                         case ROUTE_POSITION:
-                            fragment = new RouteFragment();
+                            mLastFragment = new RouteFragment();
                             mToolbar.setTitle(R.string.route);
                             break;
                         case SETTINGS_POSITION:
-                            fragment = new SettingsFragment();
+                            mLastFragment = new SettingsFragment();
                             mToolbar.setTitle(R.string.settings);
                             break;
                         case ABOUT_POSITION:
-                            fragment = new AboutFragment();
+                            mLastFragment = new AboutFragment();
                             mToolbar.setTitle(R.string.about);
                     }
-                    transaction.replace(R.id.fragment_container, fragment).commit();
+                    transaction.replace(R.id.fragment_container, mLastFragment).commit();
                     return false;
                 })
                 .build();
         mDrawer.setSelection(MAIN_POSITION);
+        if (savedInstanceState != null)
+            mLastFragment = (Fragment) getLastCustomNonConfigurationInstance();
+        else mLastFragment = new MainFragment();
         mFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, new MainFragment())
+                .replace(R.id.fragment_container, mLastFragment)
                 .commit();
 
         VKRequest request = VKApi.users().get(VKParameters.from(
@@ -113,6 +117,7 @@ public class MainActivity extends CycleBaseActivity implements View.OnClickListe
                         .getString(App.KEY_VK_ID, "1"),
                 VKApiConst.FIELDS, VKApiUser.FIELD_PHOTO_200));
         request.executeWithListener(new VKRequest.VKRequestListener() {
+
             @Override
             public void onComplete(VKResponse response) {
                 VKApiUser user = ((VKList<VKApiUser>) response.parsedModel).get(0);
@@ -187,4 +192,10 @@ public class MainActivity extends CycleBaseActivity implements View.OnClickListe
         }
         return super.onKeyDown(keycode, e);
     }
+
+    @Override
+    public Object onRetainCustomNonConfigurationInstance() {
+        return mLastFragment;
+    }
+
 }

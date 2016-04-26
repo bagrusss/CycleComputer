@@ -27,8 +27,8 @@ import java.util.List;
 import de.hdodenhof.circleimageview.CircleImageView;
 import ru.sudoteam.cyclecomputer.R;
 import ru.sudoteam.cyclecomputer.app.App;
-import ru.sudoteam.cyclecomputer.app.util.StatisticItem;
-import ru.sudoteam.cyclecomputer.app.util.StatisticsAdapter;
+import ru.sudoteam.cyclecomputer.app.lists.StatisticItem;
+import ru.sudoteam.cyclecomputer.app.lists.StatisticsAdapter;
 
 public class ProfileFragment extends Fragment {
 
@@ -43,7 +43,7 @@ public class ProfileFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_profile, null);
+        View v = inflater.inflate(R.layout.fragment_profile, container, false);
         mPreferences = v.getContext().getSharedPreferences(App.SHARED_PREFERENCES, App.MODE_PRIVATE);
 
         mStatisticsData.add(new StatisticItem(R.mipmap.ic_time, getString(R.string.text_trip_time),
