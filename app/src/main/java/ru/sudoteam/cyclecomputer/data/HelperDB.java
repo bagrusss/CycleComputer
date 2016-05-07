@@ -9,7 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
  * Used for keep statistics
  */
 
-public class DataBaseHelper extends SQLiteOpenHelper {
+public class HelperDB extends SQLiteOpenHelper {
 
     private static final int DB_VERSION = 1;
     private static final String DB_NAME = "cycle.db";
@@ -32,8 +32,9 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public static final String USER_ID = " user_id ";
     public static final String FIRST_NAME = " first_name ";
     public static final String SECOND_NAME = " second_name ";
+    public static final String IMAGE_URL = " image_url ";
 
-    public DataBaseHelper(Context context) {
+    public HelperDB(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
     }
 
@@ -56,7 +57,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                     ID + "INTEGER PRIMARY KEY AUTOINCREMENT," +
                     USER_ID + "UNSIGNED INTEGER UNIQUE," +
                     FIRST_NAME + "TEXT," +
-                    SECOND_NAME + "TEXT);"
+                    SECOND_NAME + "TEXT," +
+                    IMAGE_URL + "TEXT);"
             );
             db.setTransactionSuccessful();
         } finally {

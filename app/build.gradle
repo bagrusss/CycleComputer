@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'me.tatarka.retrolambda'
 
-//apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android'
 
 android {
     compileSdkVersion 23
@@ -26,9 +26,9 @@ android {
         targetCompatibility 1.8
     }
 
-    /*sourceSets {
-        main.java.srcDirs += 'src/main/kotlin'
-    }*/
+    sourceSets {
+        main.java.srcDirs += 'src/main/java'
+    }
 }
 
 dependencies {
@@ -43,7 +43,7 @@ dependencies {
     compile 'org.jetbrains:annotations:13.0'
     compile 'com.google.code.gson:gson:2.6.2'
 
-    //compile 'org.jetbrains.kotlin:kotlin-stdlib:1.0.1'
+    compile 'org.jetbrains.kotlin:kotlin-stdlib:1.0.1'
 
     compile 'com.github.lzyzsd:circleprogress:1.1.0@aar'
     compile 'de.hdodenhof:circleimageview:2.0.0'
@@ -53,4 +53,17 @@ dependencies {
         transitive = true
     }
     compile 'com.android.support:design:23.3.0'
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+}
+buildscript {
+    ext.kotlin_version = '1.0.1-2'
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+repositories {
+    mavenCentral()
 }

@@ -28,7 +28,7 @@
     <dimen name="profile_statistic_table_margin">7dp</dimen>
     <dimen name="drawer_profile_radius">90dp</dimen>
     <dimen name="drawer_user_text_size">25sp</dimen>
-    <dimen name="drawer_user_text_margin_left">20dp</dimen>
+    <dimen name="drawer_user_text_margin_left">16dp</dimen>
     <dimen name="drawer_user_text_margin_bottom">2dp</dimen>
     <dimen name="item_margin">5dp</dimen>
 

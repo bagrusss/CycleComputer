@@ -33,7 +33,7 @@ import ru.sudoteam.cyclecomputer.app.App;
 import ru.sudoteam.cyclecomputer.app.accounts.AuthHelper;
 import ru.sudoteam.emulator.activities.Emulator;
 
-public class SplashActivity extends CycleBaseActivity implements View.OnClickListener {
+public class SplashAct extends CycleBaseActivity implements View.OnClickListener {
 
     private AlertDialog.Builder mBuilder;
     private AlertDialog mAuthDialog;
