@@ -11,24 +11,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.ArrayAdapter
-import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import com.vk.sdk.VKAccessToken
-import com.vk.sdk.VKCallback
-import com.vk.sdk.VKSdk
-import com.vk.sdk.api.VKError
 import ru.sudoteam.cyclecomputer.R
 import ru.sudoteam.cyclecomputer.app.App
-import ru.sudoteam.cyclecomputer.app.accounts.AuthHelper
 import ru.sudoteam.emulator.activities.Emulator
 import java.util.*
 
-class SplashActivity : BaseActivity(), View.OnClickListener {
+class SplashActivity : BaseActivity() {
 
     private var mBuilder: AlertDialog.Builder? = null
-    private var mAuthDialog: AlertDialog? = null
-    private var mNavigationIntent: Intent? = null
+    private var mSwitchingBluetooth: AlertDialog? = null
     private var mSharedPreferences: SharedPreferences? = null
 
     private var mTimer: Timer? = null
@@ -43,7 +36,6 @@ class SplashActivity : BaseActivity(), View.OnClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mNavigationIntent = Intent(mContext, MainActivity::class.java)
         Toast.makeText(this, "Toast From Kotlin", Toast.LENGTH_LONG).show()
         mSharedPreferences = getSharedPreferences(App.SHARED_PREFERENCES, Context.MODE_PRIVATE)
         setContentView(R.layout.activity_splash)
@@ -51,7 +43,7 @@ class SplashActivity : BaseActivity(), View.OnClickListener {
             val window = window
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-            window.statusBarColor = resources.getColor(android.R.color.transparent)
+            window.statusBarColor = resources.getColor(android.R.color.holo_orange_light)
         }
         mBluetoothReceiver = object : BroadcastReceiver() {
             override fun onReceive(context: Context, intent: Intent) {
@@ -59,11 +51,16 @@ class SplashActivity : BaseActivity(), View.OnClickListener {
                 if (action == BluetoothAdapter.ACTION_STATE_CHANGED) {
                     val state = intent.getIntExtra(BluetoothAdapter.EXTRA_STATE, BluetoothAdapter.ERROR)
                     if (BluetoothAdapter.STATE_ON == state) {
+                        mSwitchingBluetooth?.cancel()
                         clientActivity()
                     }
                 }
             }
         }
+    }
+
+    override fun onStart() {
+        registerReceiver(mBluetoothReceiver, IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED))
         mTimer = Timer()
         mTimer!!.schedule(object : TimerTask() {
             override fun run() {
@@ -73,34 +70,7 @@ class SplashActivity : BaseActivity(), View.OnClickListener {
                     }
                 }
             }
-        }, 1000)
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
-        if (!VKSdk.onActivityResult(requestCode, resultCode, data, object : VKCallback<VKAccessToken> {
-            override fun onResult(res: VKAccessToken) {
-                mAuthDialog!!.cancel()
-                finish()
-                startActivity(mNavigationIntent)
-                val editor = mSharedPreferences!!.edit()
-                with(editor) {
-                    putInt(App.KEY_AUTH_TYPE, App.KEY_AUTH_VK)
-                    putString(App.KEY_TOKEN, res.accessToken)
-                    putString(App.KEY_VK_ID, res.userId)
-                    apply()
-                }
-            }
-
-            override fun onError(error: VKError) {
-                Toast.makeText(mContext, error.errorCode.toString() + "\n" + error.errorMessage, Toast.LENGTH_LONG).show()
-            }
-        })) {
-            super.onActivityResult(requestCode, resultCode, data)
-        }
-    }
-
-    override fun onStart() {
-        registerReceiver(mBluetoothReceiver, IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED))
+        }, 2000)
         super.onStart()
     }
 
@@ -133,6 +103,11 @@ class SplashActivity : BaseActivity(), View.OnClickListener {
             setPositiveButton(android.R.string.ok) { dialog, which ->
                 adapter.enable()
                 dialog.cancel()
+                setMessage(R.string.dialog_bt_message_switching)
+                mSwitchingBluetooth = create()
+                mSwitchingBluetooth!!.show()
+                mSwitchingBluetooth!!.getButton(AlertDialog.BUTTON_POSITIVE).visibility = View.GONE
+                mSwitchingBluetooth!!.getButton(AlertDialog.BUTTON_NEGATIVE).visibility = View.GONE
             }
             setNegativeButton(android.R.string.cancel) { dialog, which -> System.exit(0) }
             create().show()
@@ -180,37 +155,13 @@ class SplashActivity : BaseActivity(), View.OnClickListener {
         }
     }
 
-    private fun showDialogAuth(context: Context, builder: AlertDialog.Builder) {
-        val v = View.inflate(context, R.layout.dialog_login, null)
-        val vk = v.findViewById(R.id.imageVK) as ImageView
-        vk.setOnClickListener(this)
-        val google = v.findViewById(R.id.imageGoogle) as ImageView
-        google.setOnClickListener(this)
-        mAuthDialog = with(builder) {
-            setView(v)
-            setCancelable(false)
-            setMessage(null)
-            setNegativeButton(android.R.string.cancel) { dialog, which -> System.exit(0) }
-            setTitle(R.string.dialog_auth_title)
-            return@with builder.create()
-        }
-        mAuthDialog!!.show()
-    }
-
     private fun clientActivity() {
         if (mSharedPreferences!!.getInt(App.KEY_AUTH_TYPE, App.KEY_AUTH_NONE) == App.KEY_AUTH_NONE)
-            showDialogAuth(mContext, mBuilder!!)
+            startActivity(Intent(mContext, SignInActivity::class.java))
         else {
-            startActivity(mNavigationIntent)
-            finish()
+            startActivity(Intent(mContext, MainActivity::class.java))
         }
+        finish()
     }
 
-    override fun onClick(v: View) {
-        when (v.id) {
-            R.id.imageVK -> AuthHelper.loginVK(mContext)
-            R.id.imageGoogle -> AuthHelper.loginGoogle(mContext)
-        }
-        mAuthDialog!!.cancel()
-    }
 }

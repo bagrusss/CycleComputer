@@ -64,6 +64,7 @@
     <!-- Dialogs -->
     <string name="dialog_bt_title">Bluetooth</string>
     <string name="dialog_bt_message_enable">This application requires bluetooth.\nDo you want to enable it?</string>
+    <string name="dialog_bt_message_switching">Switching bluetooth</string>
     <string name="dialog_bt_message_not_support">Your device does not support bluetooth 4.0 LE!</string>
     <string name="demo_first_name">CycleComp</string>
     <string name="dialog_auth_title">Authorization</string>
@@ -101,6 +102,7 @@
     <string name="dev_vlad">Vladislav Kozhushko</string>
     <string name="dev_dima">Dmitry Tsiganov</string>
     <string name="dev_pasha">Pavel Lysak</string>
-
+    <string name="text_devis">Ride with your friedns!</string>
+    <string name="text_sign_in_with">Sign in with</string>
 
 </resources>

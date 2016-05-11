@@ -17,6 +17,7 @@
     <string name="about">О приложении</string>
 
     <string name="dialog_bt_message_enable">Для работы приложения необходимо влючить bluetooth.\nВы ходите включить bluetooth?</string>
+    <string name="dialog_bt_message_switching">Switching bluetooth</string>
     <string name="dialog_bt_message_not_support">Ваше устройство не поддерживает bluetooth 4.0 LE!</string>
     <string name="demo_first_name">CycleComp</string>
     <string name="dialog_auth_title">Авторизация</string>

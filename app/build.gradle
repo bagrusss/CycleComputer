@@ -49,7 +49,7 @@ dependencies {
     compile 'de.hdodenhof:circleimageview:2.0.0'
     compile 'com.vk:androidsdk:1.6.6'
     compile 'com.squareup.picasso:picasso:2.5.0'
-    compile('com.mikepenz:materialdrawer:5.2.0@aar') {
+    compile('com.mikepenz:materialdrawer:5.2.5@aar') {
         transitive = true
     }
     compile 'com.android.support:design:23.3.0'

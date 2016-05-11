@@ -3,20 +3,25 @@ package ru.sudoteam.cyclecomputer.activities;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import com.mikepenz.materialdrawer.AccountHeader;
+import com.mikepenz.materialdrawer.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
+import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.SectionDrawerItem;
-import com.squareup.picasso.Callback;
+import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 import com.vk.sdk.api.VKApi;
 import com.vk.sdk.api.VKApiConst;
 import com.vk.sdk.api.VKError;
@@ -26,7 +31,8 @@ import com.vk.sdk.api.VKResponse;
 import com.vk.sdk.api.model.VKApiUser;
 import com.vk.sdk.api.model.VKList;
 
-import de.hdodenhof.circleimageview.CircleImageView;
+import java.lang.ref.WeakReference;
+
 import ru.sudoteam.cyclecomputer.R;
 import ru.sudoteam.cyclecomputer.app.App;
 import ru.sudoteam.cyclecomputer.fragments.AboutFragment;
@@ -47,11 +53,11 @@ public class MainActivity extends CycleBaseActivity implements View.OnClickListe
 
     private Toolbar mToolbar;
     private Drawer mDrawer;
+    private AccountHeader mHeader;
     private FragmentManager mFragmentManager;
 
-    private CircleImageView mUserImage;
-    private TextView mUserText;
     private Fragment mLastFragment;
+    private ProfileDrawerItem mProfile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,15 +65,102 @@ public class MainActivity extends CycleBaseActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         mToolbar = (Toolbar) findViewById(R.id.toolbar_actionbar);
         setSupportActionBar(mToolbar);
-        View navigationHeader = View.inflate(mContext, R.layout.drawer_header, null);
-        mUserImage = (CircleImageView) navigationHeader.findViewById(R.id.drawer_profile_image);
-        mUserImage.setOnClickListener(this);
-        mUserText = (TextView) navigationHeader.findViewById(R.id.drawer_user_text);
-        mFragmentManager = getFragmentManager();
+        mProfile = new ProfileDrawerItem()
+                .withIcon(R.drawable.demo_profile)
+                .withName(getString(R.string.demo_first_name));
+        buildHeader();
+        buildDrawer();
 
-        mDrawer = new DrawerBuilder().withActivity(mContext)
+        mFragmentManager = getFragmentManager();
+        if (savedInstanceState != null)
+            mLastFragment = (Fragment) getLastCustomNonConfigurationInstance();
+        else mLastFragment = new MainFragment();
+        mFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, mLastFragment)
+                .commit();
+        loadProfile();
+    }
+
+    private void loadProfile() {
+        VKRequest request = VKApi.users().get(VKParameters.from(
+                VKApiConst.USER_IDS, getSharedPreferences(App.SHARED_PREFERENCES, MODE_PRIVATE)
+                        .getString(App.KEY_VK_ID, "1"),
+                VKApiConst.FIELDS, VKApiUser.FIELD_PHOTO_200));
+        request.executeWithListener(
+                new VKRequest.VKRequestListener() {
+                    @Override
+                    public void onComplete(VKResponse response) {
+                        VKApiUser user = ((VKList<VKApiUser>) response.parsedModel).get(0);
+                        String userText = user.first_name + "\n" + user.last_name;
+                        mProfile.withName(userText);
+                        WeakReference<Target> userImageReference = new WeakReference<>(new Target() {
+                            @Override
+                            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                                mProfile.withIcon(bitmap);
+                                mHeader.addProfiles(mProfile);
+                            }
+
+                            @Override
+                            public void onBitmapFailed(Drawable errorDrawable) {
+
+                            }
+
+                            @Override
+                            public void onPrepareLoad(Drawable placeHolderDrawable) {
+
+                            }
+
+                        });
+                        Picasso.with(mContext)
+                                .load(user.photo_200)
+                                .into(userImageReference.get());
+                    }
+
+                    @Override
+                    public void onError(VKError error) {
+                        Toast.makeText(mContext, error.errorReason, Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+
+        );
+    }
+
+    private void buildHeader() {
+        mHeader = new AccountHeaderBuilder()
+                .withActivity(mContext)
+                .withHeaderBackground(R.drawable.drawer_light)
+                //.addProfiles(mProfile)
+                .withSelectionListEnabledForSingleProfile(false)
+                /*.withOnAccountHeaderListener((view, profile, currentProfile) -> {
+                    return false;
+                })*/
+                .withOnAccountHeaderProfileImageListener(new AccountHeader.OnAccountHeaderProfileImageListener() {
+                    @Override
+                    public boolean onProfileImageClick(View v, IProfile profile, boolean current) {
+                        v.setEnabled(false);
+                        mToolbar.setTitle(R.string.profile);
+                        mFragmentManager.beginTransaction()
+                                .replace(R.id.fragment_container, new ProfileFragment())
+                                .commit();
+                        v.setEnabled(true);
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onProfileImageLongClick(View view, IProfile profile, boolean current) {
+                        return false;
+                    }
+                })
+                .build();
+    }
+
+    private void buildDrawer() {
+        mDrawer = new DrawerBuilder()
+                .withActivity(mContext)
                 .withToolbar(mToolbar)
-                .withHeader(navigationHeader)
+                .withAccountHeader(mHeader)
+                .withDisplayBelowStatusBar(true)
                 .addDrawerItems(
                         new PrimaryDrawerItem().withName(R.string.main).withIcon(R.mipmap.ic_main),
                         new PrimaryDrawerItem().withName(R.string.friends).withIcon(R.mipmap.ic_friends),
@@ -103,48 +196,9 @@ public class MainActivity extends CycleBaseActivity implements View.OnClickListe
                     transaction.replace(R.id.fragment_container, mLastFragment).commit();
                     return false;
                 })
+                .withActionBarDrawerToggleAnimated(true)
                 .build();
         mDrawer.setSelection(MAIN_POSITION);
-        if (savedInstanceState != null)
-            mLastFragment = (Fragment) getLastCustomNonConfigurationInstance();
-        else mLastFragment = new MainFragment();
-        mFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, mLastFragment)
-                .commit();
-
-        VKRequest request = VKApi.users().get(VKParameters.from(
-                VKApiConst.USER_IDS, getSharedPreferences(App.SHARED_PREFERENCES, MODE_PRIVATE)
-                        .getString(App.KEY_VK_ID, "1"),
-                VKApiConst.FIELDS, VKApiUser.FIELD_PHOTO_200));
-        request.executeWithListener(new VKRequest.VKRequestListener() {
-
-            @Override
-            public void onComplete(VKResponse response) {
-                VKApiUser user = ((VKList<VKApiUser>) response.parsedModel).get(0);
-                String userText = user.first_name + "\n" + user.last_name;
-                mUserText.setText(userText);
-                Picasso.with(mContext)
-                        .load(user.photo_200)
-                        .error(R.drawable.demo_profile)
-                        .into(mUserImage, new Callback() {
-                            @Override
-                            public void onSuccess() {
-
-                            }
-
-                            @Override
-                            public void onError() {
-                                Toast.makeText(mContext, "Picasso error", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-            }
-
-            @Override
-            public void onError(VKError error) {
-                Toast.makeText(mContext, error.errorReason, Toast.LENGTH_SHORT).show();
-            }
-
-        });
     }
 
     @Override
