@@ -65,9 +65,7 @@ public class MainActivity extends CycleBaseActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         mToolbar = (Toolbar) findViewById(R.id.toolbar_actionbar);
         setSupportActionBar(mToolbar);
-        mProfile = new ProfileDrawerItem()
-                .withIcon(R.drawable.demo_profile)
-                .withName(getString(R.string.demo_first_name));
+        mProfile = new ProfileDrawerItem();
         buildHeader();
         buildDrawer();
 
@@ -132,16 +130,13 @@ public class MainActivity extends CycleBaseActivity implements View.OnClickListe
                 .withHeaderBackground(R.drawable.drawer_light)
                 //.addProfiles(mProfile)
                 .withSelectionListEnabledForSingleProfile(false)
-                /*.withOnAccountHeaderListener((view, profile, currentProfile) -> {
-                    return false;
-                })*/
                 .withOnAccountHeaderProfileImageListener(new AccountHeader.OnAccountHeaderProfileImageListener() {
                     @Override
                     public boolean onProfileImageClick(View v, IProfile profile, boolean current) {
                         v.setEnabled(false);
                         mToolbar.setTitle(R.string.profile);
                         mFragmentManager.beginTransaction()
-                                .replace(R.id.fragment_container, new ProfileFragment())
+                                .replace(R.id.fragment_container, mLastFragment = new ProfileFragment())
                                 .commit();
                         v.setEnabled(true);
                         return false;
@@ -149,7 +144,7 @@ public class MainActivity extends CycleBaseActivity implements View.OnClickListe
 
                     @Override
                     public boolean onProfileImageLongClick(View view, IProfile profile, boolean current) {
-                        return false;
+                        return true;
                     }
                 })
                 .build();
@@ -172,27 +167,29 @@ public class MainActivity extends CycleBaseActivity implements View.OnClickListe
                 ).withOnDrawerItemClickListener((view, position, drawerItem) -> {
                     FragmentTransaction transaction = mFragmentManager.beginTransaction();
                     mLastPosition = position;
+                    int resTitle = 0;
                     switch (position) {
                         case MAIN_POSITION:
                             mLastFragment = new MainFragment();
-                            mToolbar.setTitle(R.string.main);
+                            resTitle = R.string.main;
                             break;
                         case FRIENDS_POSITION:
                             mLastFragment = new FriendsFragment();
-                            mToolbar.setTitle(R.string.friends);
+                            resTitle = R.string.friends;
                             break;
                         case ROUTE_POSITION:
                             mLastFragment = new RouteFragment();
-                            mToolbar.setTitle(R.string.route);
+                            resTitle = R.string.route;
                             break;
                         case SETTINGS_POSITION:
                             mLastFragment = new SettingsFragment();
-                            mToolbar.setTitle(R.string.settings);
+                            resTitle = R.string.settings;
                             break;
                         case ABOUT_POSITION:
                             mLastFragment = new AboutFragment();
-                            mToolbar.setTitle(R.string.about);
+                            resTitle = R.string.about;
                     }
+                    mToolbar.setTitle(resTitle);
                     transaction.replace(R.id.fragment_container, mLastFragment).commit();
                     return false;
                 })

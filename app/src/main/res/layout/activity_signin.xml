@@ -62,20 +62,20 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/button_google"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
             android:src="@drawable/google" />
 
         <View
-            android:layout_width="5dp"
+            android:layout_width="10dp"
             android:layout_height="0dp">
 
         </View>
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/button_vk"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
             android:src="@drawable/vk" />
     </LinearLayout>
 </RelativeLayout>

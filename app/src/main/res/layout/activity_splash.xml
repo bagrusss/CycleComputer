@@ -6,15 +6,4 @@
     android:background="@drawable/sky_hd"
     tools:context=".activities.SplashActivity">
 
-    <Button
-        android:id="@+id/start_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="56dp"
-        android:enabled="false"
-        android:text="@string/start"
-        android:textSize="@dimen/default_text_size"
-        android:visibility="gone" />
 </RelativeLayout>
