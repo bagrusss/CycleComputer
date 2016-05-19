@@ -3,6 +3,7 @@ package ru.sudoteam.cyclecomputer.activities;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -41,6 +42,7 @@ import ru.sudoteam.cyclecomputer.fragments.MainFragment;
 import ru.sudoteam.cyclecomputer.fragments.ProfileFragment;
 import ru.sudoteam.cyclecomputer.fragments.RouteFragment;
 import ru.sudoteam.cyclecomputer.fragments.SettingsFragment;
+import ru.sudoteam.cyclecomputer.services.WeatherIntentService;
 
 public class MainActivity extends CycleBaseActivity implements View.OnClickListener {
 
@@ -68,6 +70,14 @@ public class MainActivity extends CycleBaseActivity implements View.OnClickListe
         mProfile = new ProfileDrawerItem();
         buildHeader();
         buildDrawer();
+
+        //temp
+        Intent intent = new Intent(this, WeatherIntentService.class);
+        intent.setAction(WeatherIntentService.ACTION_CHECK_WEATHER);
+        intent.putExtra("latitude", 1);
+        intent.putExtra("longitude", 1);
+        startService(intent);
+        //temp
 
         mFragmentManager = getFragmentManager();
         if (savedInstanceState != null)

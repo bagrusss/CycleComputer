@@ -44,7 +44,6 @@
             android:name=".activities.MainActivity"
             android:theme="@style/AppTheme.NoActionBar" />
 
-
         <service
             android:name=".services.BluetoothService"
             android:exported="false"
@@ -63,9 +62,11 @@
             android:exported="false"
             android:permission=".data.CycleCompContentProvider" />
 
-        <activity android:name="ru.sudoteam.emulator.activities.Emulator">
+        <activity android:name="ru.sudoteam.emulator.activities.Emulator"></activity>
 
-        </activity>
+        <service
+            android:name=".services.WeatherIntentService"
+            android:exported="false"></service>
     </application>
 
 </manifest>
