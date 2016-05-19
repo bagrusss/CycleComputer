@@ -1,6 +1,7 @@
 package ru.sudoteam.cyclecomputer.web;
 
 import android.net.Uri;
+import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -10,6 +11,8 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
+
+import ru.sudoteam.cyclecomputer.services.WeatherIntentService;
 
 /**
  * Created by fatman on 18/05/16.
@@ -22,8 +25,12 @@ public class WeatherRest {
     private final static int COMFORT_TEMPRETURE_FAHRENHEIT = 59;
 
     public static boolean isGoodWeatherLabel(String latitude, String longitude) {
-        String weather = checkWeather(LABEL_URL, latitude, longitude);
-        return weather != null && weather.contains("Sun") && Integer.valueOf(weather.split(" ")[0] ) > COMFORT_TEMPRETURE_FAHRENHEIT;
+        return true;
+        /*String weather = checkWeather(LABEL_URL, latitude, longitude);
+
+        Log.i(WeatherIntentService.WEATHER_SERVICE_TAG, weather);
+
+        return weather != null && weather.contains("Sun") && Integer.valueOf(weather.split(" ")[0] ) > COMFORT_TEMPRETURE_FAHRENHEIT;*/
     }
 
     public static boolean isGoodWeather(String latitude, String longitude) {

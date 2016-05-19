@@ -71,14 +71,6 @@ public class MainActivity extends CycleBaseActivity implements View.OnClickListe
         buildHeader();
         buildDrawer();
 
-        //temp
-        Intent intent = new Intent(this, WeatherIntentService.class);
-        intent.setAction(WeatherIntentService.ACTION_CHECK_WEATHER);
-        intent.putExtra("latitude", 1);
-        intent.putExtra("longitude", 1);
-        startService(intent);
-        //temp
-
         mFragmentManager = getFragmentManager();
         if (savedInstanceState != null)
             mLastFragment = (Fragment) getLastCustomNonConfigurationInstance();

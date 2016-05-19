@@ -1,13 +1,23 @@
 package ru.sudoteam.cyclecomputer.app;
 
+import android.Manifest;
 import android.app.Application;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationManager;
+import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 
 import com.google.gson.Gson;
+import com.google.gson.internal.Streams;
 
 import ru.sudoteam.cyclecomputer.app.accounts.Account;
 import ru.sudoteam.cyclecomputer.app.accounts.AccountVK;
+import ru.sudoteam.cyclecomputer.services.WeatherIntentService;
 
 /**
  * Created by bagrusss on 26.03.16.
@@ -46,6 +56,10 @@ public class App extends Application {
             case KEY_AUTH_VK:
                 account = new AccountVK(getApplicationContext());
         }
+
+        LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        WeatherIntentService.startActionCheckWeather(this, lm);
+
         Log.i(TAG_APPLICATION, "App created");
     }
 
