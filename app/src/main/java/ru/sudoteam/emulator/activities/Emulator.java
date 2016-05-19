@@ -1,5 +1,7 @@
 package ru.sudoteam.emulator.activities;
 
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -60,7 +62,6 @@ public class Emulator extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 mUnitsView.setText(parent.getItemAtPosition(position).toString());
-
             }
 
             @Override
@@ -82,7 +83,6 @@ public class Emulator extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-
             }
         });
 
