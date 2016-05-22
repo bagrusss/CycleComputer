@@ -1,5 +1,9 @@
 package ru.sudoteam.emulator.activities;
 
+import android.os.Handler;
+import android.os.Message;
+import android.support.v7.app.AppCompatActivity;
+
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
@@ -79,7 +83,6 @@ public class Emulator extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-
             }
         });
 

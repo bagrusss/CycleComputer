@@ -1,7 +1,9 @@
 package ru.sudoteam.cyclecomputer.app;
 
 import android.app.Application;
+import android.content.Context;
 import android.content.SharedPreferences;
+import android.location.LocationManager;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 
@@ -10,6 +12,8 @@ import com.google.gson.Gson;
 import ru.sudoteam.cyclecomputer.R;
 import ru.sudoteam.cyclecomputer.app.accounts.Account;
 import ru.sudoteam.cyclecomputer.app.accounts.AccountVK;
+import ru.sudoteam.cyclecomputer.services.WeatherIntentService;
+
 
 /**
  * Created by bagrusss on 26.03.16.
@@ -55,6 +59,10 @@ public class App extends Application {
             case KEY_AUTH_VK:
                 account = new AccountVK(getApplicationContext());
         }
+
+        LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        WeatherIntentService.startActionCheckWeather(this, lm);
+
         Log.i(TAG_APPLICATION, "App created");
 
         //Thread.setDefaultUncaughtExceptionHandler(this::handleUncaughtException);

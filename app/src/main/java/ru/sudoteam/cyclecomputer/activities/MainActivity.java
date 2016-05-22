@@ -3,6 +3,7 @@ package ru.sudoteam.cyclecomputer.activities;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -42,6 +43,7 @@ import ru.sudoteam.cyclecomputer.fragments.MainFragment;
 import ru.sudoteam.cyclecomputer.fragments.ProfileFragment;
 import ru.sudoteam.cyclecomputer.fragments.RouteFragment;
 import ru.sudoteam.cyclecomputer.fragments.SettingsFragment;
+import ru.sudoteam.cyclecomputer.services.WeatherIntentService;
 
 public class MainActivity extends CycleBaseActivity {
 
