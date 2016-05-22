@@ -35,6 +35,7 @@ import java.lang.ref.WeakReference;
 
 import ru.sudoteam.cyclecomputer.R;
 import ru.sudoteam.cyclecomputer.app.App;
+import ru.sudoteam.cyclecomputer.data.HelperDB;
 import ru.sudoteam.cyclecomputer.fragments.AboutFragment;
 import ru.sudoteam.cyclecomputer.fragments.FriendsFragment;
 import ru.sudoteam.cyclecomputer.fragments.MainFragment;
@@ -42,7 +43,7 @@ import ru.sudoteam.cyclecomputer.fragments.ProfileFragment;
 import ru.sudoteam.cyclecomputer.fragments.RouteFragment;
 import ru.sudoteam.cyclecomputer.fragments.SettingsFragment;
 
-public class MainActivity extends CycleBaseActivity implements View.OnClickListener {
+public class MainActivity extends CycleBaseActivity {
 
     private static final int MAIN_POSITION = 1;
     private static final int FRIENDS_POSITION = 2;
@@ -65,6 +66,7 @@ public class MainActivity extends CycleBaseActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         mToolbar = (Toolbar) findViewById(R.id.toolbar_actionbar);
         setSupportActionBar(mToolbar);
+        getSupportActionBar().setTitle(R.string.main);
         mProfile = new ProfileDrawerItem();
         buildHeader();
         buildDrawer();
@@ -128,7 +130,6 @@ public class MainActivity extends CycleBaseActivity implements View.OnClickListe
         mHeader = new AccountHeaderBuilder()
                 .withActivity(mContext)
                 .withHeaderBackground(R.drawable.drawer_light)
-                //.addProfiles(mProfile)
                 .withSelectionListEnabledForSingleProfile(false)
                 .withOnAccountHeaderProfileImageListener(new AccountHeader.OnAccountHeaderProfileImageListener() {
                     @Override
@@ -208,22 +209,6 @@ public class MainActivity extends CycleBaseActivity implements View.OnClickListe
     }
 
     @Override
-    public void onClick(View v) {
-        if (v.getId() == R.id.drawer_profile_image) {
-            v.setEnabled(false);
-            mToolbar.setTitle(R.string.profile);
-            mFragmentManager.beginTransaction()
-                    .replace(R.id.fragment_container, new ProfileFragment())
-                    .commit();
-            if (mDrawer.isDrawerOpen()) {
-                mDrawer.setSelection(mLastPosition);
-                mDrawer.closeDrawer();
-            }
-            v.setEnabled(true);
-        }
-    }
-
-    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
             onBackPressed();
@@ -249,4 +234,9 @@ public class MainActivity extends CycleBaseActivity implements View.OnClickListe
         return mLastFragment;
     }
 
+    @Override
+    protected void onDestroy() {
+        HelperDB.closeDB();
+        super.onDestroy();
+    }
 }

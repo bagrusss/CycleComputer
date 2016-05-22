@@ -19,7 +19,7 @@ import ru.sudoteam.cyclecomputer.data.HelperDB;
 public class FriendsCursorAdapter extends RecyclerView.Adapter<UserViewHolder> {
 
     private Cursor mCursor;
-    private final String mSeparator = "\n";
+    private final String mSeparator = "\t";
 
     public FriendsCursorAdapter(Cursor с) {
         this.mCursor = с;
@@ -30,7 +30,10 @@ public class FriendsCursorAdapter extends RecyclerView.Adapter<UserViewHolder> {
      *
      * @param c - new Cursor
      */
+
     public void swapCursor(Cursor c) {
+        if (mCursor != null)
+            mCursor.close();
         mCursor = c;
         notifyDataSetChanged();
     }

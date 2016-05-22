@@ -49,4 +49,5 @@ public class CycleCompContentProvider extends ContentProvider {
         // TODO: Implement this to handle requests to update one or more rows.
         throw new UnsupportedOperationException("Not yet implemented");
     }
+
 }

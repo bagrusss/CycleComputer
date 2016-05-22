@@ -2,10 +2,12 @@ package ru.sudoteam.cyclecomputer.app;
 
 import android.app.Application;
 import android.content.SharedPreferences;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 
 import com.google.gson.Gson;
 
+import ru.sudoteam.cyclecomputer.R;
 import ru.sudoteam.cyclecomputer.app.accounts.Account;
 import ru.sudoteam.cyclecomputer.app.accounts.AccountVK;
 
@@ -19,6 +21,8 @@ public class App extends Application {
     private static Account account;
     private static SharedPreferences preferences;
 
+    private static int mAccType;
+
     public static final String TAG_APPLICATION = "APPLICATION ";
     public static final Gson GSON = new Gson();
 
@@ -31,12 +35,17 @@ public class App extends Application {
     public static final int KEY_AUTH_GOOGLE = 1;
     public static final int KEY_AUTH_NONE = 0;
 
+    public static int getAccountType() {
+        return mAccType;
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
         //TODO инициализация компонентов
         preferences = getSharedPreferences(SHARED_PREFERENCES, MODE_PRIVATE);
-        switch (preferences.getInt(KEY_AUTH_TYPE, KEY_AUTH_NONE)) {
+        mAccType = preferences.getInt(KEY_AUTH_TYPE, KEY_AUTH_NONE);
+        switch (mAccType) {
             case KEY_AUTH_GOOGLE:
 
                 break;
@@ -47,6 +56,8 @@ public class App extends Application {
                 account = new AccountVK(getApplicationContext());
         }
         Log.i(TAG_APPLICATION, "App created");
+
+        //Thread.setDefaultUncaughtExceptionHandler(this::handleUncaughtException);
     }
 
     public static Account getAccount() {
@@ -55,6 +66,23 @@ public class App extends Application {
 
     public static SharedPreferences getAppPreferences() {
         return preferences;
+    }
+
+    private void handleUncaughtException(Thread thread, Throwable e) {
+        new AlertDialog.Builder(this)
+                .setTitle(R.string.dialog_err_title_ops)
+                .setMessage(R.string.dialog_err_message_ops)
+                .setCancelable(false)
+                .setPositiveButton(android.R.string.ok, (dialog, which) -> {
+                    dialog.cancel();
+                    System.exit(0);
+                })
+                .setNegativeButton(R.string.dialog_err_bug_report, (dialog, which) -> {
+
+                })
+                .create()
+                .show();
+
     }
 
 

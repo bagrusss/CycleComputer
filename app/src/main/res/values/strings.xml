@@ -63,6 +63,9 @@
 
     <!-- Dialogs -->
     <string name="dialog_bt_title">Bluetooth</string>
+    <string name="dialog_err_title_ops">Oooops!</string>
+    <string name="dialog_err_message_ops">Something went wrong…</string>
+    <string name="dialog_err_bug_report">Bug report</string>
     <string name="dialog_bt_message_enable">This application requires bluetooth.\nDo you want to enable it?</string>
     <string name="dialog_bt_message_switching">Switching bluetooth</string>
     <string name="dialog_bt_message_not_support">Your device does not support bluetooth 4.0 LE!</string>
