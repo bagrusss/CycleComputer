@@ -1,9 +1,7 @@
 package ru.sudoteam.cyclecomputer.app;
 
 import android.app.Application;
-import android.content.Context;
 import android.content.SharedPreferences;
-import android.location.LocationManager;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 
@@ -12,7 +10,6 @@ import com.google.gson.Gson;
 import ru.sudoteam.cyclecomputer.R;
 import ru.sudoteam.cyclecomputer.app.accounts.Account;
 import ru.sudoteam.cyclecomputer.app.accounts.AccountVK;
-import ru.sudoteam.cyclecomputer.services.WeatherIntentService;
 
 
 /**
@@ -32,9 +29,10 @@ public class App extends Application {
 
     //SharedPreferences
     public static final String SHARED_PREFERENCES = "CycleComp";
-    public static final String KEY_TOKEN = "access_token";
-    public static final String KEY_VK_ID = "vk_id";
+    public static final String KEY_USER_TOKEN = "user_access_token";
+    public static final String KEY_USER_ID = "user_id";
     public static final String KEY_AUTH_TYPE = "auth_type";
+
     public static final int KEY_AUTH_VK = 2;
     public static final int KEY_AUTH_GOOGLE = 1;
     public static final int KEY_AUTH_NONE = 0;
@@ -60,8 +58,8 @@ public class App extends Application {
                 account = new AccountVK(getApplicationContext());
         }
 
-        LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        WeatherIntentService.startActionCheckWeather(this, lm);
+        /*LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        WeatherIntentService.startActionCheckWeather(this, lm);*/
 
         Log.i(TAG_APPLICATION, "App created");
 

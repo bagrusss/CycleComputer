@@ -3,7 +3,6 @@ package ru.sudoteam.cyclecomputer.activities;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -43,7 +42,6 @@ import ru.sudoteam.cyclecomputer.fragments.MainFragment;
 import ru.sudoteam.cyclecomputer.fragments.ProfileFragment;
 import ru.sudoteam.cyclecomputer.fragments.RouteFragment;
 import ru.sudoteam.cyclecomputer.fragments.SettingsFragment;
-import ru.sudoteam.cyclecomputer.services.WeatherIntentService;
 
 public class MainActivity extends CycleBaseActivity {
 
@@ -86,7 +84,7 @@ public class MainActivity extends CycleBaseActivity {
     private void loadProfile() {
         VKRequest request = VKApi.users().get(VKParameters.from(
                 VKApiConst.USER_IDS, getSharedPreferences(App.SHARED_PREFERENCES, MODE_PRIVATE)
-                        .getString(App.KEY_VK_ID, "1"),
+                        .getString(App.KEY_USER_ID, "1"),
                 VKApiConst.FIELDS, VKApiUser.FIELD_PHOTO_200));
         request.executeWithListener(
                 new VKRequest.VKRequestListener() {

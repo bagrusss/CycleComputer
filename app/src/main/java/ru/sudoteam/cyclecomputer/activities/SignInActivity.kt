@@ -12,7 +12,6 @@ import com.vk.sdk.VKSdk
 import com.vk.sdk.api.VKError
 import ru.sudoteam.cyclecomputer.R
 import ru.sudoteam.cyclecomputer.app.App
-import ru.sudoteam.cyclecomputer.app.accounts.AuthHelper
 
 class SignInActivity : BaseActivity(), View.OnClickListener {
 
@@ -30,14 +29,8 @@ class SignInActivity : BaseActivity(), View.OnClickListener {
 
     override fun onClick(v: View) {
         v.isEnabled = false
-        when (v.id) {
-            R.id.button_vk -> {
-                AuthHelper.loginVK(mContext)
-            }
-            R.id.button_google -> {
-                AuthHelper.loginGoogle(mContext)
-            }
-        }
+        if (v.id == R.id.button_vk || v.id == R.id.button_google)
+            App.getAccount().login(this)
         v.isEnabled = true
     }
 
@@ -48,9 +41,9 @@ class SignInActivity : BaseActivity(), View.OnClickListener {
                 startActivity(mNavigationIntent)
                 val editor = mSharedPreferences!!.edit()
                 with(editor) {
-                    putInt(ru.sudoteam.cyclecomputer.app.App.KEY_AUTH_TYPE, ru.sudoteam.cyclecomputer.app.App.KEY_AUTH_VK)
-                    putString(ru.sudoteam.cyclecomputer.app.App.KEY_TOKEN, res.accessToken)
-                    putString(ru.sudoteam.cyclecomputer.app.App.KEY_VK_ID, res.userId)
+                    putInt(App.KEY_AUTH_TYPE, App.KEY_AUTH_VK)
+                    putString(App.KEY_USER_TOKEN, res.accessToken)
+                    putString(App.KEY_USER_ID, res.userId)
                     apply()
                 }
             }

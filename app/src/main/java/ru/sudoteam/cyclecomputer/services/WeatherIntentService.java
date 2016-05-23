@@ -15,6 +15,7 @@ import android.support.v7.app.NotificationCompat;
 import android.util.Log;
 
 import java.util.Calendar;
+import java.util.List;
 
 import ru.sudoteam.cyclecomputer.R;
 import ru.sudoteam.cyclecomputer.web.WeatherRest;
@@ -68,7 +69,7 @@ public class WeatherIntentService extends IntentService {
             return;
         }
 
-        Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        Location location = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
         double longitude = location.getLongitude();
         double latitude = location.getLatitude();
 
@@ -92,6 +93,7 @@ public class WeatherIntentService extends IntentService {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         alarmManager.set(AlarmManager.RTC, calendar.getTimeInMillis(), weatherPendingIntent);
     }
+
 
     @Override
     protected void onHandleIntent(Intent intent) {

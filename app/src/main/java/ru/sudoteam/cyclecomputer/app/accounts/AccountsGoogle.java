@@ -13,13 +13,13 @@ import java.util.List;
 public class AccountsGoogle implements Account {
 
     @Override
-    public User userInfo(Activity activity) {
-        return null;
+    public void userInfo(UserLoaded userLoaded) {
+
     }
 
     @Override
-    public List<User> friends(Activity activity) {
-        return null;
+    public void friends(FriendsLoaded friendsLoaded) {
+
     }
 
     @Override

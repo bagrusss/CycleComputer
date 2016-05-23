@@ -122,8 +122,6 @@ public class HelperDB extends SQLiteOpenHelper {
             }
             mDB.setTransactionSuccessful();
             isOK = true;
-        } catch (SQLException e) {
-            Log.e("SQLite error", e.getLocalizedMessage());
         } finally {
             mDB.endTransaction();
             statement.close();

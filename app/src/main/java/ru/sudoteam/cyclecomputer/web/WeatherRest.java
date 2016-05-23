@@ -64,10 +64,6 @@ public class WeatherRest {
             if (responseCode == 200) {
                 return inputStreamToString(is);
             }
-        } catch (ProtocolException e) {
-            e.printStackTrace();
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         } finally {

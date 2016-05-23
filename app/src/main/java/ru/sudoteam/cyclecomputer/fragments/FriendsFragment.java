@@ -92,7 +92,7 @@ public class FriendsFragment extends Fragment implements LoaderManager.LoaderCal
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEvent(Event event) {
-        if (event.action == REQUEST_CODE && event.staus == Event.OK) {
+        if (event.action == REQUEST_CODE && event.status == Event.OK) {
             mLoader.forceLoad();
         }
     }

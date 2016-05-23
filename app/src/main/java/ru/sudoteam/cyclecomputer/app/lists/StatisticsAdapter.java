@@ -32,6 +32,19 @@ public class StatisticsAdapter extends BaseAdapter {
         TextView value;
     }
 
+    public static class StatisticItem {
+
+        public StatisticItem(int resId, String title, String value) {
+            this.resId = resId;
+            this.title = title;
+            this.value = value;
+        }
+
+        String title;
+        String value;
+        int resId;
+    }
+
     @Override
     public int getCount() {
         return mItems.size();

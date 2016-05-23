@@ -17,7 +17,7 @@ public class NetworkService extends IntentService {
 
     public static final String ACTION_DB = "ru.sudoteam.cyclecomputer.ACTION_DB";
     public static final String EXTRA_FRIENDS_JSON = "JSON_FRIENDS";
-    public static final String EXTRA_REQUEST_CODE = "REQUEST_CODE";
+    public static final String EXTRA_REQUEST_CODE = "requestCode";
 
     EventBus mBus = EventBus.getDefault();
 
@@ -34,7 +34,7 @@ public class NetworkService extends IntentService {
                         JsonObject.class).getAsJsonArray("response");
                 if (HelperDB.getInstance(this).insertFriends(ja)) {
                     Event event = new Event();
-                    event.staus = Event.OK;
+                    event.status = Event.OK;
                     event.action = intent.getIntExtra(EXTRA_REQUEST_CODE, 0);
                     mBus.post(event);
                 }
