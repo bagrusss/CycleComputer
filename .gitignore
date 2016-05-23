@@ -1,9 +1,10 @@
+app/*.apk
 app/src/main/res/values/secret_data.xml
 *.iml
 .gradle
 /local.properties
-/.idea/workspace.xml
-/.idea/libraries
+.idea/workspace.xml
+.idea/libraries
 .DS_Store
 build
 /captures

@@ -10,7 +10,7 @@
 
     <!-- profile -->
     <dimen name="profile_radius">115dp</dimen>
-    <dimen name="profile_image_border">2dp</dimen>
+    <dimen name="profile_image_border">1dp</dimen>
 
     <!-- user item-->
 

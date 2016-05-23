@@ -7,6 +7,7 @@ import android.content.CursorLoader;
 import android.content.Loader;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -27,8 +28,8 @@ public class FriendsFragment extends Fragment implements LoaderManager.LoaderCal
 
     private RecyclerView mFriendsRecyclerView;
     private FriendsCursorAdapter mAdapter;
+    private SwipeRefreshLayout mSwipeRefresh;
 
-    private EventBus mBus = EventBus.getDefault();
     private Loader mLoader;
 
     public final int REQUEST_CODE = 3;
@@ -49,11 +50,12 @@ public class FriendsFragment extends Fragment implements LoaderManager.LoaderCal
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_friends, container, false);
         mFriendsRecyclerView = (RecyclerView) v.findViewById(R.id.friend_recycler_view);
+        mSwipeRefresh = (SwipeRefreshLayout) v.findViewById(R.id.fragment_swipe_layout);
+        mSwipeRefresh.setOnRefreshListener(this::loadFriends);
         mAdapter = new FriendsCursorAdapter(null);
         RecyclerView.LayoutManager lm = new LinearLayoutManager(mFriendsRecyclerView.getContext());
         mFriendsRecyclerView.setLayoutManager(lm);
         mFriendsRecyclerView.setAdapter(mAdapter);
-        loadFriends();
         mLoader = getLoaderManager().initLoader(0, null, this);
         return v;
     }
@@ -61,6 +63,7 @@ public class FriendsFragment extends Fragment implements LoaderManager.LoaderCal
 
     private void loadFriends() {
         NetworkServiceHelper.startLoadFriends(getActivity(), REQUEST_CODE);
+        mSwipeRefresh.setRefreshing(true);
     }
 
     @Override
@@ -71,22 +74,24 @@ public class FriendsFragment extends Fragment implements LoaderManager.LoaderCal
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor c) {
         mAdapter.swapCursor(c);
+        mSwipeRefresh.setRefreshing(false);
     }
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
         mAdapter.swapCursor(null);
+        mSwipeRefresh.setRefreshing(false);
     }
 
     @Override
     public void onStart() {
-        mBus.register(this);
+        EventBus.getDefault().register(this);
         super.onStart();
     }
 
     @Override
     public void onStop() {
-        mBus.unregister(this);
+        EventBus.getDefault().unregister(this);
         super.onStop();
     }
 
@@ -95,5 +100,11 @@ public class FriendsFragment extends Fragment implements LoaderManager.LoaderCal
         if (event.action == REQUEST_CODE && event.status == Event.OK) {
             mLoader.forceLoad();
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        mAdapter.swapCursor(null);
+        super.onDestroy();
     }
 }

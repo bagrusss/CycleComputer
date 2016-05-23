@@ -7,7 +7,8 @@ import java.util.Map;
  * *
  */
 public class UniversalEvent extends Event {
+
     public Object mToWhom;
-    public Map<String, String> params;
+    public Map<String, Object> params;
 
 }

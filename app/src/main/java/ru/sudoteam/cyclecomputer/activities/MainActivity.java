@@ -234,9 +234,4 @@ public class MainActivity extends CycleBaseActivity {
         return mLastFragment;
     }
 
-    @Override
-    protected void onDestroy() {
-        HelperDB.closeDB();
-        super.onDestroy();
-    }
 }

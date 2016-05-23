@@ -64,6 +64,7 @@ public abstract class CursorRecyclerViewAdapter<VH extends ViewHolder> extends R
     /**
      * Swap in a new Cursor, returning the old Cursor.
      */
+
     public void swapCursor(Cursor newCursor) {
         if (newCursor == mCursor) {
             return;

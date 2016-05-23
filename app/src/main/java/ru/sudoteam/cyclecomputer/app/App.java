@@ -10,6 +10,7 @@ import com.google.gson.Gson;
 import ru.sudoteam.cyclecomputer.R;
 import ru.sudoteam.cyclecomputer.app.accounts.Account;
 import ru.sudoteam.cyclecomputer.app.accounts.AccountVK;
+import ru.sudoteam.cyclecomputer.data.HelperDB;
 
 
 /**
@@ -91,5 +92,9 @@ public class App extends Application {
 
     }
 
-
+    @Override
+    public void onTerminate() {
+        HelperDB.closeDB();
+        super.onTerminate();
+    }
 }
