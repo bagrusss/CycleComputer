@@ -139,6 +139,7 @@ public class MainActivity extends CycleBaseActivity {
                         mFragmentManager.beginTransaction()
                                 .replace(R.id.fragment_container, mLastFragment = new ProfileFragment())
                                 .commit();
+                        mDrawer.setSelection(mLastPosition, false);
                         v.setEnabled(true);
                         return false;
                     }

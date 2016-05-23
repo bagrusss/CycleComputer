@@ -23,8 +23,6 @@ public class App extends Application {
     private static Account account;
     private static SharedPreferences preferences;
 
-    private static int mAccType;
-
     public static final String TAG_APPLICATION = "APPLICATION ";
     public static final Gson GSON = new Gson();
 
@@ -39,7 +37,7 @@ public class App extends Application {
     public static final int KEY_AUTH_NONE = 0;
 
     public static int getAccountType() {
-        return mAccType;
+        return preferences.getInt(KEY_AUTH_TYPE, KEY_AUTH_NONE);
     }
 
     @Override
@@ -47,8 +45,8 @@ public class App extends Application {
         super.onCreate();
         //TODO инициализация компонентов
         preferences = getSharedPreferences(SHARED_PREFERENCES, MODE_PRIVATE);
-        mAccType = preferences.getInt(KEY_AUTH_TYPE, KEY_AUTH_NONE);
-        switch (mAccType) {
+        int accType = preferences.getInt(KEY_AUTH_TYPE, KEY_AUTH_NONE);
+        switch (accType) {
             case KEY_AUTH_GOOGLE:
 
                 break;

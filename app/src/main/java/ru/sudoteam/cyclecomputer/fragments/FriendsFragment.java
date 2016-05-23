@@ -1,5 +1,6 @@
 package ru.sudoteam.cyclecomputer.fragments;
 
+
 import android.app.Fragment;
 import android.app.LoaderManager;
 import android.content.Context;
@@ -51,17 +52,17 @@ public class FriendsFragment extends Fragment implements LoaderManager.LoaderCal
         View v = inflater.inflate(R.layout.fragment_friends, container, false);
         mFriendsRecyclerView = (RecyclerView) v.findViewById(R.id.friend_recycler_view);
         mSwipeRefresh = (SwipeRefreshLayout) v.findViewById(R.id.fragment_swipe_layout);
-        mSwipeRefresh.setOnRefreshListener(this::loadFriends);
+        mSwipeRefresh.setOnRefreshListener(() -> loadFriends(true));
         mAdapter = new FriendsCursorAdapter(null);
         RecyclerView.LayoutManager lm = new LinearLayoutManager(mFriendsRecyclerView.getContext());
         mFriendsRecyclerView.setLayoutManager(lm);
         mFriendsRecyclerView.setAdapter(mAdapter);
         mLoader = getLoaderManager().initLoader(0, null, this);
+        loadFriends(false);
         return v;
     }
 
-
-    private void loadFriends() {
+    private void loadFriends(boolean update) {
         NetworkServiceHelper.startLoadFriends(getActivity(), REQUEST_CODE);
         mSwipeRefresh.setRefreshing(true);
     }
@@ -71,6 +72,7 @@ public class FriendsFragment extends Fragment implements LoaderManager.LoaderCal
         return new FriendsLoader(getActivity());
     }
 
+
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor c) {
         mAdapter.swapCursor(c);
@@ -79,7 +81,6 @@ public class FriendsFragment extends Fragment implements LoaderManager.LoaderCal
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
-        mAdapter.swapCursor(null);
         mSwipeRefresh.setRefreshing(false);
     }
 
@@ -100,11 +101,5 @@ public class FriendsFragment extends Fragment implements LoaderManager.LoaderCal
         if (event.action == REQUEST_CODE && event.status == Event.OK) {
             mLoader.forceLoad();
         }
-    }
-
-    @Override
-    public void onDestroy() {
-        mAdapter.swapCursor(null);
-        super.onDestroy();
     }
 }
