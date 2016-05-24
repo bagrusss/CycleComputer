@@ -1,6 +1,7 @@
 package ru.sudoteam.cyclecomputer.app.accounts;
 
 import android.app.Activity;
+import android.content.Intent;
 
 import java.util.List;
 
@@ -17,6 +18,8 @@ public interface Account {
 
     void login(Activity activity);
 
+    boolean isLoginOK(int requestCode, int resultCode, Intent data, LoginCallback callback);
+
     void logout();
 
     interface ErrorOccur {
@@ -29,6 +32,10 @@ public interface Account {
 
     interface FriendsLoaded extends ErrorOccur {
         void onFriendsLodaded(List<User> friends);
+    }
+
+    interface LoginCallback extends ErrorOccur {
+        void onOK();
     }
 
 }

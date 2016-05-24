@@ -10,7 +10,7 @@ import java.util.List;
  * Used Google account on Device
  */
 
-public class AccountsGoogle implements Account {
+public class AccountGoogle implements Account {
 
     @Override
     public void userInfo(UserLoaded userLoaded) {
@@ -25,6 +25,11 @@ public class AccountsGoogle implements Account {
     @Override
     public void login(Activity activity) {
 
+    }
+
+    @Override
+    public boolean isLoginOK(int requestCode, int resultCode, Intent data, LoginCallback callback) {
+        return false;
     }
 
     @Override

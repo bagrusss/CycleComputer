@@ -7,9 +7,12 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 
+import org.jetbrains.annotations.NotNull;
+
 import ru.sudoteam.cyclecomputer.R;
 import ru.sudoteam.cyclecomputer.app.accounts.Account;
 import ru.sudoteam.cyclecomputer.app.accounts.AccountVK;
+import ru.sudoteam.cyclecomputer.app.accounts.AccountGoogle;
 import ru.sudoteam.cyclecomputer.data.HelperDB;
 
 
@@ -40,6 +43,10 @@ public class App extends Application {
         return preferences.getInt(KEY_AUTH_TYPE, KEY_AUTH_NONE);
     }
 
+    public static void setAccount(@NotNull Account acc) {
+        account = acc;
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -48,7 +55,7 @@ public class App extends Application {
         int accType = preferences.getInt(KEY_AUTH_TYPE, KEY_AUTH_NONE);
         switch (accType) {
             case KEY_AUTH_GOOGLE:
-
+                account = new AccountGoogle();
                 break;
             case KEY_AUTH_NONE:
 

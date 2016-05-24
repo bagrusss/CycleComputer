@@ -2,7 +2,11 @@ package ru.sudoteam.cyclecomputer.app.accounts;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 
+import com.vk.sdk.VKAccessToken;
+import com.vk.sdk.VKCallback;
 import com.vk.sdk.VKSdk;
 import com.vk.sdk.api.VKApi;
 import com.vk.sdk.api.VKApiConst;
@@ -69,6 +73,26 @@ public class AccountVK implements Account {
     @Override
     public void login(Activity activity) {
         VKSdk.login(activity, mScope);
+    }
+
+    @Override
+    public boolean isLoginOK(int requestCode, int resultCode, Intent data, LoginCallback callback) {
+        return VKSdk.onActivityResult(requestCode, resultCode, data, new VKCallback<VKAccessToken>() {
+            @Override
+            public void onResult(VKAccessToken res) {
+                SharedPreferences.Editor editor = App.getAppPreferences().edit();
+                editor.putInt(App.KEY_AUTH_TYPE, App.KEY_AUTH_VK)
+                        .putString(App.KEY_USER_TOKEN, res.accessToken)
+                        .putString(App.KEY_USER_ID, res.userId)
+                        .apply();
+                callback.onOK();
+            }
+
+            @Override
+            public void onError(VKError error) {
+                callback.onError(new Error(error.errorCode, error.errorMessage));
+            }
+        });
     }
 
     @Override
