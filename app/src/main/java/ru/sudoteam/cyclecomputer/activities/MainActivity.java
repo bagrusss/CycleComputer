@@ -22,26 +22,18 @@ import com.mikepenz.materialdrawer.model.SectionDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
-import com.vk.sdk.api.VKApi;
-import com.vk.sdk.api.VKApiConst;
-import com.vk.sdk.api.VKError;
-import com.vk.sdk.api.VKParameters;
-import com.vk.sdk.api.VKRequest;
-import com.vk.sdk.api.VKResponse;
-import com.vk.sdk.api.model.VKApiUser;
-import com.vk.sdk.api.model.VKList;
 
 import java.lang.ref.WeakReference;
 
 import ru.sudoteam.cyclecomputer.R;
 import ru.sudoteam.cyclecomputer.app.App;
+import ru.sudoteam.cyclecomputer.app.accounts.Account;
+import ru.sudoteam.cyclecomputer.app.accounts.Error;
+import ru.sudoteam.cyclecomputer.app.accounts.User;
 import ru.sudoteam.cyclecomputer.data.HelperDB;
-import ru.sudoteam.cyclecomputer.fragments.AboutFragment;
-import ru.sudoteam.cyclecomputer.fragments.FriendsFragment;
-import ru.sudoteam.cyclecomputer.fragments.MainFragment;
-import ru.sudoteam.cyclecomputer.fragments.ProfileFragment;
-import ru.sudoteam.cyclecomputer.fragments.RouteFragment;
-import ru.sudoteam.cyclecomputer.fragments.SettingsFragment;
+
+import ru.sudoteam.cyclecomputer.fragments.*;
+
 
 public class MainActivity extends CycleBaseActivity {
 
@@ -82,48 +74,41 @@ public class MainActivity extends CycleBaseActivity {
     }
 
     private void loadProfile() {
-        VKRequest request = VKApi.users().get(VKParameters.from(
-                VKApiConst.USER_IDS, getSharedPreferences(App.SHARED_PREFERENCES, MODE_PRIVATE)
-                        .getString(App.KEY_USER_ID, "1"),
-                VKApiConst.FIELDS, VKApiUser.FIELD_PHOTO_200));
-        request.executeWithListener(
-                new VKRequest.VKRequestListener() {
+        App.getAccount().userInfo(new Account.UserLoaded() {
+            @Override
+            public void onUserLoaded(User user) {
+                String userText = user.firstName + "\n" + user.lastName;
+                mProfile.withName(userText);
+                WeakReference<Target> userImageReference = new WeakReference<>(new Target() {
                     @Override
-                    public void onComplete(VKResponse response) {
-                        VKApiUser user = ((VKList<VKApiUser>) response.parsedModel).get(0);
-                        String userText = user.first_name + "\n" + user.last_name;
-                        mProfile.withName(userText);
-                        WeakReference<Target> userImageReference = new WeakReference<>(new Target() {
-                            @Override
-                            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-                                mProfile.withIcon(bitmap);
-                                mHeader.addProfiles(mProfile);
-                            }
-
-                            @Override
-                            public void onBitmapFailed(Drawable errorDrawable) {
-
-                            }
-
-                            @Override
-                            public void onPrepareLoad(Drawable placeHolderDrawable) {
-
-                            }
-
-                        });
-                        Picasso.with(mContext)
-                                .load(user.photo_200)
-                                .into(userImageReference.get());
+                    public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                        mProfile.withIcon(bitmap);
+                        mHeader.addProfiles(mProfile);
                     }
 
                     @Override
-                    public void onError(VKError error) {
-                        Toast.makeText(mContext, error.errorReason, Toast.LENGTH_SHORT).show();
+                    public void onBitmapFailed(Drawable errorDrawable) {
+
                     }
 
-                }
+                    @Override
+                    public void onPrepareLoad(Drawable placeHolderDrawable) {
 
-        );
+                    }
+
+                });
+                Target target = userImageReference.get();
+                Picasso.with(mContext)
+                        .load(user.imgURL)
+                        .into(target);
+            }
+
+            @Override
+            public void onError(Error error) {
+                Toast.makeText(mContext, error.msg, Toast.LENGTH_SHORT).show();
+
+            }
+        });
     }
 
     private void buildHeader() {
@@ -235,4 +220,9 @@ public class MainActivity extends CycleBaseActivity {
         return mLastFragment;
     }
 
+    @Override
+    protected void onDestroy() {
+        HelperDB.closeDB();
+        super.onDestroy();
+    }
 }

@@ -70,7 +70,6 @@
         <service
             android:name=".services.WeatherIntentService"
             android:exported="false">
-
         </service>
     </application>
 

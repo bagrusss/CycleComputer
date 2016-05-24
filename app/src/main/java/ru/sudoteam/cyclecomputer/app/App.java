@@ -81,6 +81,7 @@ public class App extends Application {
     }
 
     private void handleUncaughtException(Thread thread, Throwable e) {
+
         new AlertDialog.Builder(this)
                 .setTitle(R.string.dialog_err_title_ops)
                 .setMessage(R.string.dialog_err_message_ops)
@@ -94,12 +95,6 @@ public class App extends Application {
                 })
                 .create()
                 .show();
-
     }
 
-    @Override
-    public void onTerminate() {
-        HelperDB.closeDB();
-        super.onTerminate();
-    }
 }
