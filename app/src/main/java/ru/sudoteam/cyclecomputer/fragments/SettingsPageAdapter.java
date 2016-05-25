@@ -26,9 +26,6 @@ public class SettingsPageAdapter extends FragmentStatePagerAdapter {
                 fragment = new CycleSettingsFragment();
                 break;
             case 1:
-                fragment = new DisplaysFragment();
-                break;
-            case 2:
                 fragment = new SettingsAppFragment();
         }
         return fragment;

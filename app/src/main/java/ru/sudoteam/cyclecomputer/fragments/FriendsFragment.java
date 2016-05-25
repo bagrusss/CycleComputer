@@ -52,6 +52,7 @@ public class FriendsFragment extends Fragment implements LoaderManager.LoaderCal
         View v = inflater.inflate(R.layout.fragment_friends, container, false);
         mFriendsRecyclerView = (RecyclerView) v.findViewById(R.id.friend_recycler_view);
         mSwipeRefresh = (SwipeRefreshLayout) v.findViewById(R.id.fragment_swipe_layout);
+        mSwipeRefresh.setColorSchemeResources(R.color.blue, R.color.orange, R.color.green);
         mSwipeRefresh.setOnRefreshListener(() -> loadFriends(true));
         mAdapter = new FriendsCursorAdapter(null);
         RecyclerView.LayoutManager lm = new LinearLayoutManager(mFriendsRecyclerView.getContext());
@@ -63,7 +64,8 @@ public class FriendsFragment extends Fragment implements LoaderManager.LoaderCal
     }
 
     private void loadFriends(boolean update) {
-        NetworkServiceHelper.startLoadFriends(getActivity(), REQUEST_CODE);
+        if (update)
+            NetworkServiceHelper.startLoadFriends(getActivity(), REQUEST_CODE);
         mSwipeRefresh.setRefreshing(true);
     }
 

@@ -25,7 +25,6 @@ public class SettingsFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_tab_settings, null);
         mTabLayout = (TabLayout) v.findViewById(R.id.settings_layout_tab);
         mTabLayout.addTab(mTabLayout.newTab().setText(R.string.category_cycle_comp));
-        mTabLayout.addTab(mTabLayout.newTab().setText(R.string.displays));
         mTabLayout.addTab(mTabLayout.newTab().setText(R.string.category_app));
         mTabLayout.setTabGravity(TabLayout.MODE_SCROLLABLE);
 
