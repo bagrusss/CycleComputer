@@ -9,8 +9,14 @@
     <color name="circular_color">#3c3c3c</color>
     <color name="drawer_user_text_color_light">#3E50B4</color>
 
+    <!--&lt;!&ndash;DarkTheme colors&ndash;&gt;-->
+    <!--<color name="DarkcolorPrimary">#000000</color>-->
+    <!--<color name="DarkcolorPrimaryDark">#000000</color>-->
+    <!--<color name="DarkcolorAccent">#000000</color>-->
+
     <color name="orange">#FF9900</color>
     <color name="green">#009900</color>
     <color name="blue">#000099</color>
+
 
 </resources>
