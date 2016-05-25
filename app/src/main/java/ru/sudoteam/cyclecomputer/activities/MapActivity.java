@@ -1,36 +1,36 @@
 package ru.sudoteam.cyclecomputer.activities;
 
-import android.support.v7.app.AppCompatActivity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import ru.sudoteam.cyclecomputer.R;
+import ru.sudoteam.cyclecomputer.app.App;
 
-public class MapActivity extends AppCompatActivity implements OnMapReadyCallback{
+public class MapActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
-        /*MapFragment mapFragment = (MapFragment) getFragmentManager()
-                .findFragmentById(R.id.map);*/
-        MapFragment mapFragment=MapFragment.newInstance();
+        MapFragment mapFragment = MapFragment.newInstance();
         getFragmentManager().beginTransaction().replace(R.id.map_container, mapFragment).commit();
         mapFragment.getMapAsync(this);
-
-
     }
 
     @Override
     public void onMapReady(GoogleMap map) {
+        SharedPreferences preferences = App.getAppPreferences();
+        double latitude = App.getDouble(preferences, App.KEY_LATITUDE, 0);
+        double longitude = App.getDouble(preferences, App.KEY_LONGITUDE, 0);
         map.addMarker(new MarkerOptions()
-                .position(new LatLng(0, 0))
+                .position(new LatLng(latitude, longitude))
                 .title("Marker"));
         map.getUiSettings().setZoomControlsEnabled(true);
     }

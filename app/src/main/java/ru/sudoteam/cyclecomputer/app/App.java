@@ -11,9 +11,8 @@ import org.jetbrains.annotations.NotNull;
 
 import ru.sudoteam.cyclecomputer.R;
 import ru.sudoteam.cyclecomputer.app.accounts.Account;
-import ru.sudoteam.cyclecomputer.app.accounts.AccountVK;
 import ru.sudoteam.cyclecomputer.app.accounts.AccountGoogle;
-import ru.sudoteam.cyclecomputer.data.HelperDB;
+import ru.sudoteam.cyclecomputer.app.accounts.AccountVK;
 
 
 /**
@@ -34,6 +33,9 @@ public class App extends Application {
     public static final String KEY_USER_TOKEN = "user_access_token";
     public static final String KEY_USER_ID = "user_id";
     public static final String KEY_AUTH_TYPE = "auth_type";
+
+    public static final String KEY_LONGITUDE = "longitude";
+    public static final String KEY_LATITUDE = "latitude";
 
     public static final int KEY_AUTH_VK = 2;
     public static final int KEY_AUTH_GOOGLE = 1;
@@ -95,6 +97,16 @@ public class App extends Application {
                 })
                 .create()
                 .show();
+    }
+
+    public static SharedPreferences.Editor putDouble(final SharedPreferences.Editor editor,
+                                                     final String key, final double value) {
+        return editor.putLong(key, Double.doubleToRawLongBits(value));
+    }
+
+    public static double getDouble(final SharedPreferences prefs,
+                                   final String key, final double defaultValue) {
+        return Double.longBitsToDouble(prefs.getLong(key, Double.doubleToLongBits(defaultValue)));
     }
 
 }
