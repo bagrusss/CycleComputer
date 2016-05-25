@@ -64,7 +64,8 @@ public class FriendsFragment extends Fragment implements LoaderManager.LoaderCal
     }
 
     private void loadFriends(boolean update) {
-        NetworkServiceHelper.startLoadFriends(getActivity(), REQUEST_CODE);
+        if (update)
+            NetworkServiceHelper.startLoadFriends(getActivity(), REQUEST_CODE);
         mSwipeRefresh.setRefreshing(true);
     }
 

@@ -37,11 +37,11 @@
 
     <ListPreference
         android:defaultValue="@string/default_measure_units_value"
-        android:dialogIcon="@mipmap/ic_theme"
+        android:dialogIcon="@mipmap/ic_edit"
         android:dialogTitle="@string/title_theme"
         android:entries="@array/measure_units"
         android:entryValues="@array/measure_units_value"
-        android:icon="@mipmap/ic_theme"
+        android:icon="@mipmap/ic_edit"
         android:key="@string/key_measure_unit"
         android:summary="@string/summary_measure_unit"
         android:title="@string/title_measure_unit" />

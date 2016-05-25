@@ -32,10 +32,7 @@
     <string name="text_distance_val">52.0 км</string>
     <string name="text_calories_val">1920</string>
 
-    <string-array name="themes_list">
-        <item>Светлая</item>
-        <item>Темная</item>
-    </string-array>
+
     <!-- Preferences -->
     <string name="category_cycle_comp">Велокомпьютер</string>
     <string name="weather">Уведомление о погоде</string>
@@ -51,6 +48,19 @@
     <string name="summary_distance">Суммарный путь</string>
     <string name="summary_autocorrect">Автоматически корректировать радиус колеса с использованием GPS</string>
     <string name="summary_wheel_radius">24.5</string>
+    <string name="title_measure_unit">Единицы измерения</string>
+    <string name="summary_measure_unit">Единицы измерения пройденной дистанции и скорости</string>
+
+    <string-array name="themes_list">
+        <item>Светлая</item>
+        <item>Темная</item>
+    </string-array>
+
+    <string-array name="measure_units">
+        <item>км/ч</item>
+        <item>миль/ч</item>
+    </string-array>
+
 
     <string name="app_name">Cycle Comp</string>
 
@@ -58,7 +68,6 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="title_activity_sign_in">Авторизация</string>
-
 
     <string name="vk">   VK   </string>
     <string name="google"> G+ </string>
@@ -72,7 +81,7 @@
     <string name="dialog_bt_title">Bluetooth</string>
     <string name="dialog_err_title_ops">Упс!</string>
     <string name="dialog_err_message_ops">Что-то пошло не так…</string>
-    <string name="dialog_err_bug_report">Bug report</string>
+    <string name="dialog_err_bug_report">Написать разработчикам</string>
     <string name="developers">Разработчики:\n Владислав Кожушко \n Дмитрий Цыганов \n Лысак Павел</string>
 
 
@@ -83,18 +92,11 @@
     <string name="battery">% Заряда</string>
     <string name="speed_units">км/ч</string>
     <string name="speed_value">23.7</string>
-    <string name="trip">Trip</string>
+    <string name="trip">Путь</string>
     <string name="trip_time">1:58:27</string>
     <string name="title_app_mode">Режим</string>
     <string name="mode_client">Клиент</string>
     <string name="mode_emulator">Эмулятор</string>
-
-    <string name="title_measure_unit">Единицы измерения</string>
-    <string name="summary_measure_unit">Единицы измерения пройденной дистанции и скорости</string>
-    <string-array name="measure_units">
-        <item>км/ч</item>
-        <item>миль/ч</item>
-    </string-array>
 
     <string name="dev_vlad">Владислав Кожушко</string>
     <string name="dev_dima">Дмитрий Цыганов</string>
