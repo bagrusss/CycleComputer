@@ -1,16 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="key_gps_state">gps_state</string>
-    <string name="key_theme">key_theme</string>
-    <string name="key_auth_type">key_auth_type</string>
-    <string name="key_distance">key_distance</string>
-    <string name="key_autocorrect">key_autocorrect</string>
-    <string name="key_wheel_radius">key_wheel_radius</string>
-    <string name="key_notify_weather">key_notify_weather</string>
+    <string name="key_theme">theme</string>
+    <string name="key_auth_type">auth_type</string>
+    <string name="key_distance">distance</string>
+    <string name="key_autocorrect">autocorrect</string>
+    <string name="key_wheel_radius">wheel_radius</string>
+    <string name="key_notify_weather">notify_weather</string>
+    <string name="key_measure_unit">measure_unit</string>
 
     <string-array name="themes_values">
         <item>theme1</item>
         <item>theme2</item>
     </string-array>
     <string name="default_theme_value">theme1</string>
+
+    <string-array name="measure_units_value">
+        <item>km</item>
+        <item>mile</item>
+    </string-array>
+    <string name="default_measure_units_value">km</string>
+
 </resources>

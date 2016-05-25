@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 
 public class CycleCompContentProvider extends ContentProvider {
+
     public CycleCompContentProvider() {
 
     }
