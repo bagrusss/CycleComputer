@@ -83,7 +83,7 @@ class SplashActivity : BaseActivity() {
 
     private fun check(): Boolean {
         mBuilder = AlertDialog.Builder(mContext)
-        /*val adapter = BluetoothAdapter.getDefaultAdapter()
+        val adapter = BluetoothAdapter.getDefaultAdapter()
         if (!packageManager.hasSystemFeature(PackageManager.FEATURE_BLUETOOTH_LE)) {
             showDialogLENotSupport(mBuilder!!)
             return false
@@ -91,7 +91,7 @@ class SplashActivity : BaseActivity() {
         if (!adapter.isEnabled) {
             showDialogEnableBT(mBuilder!!, adapter)
             return false
-        }*/
+        }
         return true
     }
 

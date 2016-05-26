@@ -27,8 +27,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap map) {
         SharedPreferences preferences = App.getAppPreferences();
-        double latitude = App.getDouble(preferences, App.KEY_LATITUDE, 0);
-        double longitude = App.getDouble(preferences, App.KEY_LONGITUDE, 0);
+        double latitude = App.getDouble(preferences, App.KEY_LATITUDE, 55.7729097);
+        double longitude = App.getDouble(preferences, App.KEY_LONGITUDE, 37.6788906);
         map.addMarker(new MarkerOptions()
                 .position(new LatLng(latitude, longitude))
                 .title("Marker"));

@@ -1,6 +1,5 @@
 package ru.sudoteam.cyclecomputer.fragments;
 
-
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,12 +16,8 @@ public class RouteFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        startActivity(new Intent(getActivity(), MapActivity.class));
         return inflater.inflate(R.layout.fragment_route, container, false);
     }
 
-    @Override
-    public void onStart() {
-        startActivity(new Intent(getActivity(), MapActivity.class));
-        super.onStart();
-    }
 }
