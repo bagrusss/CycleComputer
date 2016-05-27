@@ -2,18 +2,15 @@ package ru.sudoteam.cyclecomputer.data;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteStatement;
-import android.util.Log;
-
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.vk.sdk.api.model.VKApiUser;
 
 import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
+
+import ru.sudoteam.cyclecomputer.app.accounts.User;
 
 /**
  * Created by bagrusss on 22.03.16.
@@ -107,17 +104,16 @@ public class HelperDB extends SQLiteOpenHelper {
         return mDB.query(TABLE_FRIENDS, null, null, null, null, null, null);
     }
 
-    public boolean insertFriends(@NotNull JsonArray ja) {
+    public boolean insertFriends(@NotNull ArrayList<User> friends) {
         mDB.beginTransaction();
         SQLiteStatement statement = mDB.compileStatement(INSERT_FRIENDS);
         boolean isOK = false;
         try {
-            for (JsonElement je : ja) {
-                JsonObject jo = je.getAsJsonObject();
-                statement.bindLong(1, jo.get("id").getAsLong());
-                statement.bindString(2, jo.get("first_name").getAsString());
-                statement.bindString(3, jo.get("last_name").getAsString());
-                statement.bindString(4, jo.get(VKApiUser.FIELD_PHOTO_200).getAsString());
+            for (User f : friends) {
+                statement.bindLong(1, f.id);
+                statement.bindString(2, f.firstName);
+                statement.bindString(3, f.lastName);
+                statement.bindString(4, f.imgURL);
                 statement.executeInsert();
             }
             mDB.setTransactionSuccessful();

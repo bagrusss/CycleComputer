@@ -12,7 +12,6 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.ArrayAdapter
 import android.widget.TextView
-import android.widget.Toast
 import ru.sudoteam.cyclecomputer.R
 import ru.sudoteam.cyclecomputer.app.App
 import ru.sudoteam.emulator.activities.Emulator
@@ -36,7 +35,6 @@ class SplashActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Toast.makeText(this, "Toast From Kotlin", Toast.LENGTH_LONG).show()
         mSharedPreferences = getSharedPreferences(App.SHARED_PREFERENCES, Context.MODE_PRIVATE)
         setContentView(R.layout.activity_splash)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {

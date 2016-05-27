@@ -29,7 +29,7 @@
     <string name="text_trip_distance">путь</string>
     <string name="text_calories">калории</string>
     <string name="text_trip_time_val">1:27:14</string>
-    <string name="text_distance_val">52.0 км</string>
+    <string name="text_distance_val" formatted="false">%.2f %s</string>
     <string name="text_calories_val">1920</string>
 
 
@@ -56,11 +56,14 @@
         <item>Темная</item>
     </string-array>
 
-    <string-array name="measure_units">
-        <item>км/ч</item>
-        <item>миль/ч</item>
-    </string-array>
+    <string name="measure_km">км/ч</string>
+    <string name="measure_mile">миль/ч</string>
 
+
+    <string-array name="units">
+        <item>@string/measure_km</item>
+        <item>@string/measure_mile</item>
+    </string-array>
 
     <string name="app_name">Cycle Comp</string>
 

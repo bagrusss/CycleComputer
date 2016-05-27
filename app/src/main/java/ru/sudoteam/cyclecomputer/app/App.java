@@ -7,12 +7,16 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.jetbrains.annotations.NotNull;
 
 import ru.sudoteam.cyclecomputer.R;
 import ru.sudoteam.cyclecomputer.app.accounts.Account;
 import ru.sudoteam.cyclecomputer.app.accounts.AccountGoogle;
 import ru.sudoteam.cyclecomputer.app.accounts.AccountVK;
+import ru.sudoteam.cyclecomputer.app.eventbus.UniversalEvent;
 
 
 /**
@@ -63,27 +67,21 @@ public class App extends Application {
 
                 //TODO break;
             case KEY_AUTH_VK:
-                account = new AccountVK(getApplicationContext());
+                account = new AccountVK(getApplicationContext(), App.GSON);
         }
 
         /*LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         WeatherIntentService.startActionCheckWeather(this, lm);*/
 
         Log.i(TAG_APPLICATION, "App created");
+/*
+        Thread.setDefaultUncaughtExceptionHandler(this::handleUncaughtException);
 
-        //Thread.setDefaultUncaughtExceptionHandler(this::handleUncaughtException);
+        EventBus.getDefault().register(this);*/
     }
 
-    public static Account getAccount() {
-        return account;
-    }
-
-    public static SharedPreferences getAppPreferences() {
-        return preferences;
-    }
-
-    private void handleUncaughtException(Thread thread, Throwable e) {
-
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(UniversalEvent event) {
         new AlertDialog.Builder(this)
                 .setTitle(R.string.dialog_err_title_ops)
                 .setMessage(R.string.dialog_err_message_ops)
@@ -97,6 +95,22 @@ public class App extends Application {
                 })
                 .create()
                 .show();
+        EventBus.getDefault().unregister(this);
+    }
+
+    public static Account getAccount() {
+        return account;
+    }
+
+    public static SharedPreferences getAppPreferences() {
+        return preferences;
+    }
+
+    private void handleUncaughtException(Thread thread, Throwable e) {
+        UniversalEvent event = new UniversalEvent();
+        event.params.put("Thread", thread);
+        event.params.put("Throwable", e);
+        EventBus.getDefault().post(event);
     }
 
     public static SharedPreferences.Editor putDouble(final SharedPreferences.Editor editor,

@@ -22,7 +22,9 @@ public class SettingsAppFragment extends PreferenceFragment {
         findPreference(getString(R.string.key_theme))
                 .setOnPreferenceChangeListener((preference, newValue) -> {
                     Activity activity = getActivity();
-                    activity.startActivity(new Intent(activity, MainActivity.class));
+                    Intent intent = new Intent(activity, MainActivity.class);
+                    intent.putExtra("settings", 0);
+                    activity.startActivity(intent);
                     activity.finish();
                     return true;
                 });

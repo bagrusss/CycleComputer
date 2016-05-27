@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +20,13 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.util.List;
+
 import ru.sudoteam.cyclecomputer.R;
+import ru.sudoteam.cyclecomputer.app.App;
+import ru.sudoteam.cyclecomputer.app.accounts.Account;
+import ru.sudoteam.cyclecomputer.app.accounts.Error;
+import ru.sudoteam.cyclecomputer.app.accounts.User;
 import ru.sudoteam.cyclecomputer.app.eventbus.Event;
 import ru.sudoteam.cyclecomputer.app.lists.FriendsCursorAdapter;
 import ru.sudoteam.cyclecomputer.data.HelperDB;

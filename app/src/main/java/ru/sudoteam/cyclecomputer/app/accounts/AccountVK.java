@@ -5,6 +5,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.vk.sdk.VKAccessToken;
 import com.vk.sdk.VKCallback;
 import com.vk.sdk.VKSdk;
@@ -18,6 +22,10 @@ import com.vk.sdk.api.model.VKApiUser;
 import com.vk.sdk.api.model.VKList;
 import com.vk.sdk.api.model.VKScopes;
 
+import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
+
 import ru.sudoteam.cyclecomputer.app.App;
 
 /**
@@ -28,9 +36,17 @@ import ru.sudoteam.cyclecomputer.app.App;
 public class AccountVK implements Account {
 
     private static final String DEFAULT_ID = "1";
+    private static final String APP_FRIENDS = "execute.getAppFriends";
+    private final Gson mGson;
 
-    public AccountVK(Context context) {
+    private static final String RESPONSE = "response";
+    private static final String FIRST_NAME = "first_name";
+    private static final String LAST_NAME = "last_name";
+    private static final String ID = "id";
+
+    public AccountVK(Context context, @NotNull Gson gson) {
         VKSdk.initialize(context);
+        mGson = gson;
     }
 
     private static final String[] mScope = new String[]{
@@ -67,7 +83,30 @@ public class AccountVK implements Account {
 
     @Override
     public void friends(FriendsLoaded friendsLoaded) {
+        VKRequest request = new VKRequest(APP_FRIENDS);
+        request.executeWithListener(new VKRequest.VKRequestListener() {
+            @Override
+            public void onComplete(VKResponse response) {
+                JsonObject jObject = mGson.fromJson(response.json.toString(), JsonObject.class);
+                JsonArray ja = jObject.get(RESPONSE).getAsJsonArray();
+                ArrayList<User> users = new ArrayList<>(ja.size());
+                for (JsonElement f : ja) {
+                    JsonObject friend = f.getAsJsonObject();
+                    User user = new User();
+                    user.lastName = friend.get(FIRST_NAME).getAsString();
+                    user.firstName = friend.get(LAST_NAME).getAsString();
+                    user.imgURL = friend.get(VKApiUser.FIELD_PHOTO_200).getAsString();
+                    user.id = friend.get(ID).getAsLong();
+                    users.add(user);
+                }
+                friendsLoaded.onFriendsLoaded(users);
+            }
 
+            @Override
+            public void onError(VKError error) {
+                friendsLoaded.onError(new Error(error.errorCode, error.errorMessage));
+            }
+        });
     }
 
     @Override

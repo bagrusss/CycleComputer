@@ -3,6 +3,7 @@ package ru.sudoteam.cyclecomputer.activities;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -31,8 +32,12 @@ import ru.sudoteam.cyclecomputer.app.accounts.Account;
 import ru.sudoteam.cyclecomputer.app.accounts.Error;
 import ru.sudoteam.cyclecomputer.app.accounts.User;
 import ru.sudoteam.cyclecomputer.data.HelperDB;
-
-import ru.sudoteam.cyclecomputer.fragments.*;
+import ru.sudoteam.cyclecomputer.fragments.AboutFragment;
+import ru.sudoteam.cyclecomputer.fragments.FriendsFragment;
+import ru.sudoteam.cyclecomputer.fragments.MainFragment;
+import ru.sudoteam.cyclecomputer.fragments.ProfileFragment;
+import ru.sudoteam.cyclecomputer.fragments.RouteFragment;
+import ru.sudoteam.cyclecomputer.fragments.SettingsFragment;
 
 
 public class MainActivity extends CycleBaseActivity {
@@ -56,6 +61,7 @@ public class MainActivity extends CycleBaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         mToolbar = (Toolbar) findViewById(R.id.toolbar_actionbar);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setTitle(R.string.main);
@@ -67,10 +73,15 @@ public class MainActivity extends CycleBaseActivity {
         if (savedInstanceState != null)
             mLastFragment = (Fragment) getLastCustomNonConfigurationInstance();
         else mLastFragment = new MainFragment();
+        Intent intent = getIntent();
+        if (intent.getIntExtra("settings", 10) == 0)
+            mLastFragment = new SettingsFragment();
         mFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, mLastFragment)
                 .commit();
         loadProfile();
+        //TODO test crash
+        //throw new RuntimeException("test");
     }
 
     private void loadProfile() {

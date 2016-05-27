@@ -19,6 +19,7 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import ru.sudoteam.cyclecomputer.R;
@@ -35,7 +36,6 @@ public class ProfileFragment extends Fragment {
     private CircleImageView mProfileImage;
     private ListView mStatisticsList;
     private StatisticsAdapter mAdapter;
-    private SharedPreferences mPreferences;
 
     public static final int REQUEST_UPDATE_DATA = 10;
 
@@ -45,12 +45,13 @@ public class ProfileFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_profile, container, false);
-        mPreferences = v.getContext().getSharedPreferences(App.SHARED_PREFERENCES, App.MODE_PRIVATE);
 
         mStatisticsData.add(new StatisticsAdapter.StatisticItem(R.mipmap.ic_time, getString(R.string.text_trip_time),
                 getString(R.string.text_trip_time_val)));
+        String distance = getString(R.string.text_distance_val);
         mStatisticsData.add(new StatisticsAdapter.StatisticItem(R.mipmap.ic_flag,
-                getString(R.string.summary_distance), getString(R.string.text_distance_val)));
+                getString(R.string.summary_distance),
+                String.format(Locale.ENGLISH, distance, 0.0f, "km")));
         mStatisticsData.add(new StatisticsAdapter.StatisticItem(R.mipmap.ic_fire,
                 getString(R.string.text_calories), getString(R.string.text_calories_val)));
 
