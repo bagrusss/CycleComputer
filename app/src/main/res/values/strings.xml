@@ -55,17 +55,12 @@
     <string name="summary_distance">Total trip distance</string>
     <string name="summary_autocorrect">Correct wheel radius with GPS using</string>
     <string name="summary_wheel_radius">24.5</string>
-    <string name="title_measure_unit">Measure unit</string>
-    <string name="summary_measure_unit">Measure unit for distance and speed</string>
+    <string name="title_measure_unit">Measure units</string>
+    <string name="summary_measure_unit">Measure units for speed</string>
 
     <string-array name="themes_list">
         <item>Light</item>
         <item>Dark</item>
-    </string-array>
-
-    <string-array name="measure_units">
-        <item>km</item>
-        <item>mile</item>
     </string-array>
 
     <!-- Dialogs -->
@@ -108,7 +103,7 @@
     <string name="measure_mile">m/h</string>
 
 
-    <string-array name="units">
+    <string-array name="measure_units">
         <item>@string/measure_km</item>
         <item>@string/measure_mile</item>
     </string-array>
@@ -118,7 +113,8 @@
     <string name="dev_pasha">Pavel Lysak</string>
     <string name="text_devis">Ride with your friedns!</string>
     <string name="text_sign_in_with">Sign in with</string>
-    <string name="notification_weather_title">Wanna go for a ride?</string>
+    <string name="notification_weather_title">Want to go for a ride?</string>
     <string name="notification_weather_text">It\'s warm and sunny, perfect day for a bike ride.</string>
+    <string name="logout">Logout</string>
 
 </resources>

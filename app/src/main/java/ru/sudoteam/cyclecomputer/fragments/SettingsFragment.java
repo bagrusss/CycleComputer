@@ -1,6 +1,8 @@
 package ru.sudoteam.cyclecomputer.fragments;
 
+import android.annotation.TargetApi;
 import android.app.Fragment;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -20,17 +22,18 @@ public class SettingsFragment extends Fragment {
     ViewPager mPager;
     TabLayout mTabLayout;
 
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_tab_settings, null);
+        View v = inflater.inflate(R.layout.fragment_tab_settings, container, false);
         mTabLayout = (TabLayout) v.findViewById(R.id.settings_layout_tab);
         mTabLayout.addTab(mTabLayout.newTab().setText(R.string.category_cycle_comp));
         mTabLayout.addTab(mTabLayout.newTab().setText(R.string.category_app));
         mTabLayout.setTabGravity(TabLayout.MODE_SCROLLABLE);
 
         mPager = (ViewPager) v.findViewById(R.id.settings_pager);
-        SettingsPageAdapter adapter =
-                new SettingsPageAdapter(getActivity().getFragmentManager(), mTabLayout.getTabCount());
+        final SettingsPageAdapter adapter =
+                new SettingsPageAdapter(getFragmentManager(), mTabLayout.getTabCount());
         mPager.setAdapter(adapter);
         mPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
         mTabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {

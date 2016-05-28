@@ -3,7 +3,6 @@ package ru.sudoteam.cyclecomputer.activities;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -49,6 +48,8 @@ public class MainActivity extends CycleBaseActivity {
     private static final int ABOUT_POSITION = 6;
     private int mLastPosition = 1;
 
+    public static final int REQUEST_CODE = 36;
+
     private Toolbar mToolbar;
     private Drawer mDrawer;
     private AccountHeader mHeader;
@@ -73,15 +74,11 @@ public class MainActivity extends CycleBaseActivity {
         if (savedInstanceState != null)
             mLastFragment = (Fragment) getLastCustomNonConfigurationInstance();
         else mLastFragment = new MainFragment();
-        Intent intent = getIntent();
-        if (intent.getIntExtra("settings", 10) == 0)
-            mLastFragment = new SettingsFragment();
         mFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, mLastFragment)
                 .commit();
         loadProfile();
         //TODO test crash
-        //throw new RuntimeException("test");
     }
 
     private void loadProfile() {

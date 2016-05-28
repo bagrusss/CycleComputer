@@ -11,11 +11,12 @@ import android.support.v13.app.FragmentStatePagerAdapter;
 
 public class SettingsPageAdapter extends FragmentStatePagerAdapter {
 
-    private int mTabsCount = 0;
+    private int mTabsCount;
 
     public SettingsPageAdapter(FragmentManager fm, int count) {
         super(fm);
         mTabsCount = count;
+
     }
 
     @Override
@@ -27,6 +28,7 @@ public class SettingsPageAdapter extends FragmentStatePagerAdapter {
                 break;
             case 1:
                 fragment = new SettingsAppFragment();
+                break;
         }
         return fragment;
     }

@@ -2,9 +2,11 @@ package ru.sudoteam.cyclecomputer.app.accounts;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by bagrusss on 06.04.16.

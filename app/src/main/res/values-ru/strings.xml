@@ -49,7 +49,7 @@
     <string name="summary_autocorrect">Автоматически корректировать радиус колеса с использованием GPS</string>
     <string name="summary_wheel_radius">24.5</string>
     <string name="title_measure_unit">Единицы измерения</string>
-    <string name="summary_measure_unit">Единицы измерения пройденной дистанции и скорости</string>
+    <string name="summary_measure_unit">Единицы измерения скорости</string>
 
     <string-array name="themes_list">
         <item>Светлая</item>
@@ -60,7 +60,7 @@
     <string name="measure_mile">миль/ч</string>
 
 
-    <string-array name="units">
+    <string-array name="measure_units">
         <item>@string/measure_km</item>
         <item>@string/measure_mile</item>
     </string-array>
@@ -108,5 +108,6 @@
     <string name="text_sign_in_with">Войти с помощью</string>
     <string name="notification_weather_title">Хотите прокаться?</string>
     <string name="notification_weather_text">Сегодня тепло и солнечно, отличный день для поездки на велосипеде.</string>
+    <string name="logout">Выйти</string>
 
 </resources>

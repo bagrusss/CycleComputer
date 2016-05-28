@@ -12,6 +12,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import org.jetbrains.annotations.NotNull;
 
+import cat.ereza.customactivityoncrash.CustomActivityOnCrash;
 import ru.sudoteam.cyclecomputer.R;
 import ru.sudoteam.cyclecomputer.app.accounts.Account;
 import ru.sudoteam.cyclecomputer.app.accounts.AccountGoogle;
@@ -74,10 +75,9 @@ public class App extends Application {
         WeatherIntentService.startActionCheckWeather(this, lm);*/
 
         Log.i(TAG_APPLICATION, "App created");
-/*
-        Thread.setDefaultUncaughtExceptionHandler(this::handleUncaughtException);
-
+      /*Thread.setDefaultUncaughtExceptionHandler(this::handleUncaughtException);
         EventBus.getDefault().register(this);*/
+        CustomActivityOnCrash.install(this);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

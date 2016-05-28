@@ -55,7 +55,7 @@ public class Emulator extends AppCompatActivity {
 
         mUnitsSpinner = (Spinner) findViewById(R.id.set_speed_units);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
-                this, R.array.units, R.layout.support_simple_spinner_dropdown_item);
+                this, R.array.measure_units, R.layout.support_simple_spinner_dropdown_item);
         mUnitsSpinner.setAdapter(adapter);
 
         mUnitsSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

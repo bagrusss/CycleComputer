@@ -13,7 +13,6 @@ import ru.sudoteam.cyclecomputer.R;
 
 /**
  * Created by bagrusss on 19.04.16.
- *
  */
 
 public class StatisticsAdapter extends BaseAdapter {
@@ -41,6 +40,11 @@ public class StatisticsAdapter extends BaseAdapter {
         }
 
         String title;
+
+        public void setValue(String value) {
+            this.value = value;
+        }
+
         String value;
         int resId;
     }

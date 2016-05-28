@@ -1,5 +1,6 @@
 package ru.sudoteam.cyclecomputer.activities
 
+import android.app.Activity
 import android.bluetooth.BluetoothAdapter
 import android.content.*
 import android.content.pm.PackageManager
@@ -20,7 +21,6 @@ import java.util.*
 class SplashActivity : BaseActivity() {
 
     private var mBuilder: AlertDialog.Builder? = null
-    private var mSwitchingBluetooth: AlertDialog? = null
     private var mSharedPreferences: SharedPreferences? = null
 
     private var mTimer: Timer? = null
@@ -37,28 +37,39 @@ class SplashActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         mSharedPreferences = getSharedPreferences(App.SHARED_PREFERENCES, Context.MODE_PRIVATE)
         setContentView(R.layout.activity_splash)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            val window = window
-            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-            window.statusBarColor = resources.getColor(android.R.color.holo_orange_light)
-        }
+        setStatusBarColor(android.R.color.background_dark)
         mBluetoothReceiver = object : BroadcastReceiver() {
             override fun onReceive(context: Context, intent: Intent) {
                 val action = intent.action
                 if (action == BluetoothAdapter.ACTION_STATE_CHANGED) {
                     val state = intent.getIntExtra(BluetoothAdapter.EXTRA_STATE, BluetoothAdapter.ERROR)
                     if (BluetoothAdapter.STATE_ON == state) {
-                        mSwitchingBluetooth?.cancel()
-                        clientActivity()
+                        selectModeDialog(mBuilder!!)
                     }
                 }
             }
         }
+        registerReceiver(mBluetoothReceiver, IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED))
+        delay()
     }
 
-    override fun onStart() {
-        registerReceiver(mBluetoothReceiver, IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED))
+    private fun setStatusBarColor(color: Int) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            val window = window
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+            window.statusBarColor = resources.getColor(color)
+        }
+    }
+
+    override fun onDestroy() {
+        unregisterReceiver(mBluetoothReceiver)
+        mTimer!!.cancel()
+        mTimer = null
+        super.onDestroy()
+    }
+
+    private fun delay() {
         mTimer = Timer()
         mTimer!!.schedule(object : TimerTask() {
             override fun run() {
@@ -69,14 +80,6 @@ class SplashActivity : BaseActivity() {
                 }
             }
         }, 2000)
-        super.onStart()
-    }
-
-    override fun onStop() {
-        unregisterReceiver(mBluetoothReceiver)
-        mTimer!!.cancel()
-        mTimer = null
-        super.onStop()
     }
 
     private fun check(): Boolean {
@@ -87,29 +90,20 @@ class SplashActivity : BaseActivity() {
             return false
         }
         if (!adapter.isEnabled) {
-            showDialogEnableBT(mBuilder!!, adapter)
+            startActivityForResult(Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE), 1)
             return false
         }
         return true
     }
 
-    private fun showDialogEnableBT(builder: AlertDialog.Builder, adapter: BluetoothAdapter) {
-        with(builder) {
-            setTitle(R.string.dialog_bt_title)
-            setIcon(android.R.drawable.stat_sys_data_bluetooth)
-            setMessage(R.string.dialog_bt_message_enable)
-            setPositiveButton(android.R.string.ok) { dialog, which ->
-                adapter.enable()
-                dialog.cancel()
-                setMessage(R.string.dialog_bt_message_switching)
-                mSwitchingBluetooth = create()
-                mSwitchingBluetooth!!.show()
-                mSwitchingBluetooth!!.getButton(AlertDialog.BUTTON_POSITIVE).visibility = View.GONE
-                mSwitchingBluetooth!!.getButton(AlertDialog.BUTTON_NEGATIVE).visibility = View.GONE
-            }
-            setNegativeButton(android.R.string.cancel) { dialog, which -> System.exit(0) }
-            create().show()
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (resultCode != Activity.RESULT_OK) {
+            finish()
+            System.exit(0)
+            return
         }
+        super.onActivityResult(requestCode, resultCode, data)
+
     }
 
     private fun showDialogLENotSupport(builder: AlertDialog.Builder) {
