@@ -109,5 +109,6 @@
     <string name="notification_weather_title">Хотите прокаться?</string>
     <string name="notification_weather_text">Сегодня тепло и солнечно, отличный день для поездки на велосипеде.</string>
     <string name="logout">Выйти</string>
+    <string name="need_connect_device">Пожалуйста, подключите велокомпьютер</string>
 
 </resources>

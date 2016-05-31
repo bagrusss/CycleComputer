@@ -46,8 +46,20 @@
         android:summary="@string/summary_measure_unit"
         android:title="@string/title_measure_unit" />
     <Preference
-        android:title="some text">
+        android:defaultValue=""
+        android:icon="@mipmap/ic_displays"
+        android:key="@string/key_device"
+        android:title="@string/title_device">
 
     </Preference>
+    <ru.sudoteam.cyclecomputer.app.utils.DisconnectDialogPreference
+        android:dialogMessage="@string/disconnect_message"
+        android:dialogTitle="@string/title_disconnect_message"
+        android:key="@string/key_disconnect"
+        android:negativeButtonText="@android:string/cancel"
+        android:positiveButtonText="@android:string/ok"
+        android:title="@string/title_disconnect_message">
+
+    </ru.sudoteam.cyclecomputer.app.utils.DisconnectDialogPreference>
 
 </PreferenceScreen>

@@ -78,7 +78,6 @@ public class MainActivity extends CycleBaseActivity {
                 .replace(R.id.fragment_container, mLastFragment)
                 .commit();
         loadProfile();
-        //TODO test crash
     }
 
     private void loadProfile() {

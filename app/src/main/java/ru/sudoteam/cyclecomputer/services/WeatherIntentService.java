@@ -116,6 +116,7 @@ public class WeatherIntentService extends IntentService {
      * Handle action Foo in the provided background thread with the provided
      * parameters.
      */
+
     private void handleActionCheckWeather(String latitude, String longitude) {
         if (WeatherRest.isGoodWeatherLabel(latitude, longitude)) {
 

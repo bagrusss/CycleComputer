@@ -19,7 +19,6 @@ import ru.sudoteam.cyclecomputer.app.eventbus.Event;
 
 public class NetworkServiceHelper {
 
-
     public static void startLoadFriends(final Context context, final int reqCode) {
         Intent intent = new Intent(context, NetworkService.class);
         intent.setAction(NetworkService.ACTION_DB);

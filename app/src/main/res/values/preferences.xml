@@ -8,6 +8,8 @@
     <string name="key_wheel_radius">wheel_radius</string>
     <string name="key_notify_weather">notify_weather</string>
     <string name="key_measure_unit">measure_unit</string>
+    <string name="key_device">device</string>
+    <string name="key_disconnect">disconnect</string>
 
     <string-array name="themes_values">
         <item>theme1</item>

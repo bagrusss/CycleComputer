@@ -40,8 +40,8 @@
 
         <!-- android:configChanges="keyboardHidden|orientation|screenSize" -->
         <activity
-            android:configChanges="keyboardHidden|orientation|screenSize"
             android:name=".activities.MainActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <service
@@ -62,25 +62,21 @@
             android:exported="false"
             android:permission=".data.CycleCompContentProvider" />
 
-        <!-- Emulator-->
+        <!-- Emulator -->
 
-        <activity android:name="ru.sudoteam.emulator.activities.Emulator">
-
-        </activity>
+        <activity android:name="ru.sudoteam.emulator.activities.Emulator"></activity>
 
         <service
             android:name=".services.WeatherIntentService"
-            android:exported="false">
+            android:exported="false"></service>
 
-        </service>
-
-        <activity android:name=".activities.MapActivity">
-
-        </activity>
+        <activity android:name=".activities.MapActivity"></activity>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyASBeDqIUUzIVHO90MCbHDVyiQdk0VK3PQ"/>
+            android:value="AIzaSyASBeDqIUUzIVHO90MCbHDVyiQdk0VK3PQ" />
+
+        <activity android:name=".activities.ConnectActivity"></activity>
     </application>
 
 </manifest>

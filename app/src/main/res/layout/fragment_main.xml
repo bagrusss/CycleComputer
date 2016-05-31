@@ -22,6 +22,7 @@
         android:layout_centerHorizontal="true"
         custom:arc_bottom_text_size="@dimen/progress_text_size"
         custom:arc_suffix_text_size="20sp"
+        custom:arc_progress="25"
         custom:arc_text_color="@color/white_color" />
 
     <Spinner
@@ -32,13 +33,20 @@
         android:layout_centerHorizontal="true"
         android:spinnerMode="dialog" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/distance_intervals"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+    <android.support.v4.widget.SwipeRefreshLayout
         android:layout_below="@+id/aim_spinner"
-        android:layout_centerHorizontal="true">
+        android:id="@+id/swipe_refresh_progress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    </android.support.v7.widget.RecyclerView>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/distance_intervals"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true">
+
+        </android.support.v7.widget.RecyclerView>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
 
 </RelativeLayout>
