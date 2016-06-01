@@ -30,8 +30,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
+                android:gravity="center_vertical"
+                android:layout_marginLeft="5dp"
                 android:layout_toEndOf="@+id/profile_image"
                 android:layout_toRightOf="@+id/profile_image"
+                android:minHeight="@dimen/user_item_radius"
                 android:textSize="@dimen/item_user_name_text_size"
                 android:textStyle="bold" />
 
