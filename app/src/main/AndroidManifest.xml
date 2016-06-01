@@ -51,9 +51,6 @@
         <service
             android:name=".services.NetworkService"
             android:exported="false" />
-        <service
-            android:name="ru.sudoteam.emulator.services.EmulatorBluetoothService"
-            android:exported="false" />
 
         <provider
             android:name=".data.CycleCompContentProvider"
@@ -64,19 +61,30 @@
 
         <!-- Emulator -->
 
-        <activity android:name="ru.sudoteam.emulator.activities.Emulator"></activity>
+        <activity android:name="ru.sudoteam.emulator.activities.Emulator">
+
+        </activity>
 
         <service
             android:name=".services.WeatherIntentService"
-            android:exported="false"></service>
+            android:exported="false">
 
-        <activity android:name=".activities.MapActivity"></activity>
+        </service>
+
+        <activity android:name=".activities.MapActivity"/>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyASBeDqIUUzIVHO90MCbHDVyiQdk0VK3PQ" />
 
-        <activity android:name=".activities.ConnectActivity"></activity>
+
+        <activity android:name=".activities.ConnectActivity"/>
+
+        <service
+            android:name="ru.sudoteam.emulator.services.BluetoothEmulatorService"
+            android:enabled="true"
+            android:exported="false"/>
+
     </application>
 
 </manifest>
