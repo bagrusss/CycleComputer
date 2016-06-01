@@ -1,11 +1,12 @@
 package ru.sudoteam.emulator.activities;
 
-import android.os.Handler;
-import android.os.Message;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.support.v7.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.MenuItem;
@@ -21,8 +22,14 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import ru.sudoteam.cyclecomputer.R;
+import ru.sudoteam.emulator.services.BluetoothEmulatorService;
 
 public class Emulator extends AppCompatActivity {
+
+    private int mX = 0;
+    private int mY = 0;
+    private int mSpeed = 0;
+    private int mBattery = 0;
 
     private EditText mSpeedEdit;
     private EditText mPositionXEdit;
@@ -35,7 +42,10 @@ public class Emulator extends AppCompatActivity {
     private TextView mSpeedView;
     private TextView mTripTimeView;
     private Calendar mCalendar;
-    private Timer mTimer;
+    private Timer mTimerSeconds;
+    private Timer mTimerSending;
+
+    private BroadcastReceiver broadcastReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +89,55 @@ public class Emulator extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 mSpeedView.setText(s);
+                mSpeed = Integer.valueOf(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+
+        mPositionXEdit.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                //do nothing
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                mX = Integer.valueOf(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+
+        mPositionYEdit.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                //do nothing
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                mY = Integer.valueOf(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+
+        mBatteryEdit.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                //do nothing
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                mBattery = Integer.valueOf(s.toString());
             }
 
             @Override
@@ -96,8 +155,8 @@ public class Emulator extends AppCompatActivity {
 
     @Override
     protected void onStart() {
-        mTimer = new Timer();
-        mTimer.schedule(new TimerTask() {
+        mTimerSeconds = new Timer();
+        mTimerSeconds.schedule(new TimerTask() {
             @Override
             public void run() {
                 runOnUiThread(() -> {
@@ -106,13 +165,55 @@ public class Emulator extends AppCompatActivity {
                 });
             }
         }, 0, 1000);
+
+        broadcastReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                if (intent.getAction().equals(BluetoothEmulatorService.ACTION_CLIENT_APPEARED)) {
+                    if (mTimerSending == null) {
+                        mTimerSending = new Timer();
+                        mTimerSending.schedule(new TimerTask() {
+                            @Override
+                            public void run() {
+                                Intent intent1 = new Intent();
+                                intent1.putExtra(BluetoothEmulatorService.EXTRA_DATA_TO_SEND, mSpeedEdit.getText().toString().getBytes());
+                            }
+                        }, 0, 10000);
+                    }
+                } else if (intent.getAction().equals(BluetoothEmulatorService.ACTION_CLIENT_GONE)) {
+                    if (mTimerSending != null) {
+                        mTimerSending.cancel();
+                        mTimerSending = null;
+                    }
+                }
+            }
+        };
+
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(BluetoothEmulatorService.ACTION_CLIENT_APPEARED);
+        intentFilter.addAction(BluetoothEmulatorService.ACTION_CLIENT_GONE);
+
+        registerReceiver(broadcastReceiver, intentFilter);
+
+        Intent intent = new Intent(this, BluetoothEmulatorService.class);
+        intent.setAction(BluetoothEmulatorService.ACTION_START_LISTENING);
+        startService(intent);
+
         super.onStart();
     }
 
     @Override
     protected void onStop() {
-        mTimer.cancel();
-        mTimer = null;
+        if (mTimerSending != null) {
+            mTimerSending.cancel();
+            mTimerSending = null;
+        }
+
+        if (mTimerSeconds != null) {
+            mTimerSeconds.cancel();
+            mTimerSeconds = null;
+        }
+
         super.onStop();
     }
 
