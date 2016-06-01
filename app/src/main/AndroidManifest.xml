@@ -43,6 +43,8 @@
             android:name=".activities.MainActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".activities.ConnectActivity" />
+
 
         <service
             android:name=".services.BluetoothService"
@@ -71,19 +73,16 @@
 
         </service>
 
-        <activity android:name=".activities.MapActivity"/>
+        <activity android:name=".activities.MapActivity" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyASBeDqIUUzIVHO90MCbHDVyiQdk0VK3PQ" />
 
-
-        <activity android:name=".activities.ConnectActivity"/>
-
         <service
             android:name="ru.sudoteam.emulator.services.BluetoothEmulatorService"
             android:enabled="true"
-            android:exported="false"/>
+            android:exported="false" />
 
     </application>
 

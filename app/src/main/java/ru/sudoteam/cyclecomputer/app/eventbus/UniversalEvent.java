@@ -1,6 +1,7 @@
 package ru.sudoteam.cyclecomputer.app.eventbus;
 
-import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
 /**
  * Created by bagrusss on 23.05.16.
@@ -8,6 +9,6 @@ import java.util.Map;
  */
 public class UniversalEvent extends Event {
 
-    public Map<String, Object> params;
+    public ConcurrentMap<String, Object> params = new ConcurrentHashMap<>();
 
 }
