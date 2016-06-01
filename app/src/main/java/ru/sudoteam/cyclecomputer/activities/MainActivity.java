@@ -1,8 +1,11 @@
 package ru.sudoteam.cyclecomputer.activities;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.bluetooth.BluetoothAdapter;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -23,6 +26,9 @@ import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.lang.ref.WeakReference;
 
 import ru.sudoteam.cyclecomputer.R;
@@ -30,6 +36,7 @@ import ru.sudoteam.cyclecomputer.app.App;
 import ru.sudoteam.cyclecomputer.app.accounts.Account;
 import ru.sudoteam.cyclecomputer.app.accounts.Error;
 import ru.sudoteam.cyclecomputer.app.accounts.User;
+import ru.sudoteam.cyclecomputer.app.eventbus.UniversalEvent;
 import ru.sudoteam.cyclecomputer.data.HelperDB;
 import ru.sudoteam.cyclecomputer.fragments.AboutFragment;
 import ru.sudoteam.cyclecomputer.fragments.FriendsFragment;
@@ -49,6 +56,9 @@ public class MainActivity extends CycleBaseActivity {
     private int mLastPosition = 1;
 
     public static final int REQUEST_CODE = 36;
+
+    public static final int BT_ENABLE_REQUIRE = 13;
+
 
     private Toolbar mToolbar;
     private Drawer mDrawer;
@@ -78,6 +88,7 @@ public class MainActivity extends CycleBaseActivity {
                 .replace(R.id.fragment_container, mLastFragment)
                 .commit();
         loadProfile();
+        startActivity(new Intent(this, ConnectActivity.class));
     }
 
     private void loadProfile() {
@@ -192,6 +203,21 @@ public class MainActivity extends CycleBaseActivity {
         mDrawer.setSelection(MAIN_POSITION);
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(UniversalEvent event) {
+        if (event.requestCode == BT_ENABLE_REQUIRE) {
+            Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+            startActivityForResult(enableBtIntent, REQUEST_CODE);
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            super.onActivityResult(requestCode, resultCode, data);
+        }
+    }
+
     @Override
     public void onBackPressed() {
         if (mDrawer.isDrawerOpen()) {
@@ -232,4 +258,5 @@ public class MainActivity extends CycleBaseActivity {
         HelperDB.closeDB();
         super.onDestroy();
     }
+
 }
