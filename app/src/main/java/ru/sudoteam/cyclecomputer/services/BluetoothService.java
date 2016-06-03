@@ -27,6 +27,8 @@ import ru.sudoteam.cyclecomputer.app.eventbus.UniversalEvent;
 public class BluetoothService extends IntentService {
 
     public static final String EXTRA_REQUEST_CODE = "REQUEST_CODE";
+    public static final String EXTRA_TIMEOUT = "TIMEOUT";
+
     public static final String ACTION_LOAD_PROFILE = "LOAD_PROFILE";
     public static final String ACTION_LOAD_DAILY_STATISTIC = "LOAD_DAILY_STATISTIC";
     public static final String ACTION_SCAN_BLUETOOTH = "SCAN_BLUETOOTH";
@@ -128,8 +130,9 @@ public class BluetoothService extends IntentService {
             case ACTION_SCAN_BLUETOOTH:
                 mAdapter.startLeScan(leScanCallback);
                 isScan = true;
+                int timeout = intent.getIntExtra(EXTRA_TIMEOUT, 15000);
                 try {
-                    Thread.sleep(15000);
+                    Thread.sleep(timeout);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

@@ -65,8 +65,8 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
                 getString(R.string.text_trip_time_val));
         mDistanceItem = new StatisticItem(R.mipmap.ic_flag, getString(R.string.summary_distance),
                 String.format(Locale.ENGLISH, getString(R.string.text_distance_val), 0.0f, "km"));
-        mCaloriesItem = new StatisticItem(R.mipmap.ic_time, getString(R.string.text_trip_time),
-                getString(R.string.text_trip_time_val));
+        mCaloriesItem = new StatisticItem(R.mipmap.ic_fire, getString(R.string.text_calories),
+                getString(R.string.text_calories_val));
 
         mStatisticsData.add(mTimeItem);
         mStatisticsData.add(mDistanceItem);

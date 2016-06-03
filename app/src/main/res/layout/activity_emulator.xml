@@ -146,7 +146,7 @@
             android:layout_marginRight="10dp"
             android:layout_row="3"
             android:ems="8"
-            android:inputType="numberDecimal" />
+            android:inputType="number" />
 
         <TextView
             android:id="@+id/battery"
@@ -167,7 +167,7 @@
             android:layout_marginStart="10dp"
             android:layout_row="1"
             android:ems="8"
-            android:inputType="numberDecimal" />
+            android:inputType="number" />
 
     </GridLayout>
 

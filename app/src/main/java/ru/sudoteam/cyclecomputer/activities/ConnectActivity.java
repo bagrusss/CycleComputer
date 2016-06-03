@@ -2,7 +2,9 @@ package ru.sudoteam.cyclecomputer.activities;
 
 import android.bluetooth.BluetoothDevice;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.ListView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -16,31 +18,30 @@ import ru.sudoteam.cyclecomputer.app.eventbus.UniversalEvent;
 import ru.sudoteam.cyclecomputer.app.lists.ConnectAdapter;
 import ru.sudoteam.cyclecomputer.services.BluetoothServiceHelper;
 
-public class ConnectActivity extends AppCompatActivity {
+public class ConnectActivity extends CycleBaseActivity implements View.OnClickListener {
 
     public static final int REQUEST_CODE = 45;
     private Set<BluetoothDevice> mDevices = new HashSet<>();
     private ListView mDevicesList;
     private ConnectAdapter mAdapter;
+    private FloatingActionButton mScanButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_connect);
+        mScanButton = (FloatingActionButton) findViewById(R.id.scan_button);
+        if (mScanButton != null) {
+            mScanButton.setOnClickListener(this);
+        }
         mDevicesList = (ListView) findViewById(R.id.list_devices);
         mAdapter = new ConnectAdapter(this, mDevices);
         mDevicesList.setAdapter(mAdapter);
     }
 
-    @Override
-    protected void onResume() {
-        scanDevices();
-        super.onResume();
-    }
-
-    private void scanDevices() {
+    private void scanDevices(int timeout) {
         mDevices.clear();
-        BluetoothServiceHelper.scanDevice(this, REQUEST_CODE);
+        BluetoothServiceHelper.scanDevice(this, REQUEST_CODE, timeout);
     }
 
     @Override
@@ -64,4 +65,10 @@ public class ConnectActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onClick(View v) {
+        if (v.getId() == R.id.scan_button) {
+            scanDevices(30000);
+        }
+    }
 }

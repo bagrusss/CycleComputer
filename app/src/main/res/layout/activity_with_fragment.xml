@@ -3,9 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?attr/backgroundDrawable"
     android:orientation="vertical"
-    tools:context=".activities.MainActivity"
-    android:background="@drawable/sky_hd">
+    tools:context=".activities.MainActivity">
 
     <include layout="@layout/action_bar" />
 

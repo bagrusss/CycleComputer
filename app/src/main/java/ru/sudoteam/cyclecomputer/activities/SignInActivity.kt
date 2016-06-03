@@ -9,7 +9,6 @@ import android.widget.Toast
 import ru.sudoteam.cyclecomputer.R
 import ru.sudoteam.cyclecomputer.app.App
 import ru.sudoteam.cyclecomputer.app.accounts.Account
-import ru.sudoteam.cyclecomputer.app.accounts.AccountGoogle
 import ru.sudoteam.cyclecomputer.app.accounts.Error
 
 class SignInActivity : BaseActivity(), View.OnClickListener {
@@ -23,14 +22,13 @@ class SignInActivity : BaseActivity(), View.OnClickListener {
         mNavigationIntent = Intent(mContext, MainActivity::class.java)
         mSharedPreferences = getSharedPreferences(App.SHARED_PREFERENCES, Context.MODE_PRIVATE)
         findViewById(R.id.button_vk)?.setOnClickListener(this)
-        findViewById(R.id.button_google)?.setOnClickListener(this)
     }
 
     override fun onClick(v: View) {
         v.isEnabled = false
         when (v.id) {
-            R.id.button_google -> App.setAccount(AccountGoogle())
             R.id.button_vk -> {
+
             }
             else -> return
         }

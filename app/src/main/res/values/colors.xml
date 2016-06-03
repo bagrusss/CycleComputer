@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#3d4ebc</color>
-    <color name="colorAccent">#129b17</color>
+
+    <!-- Light theme colors-->
+    <color name="light_colorPrimary">#21C9DC</color>
+    <color name="light_colorPrimaryDark">#00A3B6</color>
+    <color name="light_colorAccent">#E7C844</color>
+    <color name="light_blue">#CCF1EA</color>
+
+    <!--    <color name="colorAccent">#129b17</color>-->
 
     <!-- profile-->
     <color name="white_color">#E5E5E5</color>
-    <color name="circular_color">#3c3c3c</color>
-    <color name="drawer_user_text_color_light">#3E50B4</color>
+    <color name="dark_black">#3c3c3c</color>
 
     <!--&lt;!&ndash;DarkTheme colors&ndash;&gt;-->
     <!--<color name="DarkcolorPrimary">#000000</color>-->
@@ -17,6 +21,9 @@
     <color name="orange">#FF9900</color>
     <color name="green">#009900</color>
     <color name="blue">#000099</color>
-
+    <!--Dark Theme-->
+    <color name="dark_colorPrimary">#595959</color>
+    <color name="dark_colorPrimaryDark">#3D3D3D</color>
+    <color name="dark_colorAccent">#E84C3D</color>
 
 </resources>

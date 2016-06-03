@@ -189,7 +189,7 @@ public class Emulator extends AppCompatActivity {
             }
         };
 
-        IntentFilter intentFilter = new IntentFilter();
+  /*      IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(BluetoothEmulatorService.ACTION_CLIENT_APPEARED);
         intentFilter.addAction(BluetoothEmulatorService.ACTION_CLIENT_GONE);
 
@@ -197,7 +197,7 @@ public class Emulator extends AppCompatActivity {
 
         Intent intent = new Intent(this, BluetoothEmulatorService.class);
         intent.setAction(BluetoothEmulatorService.ACTION_START_LISTENING);
-        startService(intent);
+        startService(intent);*/
 
         super.onStart();
     }

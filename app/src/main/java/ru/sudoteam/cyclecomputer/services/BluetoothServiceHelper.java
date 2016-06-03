@@ -17,9 +17,10 @@ public class BluetoothServiceHelper {
         context.startService(intent);
     }
 
-    public static void scanDevice(final Context context, final int reqCode) {
+    public static void scanDevice(final Context context, final int reqCode, int timeout) {
         Intent intent = new Intent(context, BluetoothService.class);
         intent.putExtra(BluetoothService.EXTRA_REQUEST_CODE, reqCode);
+        intent.putExtra(BluetoothService.EXTRA_TIMEOUT, reqCode);
         intent.setAction(BluetoothService.ACTION_SCAN_BLUETOOTH);
         context.startService(intent);
     }

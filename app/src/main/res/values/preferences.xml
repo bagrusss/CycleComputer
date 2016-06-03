@@ -12,7 +12,7 @@
     <string name="key_disconnect">disconnect</string>
 
     <string-array name="themes_values">
-        <item>theme1</item>
+        <item>@string/default_theme_value</item>
         <item>theme2</item>
     </string-array>
     <string name="default_theme_value">theme1</string>

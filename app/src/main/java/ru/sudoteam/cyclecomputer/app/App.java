@@ -46,9 +46,6 @@ public class App extends Application {
     public static final int KEY_AUTH_GOOGLE = 1;
     public static final int KEY_AUTH_NONE = 0;
 
-    public static int getAccountType() {
-        return preferences.getInt(KEY_AUTH_TYPE, KEY_AUTH_NONE);
-    }
 
     public static void setAccount(@NotNull Account acc) {
         account = acc;
@@ -77,25 +74,7 @@ public class App extends Application {
         Log.i(TAG_APPLICATION, "App created");
       /*Thread.setDefaultUncaughtExceptionHandler(this::handleUncaughtException);
         EventBus.getDefault().register(this);*/
-        CustomActivityOnCrash.install(this);
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onEvent(UniversalEvent event) {
-        new AlertDialog.Builder(this)
-                .setTitle(R.string.dialog_err_title_ops)
-                .setMessage(R.string.dialog_err_message_ops)
-                .setCancelable(false)
-                .setPositiveButton(android.R.string.ok, (dialog, which) -> {
-                    dialog.cancel();
-                    System.exit(0);
-                })
-                .setNegativeButton(R.string.dialog_err_bug_report, (dialog, which) -> {
-
-                })
-                .create()
-                .show();
-        EventBus.getDefault().unregister(this);
+       // CustomActivityOnCrash.install(this);
     }
 
     public static Account getAccount() {
@@ -104,13 +83,6 @@ public class App extends Application {
 
     public static SharedPreferences getAppPreferences() {
         return preferences;
-    }
-
-    private void handleUncaughtException(Thread thread, Throwable e) {
-        UniversalEvent event = new UniversalEvent();
-        event.params.put("Thread", thread);
-        event.params.put("Throwable", e);
-        EventBus.getDefault().post(event);
     }
 
     public static SharedPreferences.Editor putDouble(final SharedPreferences.Editor editor,

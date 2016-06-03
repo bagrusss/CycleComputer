@@ -60,21 +60,21 @@
         android:gravity="center_horizontal"
         android:orientation="horizontal">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/button_google"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:src="@drawable/google" />
+        <!--        <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/button_google"
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:src="@drawable/google" />
 
-        <View
-            android:layout_width="10dp"
-            android:layout_height="0dp">
-        </View>
+                <View
+                    android:layout_width="10dp"
+                    android:layout_height="0dp">
+                </View>-->
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/button_vk"
             android:layout_width="64dp"
             android:layout_height="64dp"
-            android:src="@drawable/vk" />
+            android:src="@mipmap/ic_vk" />
     </LinearLayout>
 </RelativeLayout>

@@ -6,10 +6,15 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
+import android.content.res.TypedArray;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.StrictMode;
+import android.support.annotation.StyleRes;
 import android.support.v7.widget.Toolbar;
+import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
@@ -67,11 +72,17 @@ public class MainActivity extends CycleBaseActivity {
 
     private Fragment mLastFragment;
     private ProfileDrawerItem mProfile;
+    private TypedArray mTypedArray;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_with_fragment);
+        mTypedArray = obtainStyledAttributes(mThemeId,
+                new int[]{R.attr.drawerHeader, R.attr.drawerBackground});
+        //TODO
+        StrictMode.enableDefaults();
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar_actionbar);
         setSupportActionBar(mToolbar);
@@ -88,7 +99,7 @@ public class MainActivity extends CycleBaseActivity {
                 .replace(R.id.fragment_container, mLastFragment)
                 .commit();
         loadProfile();
-        startActivity(new Intent(this, ConnectActivity.class));
+        //startActivity(new Intent(this, ConnectActivity.class));
     }
 
     private void loadProfile() {
@@ -130,9 +141,11 @@ public class MainActivity extends CycleBaseActivity {
     }
 
     private void buildHeader() {
+        TypedArray ta = obtainStyledAttributes(mThemeId,
+                new int[]{R.attr.drawerHeader, R.attr.drawerBackground});
         mHeader = new AccountHeaderBuilder()
                 .withActivity(mContext)
-                .withHeaderBackground(R.drawable.drawer_light)
+                .withHeaderBackground(ta.getDrawable(0))
                 .withSelectionListEnabledForSingleProfile(false)
                 .withOnAccountHeaderProfileImageListener(new AccountHeader.OnAccountHeaderProfileImageListener() {
                     @Override
@@ -153,14 +166,18 @@ public class MainActivity extends CycleBaseActivity {
                     }
                 })
                 .build();
+        ta.recycle();
     }
 
     private void buildDrawer() {
+        TypedValue tv = new TypedValue();
+        getTheme().resolveAttribute(R.attr.drawerBackground, tv, true);
         mDrawer = new DrawerBuilder()
                 .withActivity(mContext)
                 .withToolbar(mToolbar)
                 .withAccountHeader(mHeader)
                 .withDisplayBelowStatusBar(true)
+                .withSliderBackgroundColor(tv.data)
                 .addDrawerItems(
                         new PrimaryDrawerItem().withName(R.string.main).withIcon(R.mipmap.ic_main),
                         new PrimaryDrawerItem().withName(R.string.friends).withIcon(R.mipmap.ic_friends),
