@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <SwitchPreference
+    <SwitchPreferenceCompat
         android:icon="@mipmap/ic_gps"
         android:key="@string/key_gps_state"
         android:summary="@string/summary_gps_state"
         android:title="@string/gps_state_title" />
 
-    <EditTextPreference
+    <android.support.v7.preference.EditTextPreference
         android:defaultValue="0.0"
         android:dialogIcon="@mipmap/ic_flag"
         android:dialogTitle="@string/title_distance"
@@ -17,7 +17,7 @@
         android:summary="@string/summary_distance"
         android:title="@string/title_distance" />
 
-    <SwitchPreference
+    <SwitchPreferenceCompat
         android:dependency="@string/key_gps_state"
         android:disableDependentsState="true"
         android:icon="@mipmap/ic_edit"
@@ -25,7 +25,7 @@
         android:summary="@string/summary_autocorrect"
         android:title="@string/title_autocorrect" />
 
-    <EditTextPreference
+    <android.support.v7.preference.EditTextPreference
         android:defaultValue="0.0"
         android:dependency="@string/key_autocorrect"
         android:dialogIcon="@mipmap/ic_wheel"
@@ -35,7 +35,7 @@
         android:summary="@string/summary_wheel_radius"
         android:title="@string/title_wheel_radius" />
 
-    <ListPreference
+    <android.support.v7.preference.ListPreference
         android:defaultValue="@string/measure_km"
         android:dialogIcon="@mipmap/ic_edit"
         android:dialogTitle="@string/title_measure_unit"
@@ -45,13 +45,14 @@
         android:key="@string/key_measure_unit"
         android:summary="@string/summary_measure_unit"
         android:title="@string/title_measure_unit" />
-    <Preference
+    <android.support.v7.preference.Preference
         android:defaultValue=""
         android:icon="@mipmap/ic_displays"
         android:key="@string/key_device"
         android:title="@string/title_device">
 
-    </Preference>
+    </android.support.v7.preference.Preference>
+
     <ru.sudoteam.cyclecomputer.app.utils.DisconnectDialogPreference
         android:dialogMessage="@string/disconnect_message"
         android:dialogTitle="@string/title_disconnect_message"

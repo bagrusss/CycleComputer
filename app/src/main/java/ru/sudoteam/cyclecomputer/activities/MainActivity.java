@@ -8,11 +8,9 @@ import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.StrictMode;
-import android.support.annotation.StyleRes;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
 import android.view.KeyEvent;
@@ -76,14 +74,12 @@ public class MainActivity extends CycleBaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_with_fragment);
         mTypedArray = obtainStyledAttributes(mThemeId,
-                new int[]{R.attr.drawerHeader, R.attr.drawerBackground});
+                new int[]{R.attr.drawerHeader});
         //TODO
         StrictMode.enableDefaults();
-
+        setContentView(R.layout.activity_with_fragment);
         mToolbar = (Toolbar) findViewById(R.id.toolbar_actionbar);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setTitle(R.string.main);
@@ -170,14 +166,12 @@ public class MainActivity extends CycleBaseActivity {
     }
 
     private void buildDrawer() {
-        TypedValue tv = new TypedValue();
-        getTheme().resolveAttribute(R.attr.drawerBackground, tv, true);
+
         mDrawer = new DrawerBuilder()
                 .withActivity(mContext)
                 .withToolbar(mToolbar)
                 .withAccountHeader(mHeader)
                 .withDisplayBelowStatusBar(true)
-                .withSliderBackgroundColor(tv.data)
                 .addDrawerItems(
                         new PrimaryDrawerItem().withName(R.string.main).withIcon(R.mipmap.ic_main),
                         new PrimaryDrawerItem().withName(R.string.friends).withIcon(R.mipmap.ic_friends),

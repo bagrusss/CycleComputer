@@ -5,7 +5,7 @@ apply plugin: 'kotlin-android'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.2"
+    buildToolsVersion "23.0.3"
 
     defaultConfig {
         applicationId "ru.sudoteam.cyclecomputer"
@@ -42,20 +42,21 @@ dependencies {
     compile 'com.android.support:design:23.4.0'
 
     compile 'com.google.code.gson:gson:2.6.2'
-    compile 'org.jetbrains.kotlin:kotlin-stdlib:1.0.1'
     compile 'com.github.lzyzsd:circleprogress:1.1.0@aar'
     compile 'de.hdodenhof:circleimageview:2.0.0'
     compile 'com.vk:androidsdk:1.6.7'
     compile 'com.squareup.picasso:picasso:2.5.0'
-    compile('com.mikepenz:materialdrawer:5.2.5@aar') {
+    compile('com.mikepenz:materialdrawer:5.3.0@aar') {
         transitive = true
     }
     compile 'org.greenrobot:eventbus:3.0.0'
     compile 'com.android.support:design:23.4.0'
-    compile 'com.google.android.gms:play-services-maps:9.0.1'
+    compile 'com.google.android.gms:play-services-maps:9.0.2'
     compile 'cat.ereza:customactivityoncrash:1.5.0'
 
     compile 'co.lujun:lmbluetoothsdk:1.0.2'
+
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
 }
 buildscript {

@@ -1,9 +1,9 @@
 package ru.sudoteam.cyclecomputer.fragments;
 
 import android.os.Bundle;
-import android.preference.Preference;
-import android.preference.PreferenceFragment;
-import android.preference.PreferenceScreen;
+import android.support.v7.preference.Preference;
+import android.support.v7.preference.PreferenceFragmentCompat;
+import android.support.v7.preference.PreferenceScreen;
 import android.widget.Toast;
 
 import ru.sudoteam.cyclecomputer.R;
@@ -11,7 +11,7 @@ import ru.sudoteam.cyclecomputer.app.App;
 import ru.sudoteam.cyclecomputer.app.utils.DisconnectDialogPreference;
 
 
-public final class CycleSettingsFragment extends PreferenceFragment {
+public final class CycleSettingsFragment extends PreferenceFragmentCompat {
 
     Preference mDevicePreference;
     DisconnectDialogPreference mDialog;
@@ -35,6 +35,11 @@ public final class CycleSettingsFragment extends PreferenceFragment {
             Toast.makeText(getActivity(), deviceMAC, Toast.LENGTH_LONG).show();
             return true;
         });
+
+    }
+
+    @Override
+    public void onCreatePreferences(Bundle bundle, String s) {
 
     }
 

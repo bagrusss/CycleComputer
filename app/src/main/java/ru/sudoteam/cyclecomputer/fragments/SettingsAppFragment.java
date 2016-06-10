@@ -4,8 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.preference.PreferenceFragment;
-import android.preference.PreferenceManager;
+import android.support.v7.preference.PreferenceFragmentCompat;
+import android.support.v7.preference.PreferenceManager;
 
 import ru.sudoteam.cyclecomputer.R;
 import ru.sudoteam.cyclecomputer.activities.MainActivity;
@@ -16,7 +16,7 @@ import ru.sudoteam.cyclecomputer.app.App;
  * Application settings
  */
 
-public class SettingsAppFragment extends PreferenceFragment {
+public class SettingsAppFragment extends PreferenceFragmentCompat {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -36,6 +36,11 @@ public class SettingsAppFragment extends PreferenceFragment {
                     activity.startActivity(intent);
                     return true;
                 });
+
+    }
+
+    @Override
+    public void onCreatePreferences(Bundle bundle, String s) {
 
     }
 

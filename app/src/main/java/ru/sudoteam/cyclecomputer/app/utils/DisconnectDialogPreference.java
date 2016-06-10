@@ -2,7 +2,7 @@ package ru.sudoteam.cyclecomputer.app.utils;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.preference.DialogPreference;
+import android.support.v7.preference.DialogPreference;
 import android.util.AttributeSet;
 
 /**
@@ -16,10 +16,4 @@ public class DisconnectDialogPreference extends DialogPreference {
         super(context, attrs);
     }
 
-    @Override
-    public void onClick(DialogInterface dialog, int which) {
-        if (which==DialogInterface.BUTTON_POSITIVE){
-            //TODO disconnect device. Open connect activity
-        }
-    }
 }

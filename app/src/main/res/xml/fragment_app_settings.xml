@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <SwitchPreference
+    <SwitchPreferenceCompat
         android:defaultValue="true"
         android:icon="@mipmap/ic_weather_cloud"
         android:key="@string/key_notify_weather"
         android:title="@string/weather" />
-    <ListPreference
+    <android.support.v7.preference.ListPreference
         android:defaultValue="@string/default_theme_value"
         android:dialogIcon="@mipmap/ic_theme"
         android:dialogTitle="@string/title_theme"

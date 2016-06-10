@@ -11,6 +11,7 @@ import ru.sudoteam.cyclecomputer.app.App;
 
 /**
  * Created by bagrusss on 06.04.16.
+ * *
  */
 public class CycleBaseActivity extends AppCompatActivity {
     protected Activity mContext = this;
@@ -22,8 +23,8 @@ public class CycleBaseActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         String theme = App.getAppPreferences().getString(getString(R.string.key_theme), "theme1");
         if (theme.equals("theme1"))
-            mThemeId = R.style.AppThemeLight_NoActionBar;
-        else mThemeId = R.style.AppThemeDark_NoActionBar;
+            mThemeId = R.style.Theme_Light_NoActionBar;
+        else mThemeId = R.style.Theme_Dark_NoActionBar;
         setTheme(mThemeId);
         super.onCreate(savedInstanceState);
     }

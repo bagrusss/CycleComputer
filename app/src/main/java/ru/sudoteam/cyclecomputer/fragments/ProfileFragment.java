@@ -33,7 +33,6 @@ import ru.sudoteam.cyclecomputer.app.accounts.Error;
 import ru.sudoteam.cyclecomputer.app.accounts.User;
 import ru.sudoteam.cyclecomputer.app.eventbus.UniversalEvent;
 import ru.sudoteam.cyclecomputer.app.lists.StatisticsAdapter;
-import ru.sudoteam.cyclecomputer.services.BluetoothServiceHelper;
 
 import static ru.sudoteam.cyclecomputer.app.lists.StatisticsAdapter.StatisticItem;
 
@@ -123,7 +122,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     }
 
     private void loadProfileFromCycle() {
-        BluetoothServiceHelper.LoadProfile(getActivity(), REQUEST_CODE);
+        // BluetoothServiceHelper.LoadProfile(getActivity(), REQUEST_CODE);
     }
 
     @Override
