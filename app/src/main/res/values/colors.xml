@@ -27,5 +27,6 @@
     <color name="dark_colorPrimary">#595959</color>
     <color name="dark_colorPrimaryDark">#3D3D3D</color>
     <color name="dark_colorAccent">#E84C3D</color>
+    <color name="badge_color">?attr/colorAccent</color>
 
 </resources>

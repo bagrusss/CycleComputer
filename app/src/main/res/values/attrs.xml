@@ -5,6 +5,6 @@
         <attr name="backgroundDrawable" format="integer|color" />
         <attr name="drawerHeader" format="integer|color" />
         <attr name="drawerBackground" format="integer|color" />
-
+        <attr name="badgeColor" format="color" />
     </declare-styleable>
 </resources>

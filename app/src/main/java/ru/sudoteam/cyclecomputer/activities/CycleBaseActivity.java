@@ -13,6 +13,7 @@ import ru.sudoteam.cyclecomputer.app.App;
  * Created by bagrusss on 06.04.16.
  * *
  */
+
 public class CycleBaseActivity extends AppCompatActivity {
     protected Activity mContext = this;
 

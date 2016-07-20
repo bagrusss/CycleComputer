@@ -26,9 +26,9 @@ import ru.sudoteam.emulator.services.BluetoothEmulatorService;
 
 public class Emulator extends AppCompatActivity {
 
-    private int mX = 0;
-    private int mY = 0;
-    private int mSpeed = 0;
+    private double mX = 0;
+    private double mY = 0;
+    private double mSpeed = 0;
     private int mBattery = 0;
 
     private EditText mSpeedEdit;
@@ -89,7 +89,7 @@ public class Emulator extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 mSpeedView.setText(s);
-                mSpeed = Integer.valueOf(s.toString());
+                mSpeed = Double.valueOf(s.toString());
             }
 
             @Override
@@ -105,7 +105,7 @@ public class Emulator extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mX = Integer.valueOf(s.toString());
+                mX = Double.valueOf(s.toString());
             }
 
             @Override
@@ -121,7 +121,7 @@ public class Emulator extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mY = Integer.valueOf(s.toString());
+                mY = Double.valueOf(s.toString());
             }
 
             @Override

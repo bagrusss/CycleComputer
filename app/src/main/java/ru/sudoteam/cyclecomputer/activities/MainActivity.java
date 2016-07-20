@@ -11,8 +11,8 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
-import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,6 +22,7 @@ import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
+import com.mikepenz.materialdrawer.holder.BadgeStyle;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.SectionDrawerItem;
@@ -30,7 +31,6 @@ import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
 import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 import java.lang.ref.WeakReference;
 
@@ -52,16 +52,18 @@ import ru.sudoteam.cyclecomputer.fragments.SettingsFragment;
 public class MainActivity extends CycleBaseActivity {
 
     private static final int MAIN_POSITION = 1;
-    private static final int FRIENDS_POSITION = 2;
+    private static final int TRAININGS_POSITION = 2;
     private static final int ROUTE_POSITION = 3;
-    private static final int SETTINGS_POSITION = 5;
-    private static final int ABOUT_POSITION = 6;
+    private static final int BETTINGS_POSITION = 4;
+    private static final int FRIENDS_POSITION = 5;
+
+    private static final int SETTINGS_POSITION = 7;
+    private static final int ABOUT_POSITION = 8;
     private int mLastPosition = 1;
 
     public static final int REQUEST_CODE = 36;
 
     public static final int BT_ENABLE_REQUIRE = 13;
-
 
     private Toolbar mToolbar;
     private Drawer mDrawer;
@@ -70,13 +72,10 @@ public class MainActivity extends CycleBaseActivity {
 
     private Fragment mLastFragment;
     private ProfileDrawerItem mProfile;
-    private TypedArray mTypedArray;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mTypedArray = obtainStyledAttributes(mThemeId,
-                new int[]{R.attr.drawerHeader});
         //TODO
         StrictMode.enableDefaults();
         setContentView(R.layout.activity_with_fragment);
@@ -103,7 +102,7 @@ public class MainActivity extends CycleBaseActivity {
             @Override
             public void onUserLoaded(User user) {
                 String userText = user.firstName + "\n" + user.lastName;
-                mProfile.withName(userText);
+                mProfile.withName(userText).withEmail("июль: 0,0 км, цель: 240 км");
                 WeakReference<Target> userImageReference = new WeakReference<>(new Target() {
                     @Override
                     public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
@@ -166,20 +165,30 @@ public class MainActivity extends CycleBaseActivity {
     }
 
     private void buildDrawer() {
-
         mDrawer = new DrawerBuilder()
                 .withActivity(mContext)
                 .withToolbar(mToolbar)
                 .withAccountHeader(mHeader)
                 .withDisplayBelowStatusBar(true)
                 .addDrawerItems(
-                        new PrimaryDrawerItem().withName(R.string.main).withIcon(R.mipmap.ic_main),
-                        new PrimaryDrawerItem().withName(R.string.friends).withIcon(R.mipmap.ic_friends),
-                        new PrimaryDrawerItem().withName(R.string.route).withIcon(R.mipmap.ic_route),
+                        new PrimaryDrawerItem().withName(R.string.main)
+                                .withIcon(R.mipmap.ic_main),
+                        new PrimaryDrawerItem().withName(R.string.trainings)
+                                .withIcon(R.mipmap.ic_baker),
+                        new PrimaryDrawerItem().withName(R.string.route)
+                                .withIcon(R.mipmap.ic_route),
+                        new PrimaryDrawerItem().withName(R.string.parlays)
+                                .withIcon(R.mipmap.ic_weather_cloud)
+                                .withBadge("1").withBadgeStyle(new BadgeStyle()),
+                        new PrimaryDrawerItem().withName(R.string.friends)
+                                .withIcon(R.mipmap.ic_friends),
+
 
                         new SectionDrawerItem().withName(R.string.tools),
-                        new PrimaryDrawerItem().withName(R.string.settings).withIcon(R.mipmap.ic_tools),
-                        new PrimaryDrawerItem().withName(R.string.about).withIcon(R.mipmap.ic_about)
+                        new PrimaryDrawerItem().withName(R.string.settings)
+                                .withIcon(R.mipmap.ic_tools),
+                        new PrimaryDrawerItem().withName(R.string.about)
+                                .withIcon(R.mipmap.ic_about)
                 ).withOnDrawerItemClickListener((view, position, drawerItem) -> {
                     FragmentTransaction transaction = mFragmentManager.beginTransaction();
                     mLastPosition = position;
@@ -204,6 +213,15 @@ public class MainActivity extends CycleBaseActivity {
                         case ABOUT_POSITION:
                             mLastFragment = new AboutFragment();
                             resTitle = R.string.about;
+                        default:
+                            AlertDialog.Builder builder = new AlertDialog.Builder(mContext)
+                                    .setMessage("Мы работаем над этими функциями")
+                                    .setPositiveButton(android.R.string.ok, (dialog, which) -> {
+                                    })
+                                    .setCancelable(false);
+                            builder.create().show();
+                            return true;
+
                     }
                     mToolbar.setTitle(resTitle);
                     transaction.replace(R.id.fragment_container, mLastFragment).commit();
@@ -214,7 +232,7 @@ public class MainActivity extends CycleBaseActivity {
         mDrawer.setSelection(MAIN_POSITION);
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
+    @Subscribe
     public void onEvent(UniversalEvent event) {
         if (event.requestCode == BT_ENABLE_REQUIRE) {
             Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);

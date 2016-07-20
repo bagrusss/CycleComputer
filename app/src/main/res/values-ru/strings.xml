@@ -23,14 +23,14 @@
     <string name="dialog_auth_title">Авторизация</string>
     <string name="demo_second_name">Пользователь</string>
     <string name="text_current_distance">Путь сегодня:</string>
-    <string name="demo_speed_value">7.0</string>
+    <string name="demo_speed_value">0.0</string>
     <string name="demo_speed_mes">км</string>
     <string name="text_trip_time">время</string>
     <string name="text_trip_distance">путь</string>
     <string name="text_calories">калории</string>
-    <string name="text_trip_time_val">1:27:14</string>
+    <string name="text_trip_time_val">0:00:00</string>
     <string name="text_distance_val" formatted="false">%.2f %s</string>
-    <string name="text_calories_val">1920</string>
+    <string name="text_calories_val">0</string>
 
 
     <!-- Preferences -->
@@ -110,5 +110,7 @@
     <string name="notification_weather_text">Сегодня тепло и солнечно, отличный день для поездки на велосипеде.</string>
     <string name="logout">Выйти</string>
     <string name="need_connect_device">Пожалуйста, подключите велокомпьютер</string>
+    <string name="trainings">Тренировки</string>
+    <string name="parlays">Пари</string>
 
 </resources>

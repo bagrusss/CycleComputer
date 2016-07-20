@@ -8,6 +8,7 @@
         <item name="colorPrimary">@color/light_colorPrimary</item>
         <item name="colorPrimaryDark">@color/light_colorPrimaryDark</item>
         <item name="colorAccent">@color/light_colorAccent</item>
+
         <item name="backgroundDrawable">@color/light_blue</item>
         <item name="drawerHeader">@drawable/drawer_light</item>
 

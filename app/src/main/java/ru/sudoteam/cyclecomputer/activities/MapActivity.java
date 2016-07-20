@@ -39,16 +39,8 @@ public class MapActivity extends CycleBaseActivity implements OnMapReadyCallback
 
     @Override
     public void onMapReady(GoogleMap map) {
-        SharedPreferences preferences = App.getAppPreferences();
-        mMap = map;
-        double latitude = App.getDouble(preferences, App.KEY_LATITUDE, 55.7729097);
-        double longitude = App.getDouble(preferences, App.KEY_LONGITUDE, 37.6788906);
-        LatLng latLng = new LatLng(latitude, longitude);
-        mMap.addMarker(new MarkerOptions()
-                .position(latLng)
-                .title("Marker"));
+        mMap = map;;
         mMap.getUiSettings().setZoomControlsEnabled(true);
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 17.0f));
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions

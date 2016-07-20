@@ -98,10 +98,10 @@
             android:layout_marginRight="10dp"
             android:layout_row="0"
             android:ems="8"
-            android:textAppearance="?android:attr/textAppearanceLarge"
             android:inputType="numberDecimal"
             android:maxLength="4"
-            android:text="@string/speed_value" />
+            android:text="@string/speed_value"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <Spinner
             android:id="@+id/set_speed_units"
@@ -146,7 +146,8 @@
             android:layout_marginRight="10dp"
             android:layout_row="3"
             android:ems="8"
-            android:inputType="number" />
+            android:inputType="number"
+            android:maxLength="2" />
 
         <TextView
             android:id="@+id/battery"
@@ -167,14 +168,8 @@
             android:layout_marginStart="10dp"
             android:layout_row="1"
             android:ems="8"
-            android:inputType="number" />
+            android:inputType="numberDecimal" />
 
     </GridLayout>
-
-    <android.support.v7.widget.SwitchCompat android:layout_height="wrap_content"
-        android:layout_width="match_parent">
-
-    </android.support.v7.widget.SwitchCompat>
-
 
 </LinearLayout>

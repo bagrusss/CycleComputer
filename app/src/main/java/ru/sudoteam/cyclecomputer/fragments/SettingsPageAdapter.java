@@ -1,6 +1,5 @@
 package ru.sudoteam.cyclecomputer.fragments;
 
-import android.preference.Preference;
 import android.preference.SwitchPreference;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -18,7 +17,6 @@ public class SettingsPageAdapter extends FragmentStatePagerAdapter {
     public SettingsPageAdapter(FragmentManager fm, int count) {
         super(fm);
         mTabsCount = count;
-        SwitchPreference pr;
     }
 
     @Override
